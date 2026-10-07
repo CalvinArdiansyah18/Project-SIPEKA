@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masuk ke SIPEKA - Sistem Pengaduan Kampus JTI Polinema</title>
+<style> 
+  :root {
+  --primary-navy: #0f2744;
+  --primary-blue: #1a4f8b;
+  --accent-blue: #2563eb;
+  --accent-orange: #f97316;
+  --bg-light: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --border-focus: #3b82f6;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(15, 39, 68, 0.08);
+  --shadow-lg: 0 10px 25px rgba(15, 39, 68, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-light);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* Auth Page Layout (Split Screen) */
+.auth-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.auth-hero {
+  flex: 0,5;
+  background: url(../../assets/images/backgrounds/gedungSipil.jpg) no-repeat center / cover fixed;
+  color: floralwhite;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.auth-hero-header .logo-group {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.logo-badge-1 {
+  background: var(--accent-orange);
+  color: #ffffff;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+}
+
+.logo-badge-2 {
+  background: var(--accent-orange);
+  color: #ffffff;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+}
+
+.logo-text h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.logo-text p {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+}
+
+.auth-hero-body {
+  max-width: 480px;
+  margin: auto 0;
+}
+
+.auth-hero-body h2 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.auth-hero-body p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+.auth-hero-footer {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.campus-logo {
+  height: 48px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.campus-info h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.campus-info p {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Auth Form Side */
+.auth-form-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  background-color: #f2f2f2;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-card-header {
+  margin-bottom: 2rem;
+}
+
+.auth-card-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 0.5rem;
+}
+
+.auth-card-header p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  color: floralwhite;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background-color: var(--bg-light);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  background-color: #ffffff;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--accent-blue);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+  margin-top: 0.75rem;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.auth-footer-text {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 1.75rem;
+}
+
+.auth-footer-text a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-footer-text a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+  <div class="auth-wrapper">
+    <!-- Left Hero Side -->
+    <aside class="auth-hero">
+      <div class="auth-hero-header">
+        <div class="logo-group">
+          <div class="logo-badge-1">  <img src="../../assets/images/logo/Jti.webp" style="width: 450%; height: auto;"> </div>
+          <div class="logo-text">
+            <h1>SIPEKA</h1>
+            <p>Sistem Pengaduan Kampus</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-hero-body">
+        <h2>Bersama Mewujudkan Kampus yang Aman, Nyaman dan Berintegritas</h2>
+        <p>Layanan terpusat pengaduan fasilitas, pelayanan akademik, dan ketertiban di lingkungan Jurusan Teknologi Informasi Politeknik Negeri Malang.</p>
+      </div>
+
+      <div class="auth-hero-footer">
+        <div class="logo-badge-2">  <img src="../../assets/images/logo/polinema.png" style="width: 450%; height: auto;"> </div>
+        <div class="campus-info">
+          <h3>Jurusan Teknologi Informasi</h3>
+          <p>Politeknik Negeri Malang</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Form Side -->
+    <main class="auth-form-side">
+      <div class="auth-card">
+        <header class="auth-card-header">
+          <h2>Masuk ke SIPEKA</h2>
+          <p>Gunakan akun email kampus atau pilih peran simulasi pengujian</p>
+        </header>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="roleSelect">Peran Akun (Testing Mode)</label>
+            <select id="roleSelect" class="form-input" style="font-weight: 600; cursor: pointer;">
+              <option value="mahasiswa">Mahasiswa (Pelapor - Galih Maula)</option>
+              <option value="unit">Staff Unit Penanggung Jawab (Sekjur)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="username">Email / NIM</label>
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              class="form-input" 
+              value=""
+              placeholder="contoh: 254107020095@student.polinema.ac.id" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              value=""
+              placeholder="Masukkan password akun Anda" 
+              required
+            >
+          </div>
+
+          <button type="submit" class="btn-primary">LOGIN</button>
+        </form>
+
+        <p class="auth-footer-text">
+          Hanya untuk pengguna resmi kampus
+        </p>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
