@@ -27,7 +27,7 @@ if ($email === "" || $password === "") {
 
 $query = "
     SELECT id_user, nama, email, password
-    FROM user_account
+    FROM pengguna
     WHERE email = $1
     LIMIT 1
 ";
