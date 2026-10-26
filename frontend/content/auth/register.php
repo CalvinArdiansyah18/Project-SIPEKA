@@ -224,3 +224,4 @@
     </main>
   </div>
   <!-- tes -->
+   <script src="../../assets/js/api.js"></script>

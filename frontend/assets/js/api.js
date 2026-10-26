@@ -3,7 +3,7 @@ window.sipekaAPI = {
 
   login: async function(username, password, role) {
 
-    const response = await fetch('../../../backend/login.php', {
+    const response = await fetch('../../../backend/api/auth/login.php', {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json'
