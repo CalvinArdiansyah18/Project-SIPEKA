@@ -19,14 +19,13 @@ if ($identitas === '' || $password === '') {
 
 // Cari akun berdasarkan email ATAU NIM (nama parameter harus berbeda di PDO pgsql)
 $st = $pdo->prepare(
-    'SELECT u.id_user, u.nama, u.password_hash, u.role, u.id_unit,
-            m.id_mahasiswa, un.nama_unit
-       FROM users u
-       LEFT JOIN mahasiswa m  ON m.id_user = u.id_user
-       LEFT JOIN unit      un ON un.id_unit = u.id_unit
-      WHERE LOWER(u.email) = LOWER(:ident_email)
-         OR m.nim = :ident_nim
-      LIMIT 1'
+    'SELECT u.id_user, u.nama, u.password_hash, u.role, u.id_unit, m.id_mahasiswa, un.nama_unit
+    FROM users u
+    LEFT JOIN mahasiswa m  ON m.id_user = u.id_user
+    LEFT JOIN unit      un ON un.id_unit = u.id_unit
+    WHERE LOWER(u.email) = LOWER(:ident_email)
+    OR m.nim = :ident_nim
+    LIMIT 1'
 );
 $st->execute([
     ':ident_email' => $identitas,
