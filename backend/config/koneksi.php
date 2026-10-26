@@ -1,7 +1,7 @@
 <?php
 $DB_HOST = 'localhost';
 $DB_PORT = '5432';
-$DB_NAME = 'sipeka';
+$DB_NAME = 'gant_nama_database';
 $DB_USER = 'postgres';
 $DB_PASS = 'ganti_password_postgres';
 
