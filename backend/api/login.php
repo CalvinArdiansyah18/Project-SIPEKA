@@ -1,71 +1,57 @@
 <?php
+// POST /backend/api/auth/login.php
+// Body JSON : { "email": "<email atau NIM>", "password": "..." }
+// Sukses    : { "nama": "...", "role": "mahasiswa|unit", "nama_unit": null|"..." }
 
-header("Content-Type: application/json");
+require __DIR__ . '/../../config/bootstrap.php';
 
-require_once __DIR__ . "/../config/koneksi.php";
-
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode([
-        "success" => false,
-        "message" => "Method harus POST"
-    ]);
-    exit;
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    json_out(['message' => 'Method tidak diizinkan, gunakan POST'], 405);
 }
 
-$data = json_decode(file_get_contents("php://input"), true);
+$in       = json_in();
+$identitas = trim($in['email'] ?? '');       // boleh email atau NIM
+$password  = $in['password'] ?? '';
 
-$email = trim($data["email"] ?? "");
-$password = $data["password"] ?? "";
-
-if ($email === "" || $password === "") {
-    echo json_encode([
-        "success" => false,
-        "message" => "Email dan password wajib diisi"
-    ]);
-    exit;
+if ($identitas === '' || $password === '') {
+    json_out(['message' => 'Email/NIM dan password wajib diisi'], 400);
 }
 
-$query = "
-    SELECT id_user, nama, email, password
-    FROM pengguna
-    WHERE email = $1
-    LIMIT 1
-";
+// Cari akun berdasarkan email ATAU NIM (nama parameter harus berbeda di PDO pgsql)
+$st = $pdo->prepare(
+    'SELECT u.id_user, u.nama, u.password_hash, u.role, u.id_unit,
+            m.id_mahasiswa, un.nama_unit
+       FROM users u
+       LEFT JOIN mahasiswa m  ON m.id_user = u.id_user
+       LEFT JOIN unit      un ON un.id_unit = u.id_unit
+      WHERE LOWER(u.email) = LOWER(:ident_email)
+         OR m.nim = :ident_nim
+      LIMIT 1'
+);
+$st->execute([
+    ':ident_email' => $identitas,
+    ':ident_nim'   => $identitas,
+]);
+$u = $st->fetch();
 
-$result = pg_query_params($conn, $query, [$email]);
-
-if ($result === false) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Query database gagal"
-    ]);
-    exit;
+// Pesan sengaja dibuat sama untuk "akun tidak ada" dan "password salah"
+if (!$u || !password_verify($password, $u['password_hash'])) {
+    json_out(['message' => 'Email/NIM atau password salah'], 401);
 }
 
-if (pg_num_rows($result) === 0) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Email atau password salah"
-    ]);
-    exit;
-}
+// Cegah session fixation: buat ID session baru setelah login berhasil
+session_regenerate_id(true);
 
-$user = pg_fetch_assoc($result);
+$_SESSION['user'] = [
+    'id_user'      => (int)$u['id_user'],
+    'nama'         => $u['nama'],
+    'role'         => $u['role'],
+    'id_unit'      => $u['id_unit'] !== null ? (int)$u['id_unit'] : null,
+    'id_mahasiswa' => $u['id_mahasiswa'] !== null ? (int)$u['id_mahasiswa'] : null,
+];
 
-if (!password_verify($password, $user["password"])) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Email atau password salah"
-    ]);
-    exit;
-}
-
-echo json_encode([
-    "success" => true,
-    "message" => "Login berhasil",
-    "user" => [
-        "id" => $user["id"],
-        "nama" => $user["nama"],
-        "email" => $user["email"]
-    ]
+json_out([
+    'nama'      => $u['nama'],
+    'role'      => $u['role'],
+    'nama_unit' => $u['nama_unit'],
 ]);
