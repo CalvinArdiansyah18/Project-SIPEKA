@@ -113,18 +113,7 @@
       <div class="auth-card register-card">
         <header class="auth-card-header">
           <h2>Buat Akun Baru</h2>
-          <p>Pilih peran pendaftaran Anda sesuai ketentuan kampus</p>
         </header>
-
-        <!-- Role Selector Tabs -->
-        <div class="role-tabs">
-          <button type="button" class="role-tab-btn active" id="tabMahasiswa" onclick="switchRole('mahasiswa')">
-            <span> Mahasiswa </span>
-          </button>
-        </div>
-
-        <form id="registerForm" novalidate>
-          <input type="hidden" id="selectedRole" name="role" value="mahasiswa">
 
           <!-- 2. NAMA LENGKAP (Bersama) -->
           <div class="form-group">
@@ -224,7 +213,7 @@
           </div>
 
           <button type="submit" id="btnRegister" class="btn-primary" style="margin-top: 0.5rem;">
-            DAFTAR SEBAGAI MAHASISWA
+            DAFTAR 
           </button>
         </form>
 
