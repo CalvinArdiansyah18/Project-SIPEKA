@@ -44,14 +44,13 @@ function getUnitFromPath() {
 }
 
 // Helper: Ambil Path Dashboard Unit Spesifik
-function getUnitDashboardPath(kodeUnit, relativePrefix = '..') {
-  const map = {
-    'sekjur': `${relativePrefix}/unit/sekjur/dashboard.php`,
-    'prodi': `${relativePrefix}/unit/admin-prodi/dashboard.php`,
-    'kajur': `${relativePrefix}/unit/kajur/dashboard.php`,
-    'kps': `${relativePrefix}/unit/kps/dashboard.php`
-  };
-  return map[kodeUnit] || `${relativePrefix}/unit/sekjur/dashboard.php`;
+function getUnitDashboardPath(kodeAtauNamaUnit, relativePrefix = '..') {
+  const teks = (kodeAtauNamaUnit || '').toLowerCase();
+  if (teks.includes('sekjur') || teks.includes('sekretariat')) return `${relativePrefix}/unit/sekjur/dashboard.php`;
+  if (teks.includes('prodi') || teks.includes('admin')) return `${relativePrefix}/unit/admin-prodi/dashboard.php`;
+  if (teks.includes('kajur') || teks.includes('ketua jurusan')) return `${relativePrefix}/unit/kajur/dashboard.php`;
+  if (teks.includes('kps') || teks.includes('ketua program')) return `${relativePrefix}/unit/kps/dashboard.php`;
+  return `${relativePrefix}/unit/sekjur/dashboard.php`;
 }
 
 // Render User Info in Topbar
@@ -217,8 +216,8 @@ function initRegisterPage() {
       hasError = true;
     }
 
-    if (!pass || pass.length < 6) {
-      showError(passInput, 'errPassword', 'Kata sandi minimal 6 karakter.');
+    if (!pass || pass.length < 8) {
+      showError(passInput, 'errPassword', 'Kata sandi minimal 8 karakter.');
       hasError = true;
     }
 
