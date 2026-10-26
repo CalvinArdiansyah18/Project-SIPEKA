@@ -10,7 +10,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Penyelesaian Kendala Akademik - Admin Prodi SIPEKA</title>
-  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../../assets/css/style.css">
 </head>
 <body data-unit="prodi">
 
@@ -151,5 +151,6 @@
   <script src="../../../assets/js/store.js"></script>
   <script src="../../../assets/js/ui.js"></script>
   <script src="../../../assets/js/app.js"></script>
+  <script src="../../../assets/js/api.js"></script>
 </body>
 </html>

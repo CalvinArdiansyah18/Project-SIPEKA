@@ -157,12 +157,6 @@
             <h2>Riwayat Pengaduan & Tracking Status</h2>
             <p>Daftar lengkap laporan pengaduan beserta linimasa penanganan real-time</p>
           </div>
-          <a href="kategori.php" class="btn-action">
-            <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
-            <span>Buat Laporan Baru</span>
-          </a>
         </div>
 
         <!-- Filter & Search Toolbar -->
@@ -261,5 +255,6 @@
   <script src="../../assets/js/store.js"></script>
   <script src="../../assets/js/ui.js"></script>
   <script src="../../assets/js/app.js"></script>
+  <script src="../../assets/js/api.js"></script>
 </body>
 </html>
