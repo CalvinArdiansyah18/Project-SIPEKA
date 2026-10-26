@@ -107,6 +107,8 @@
           <div class="page-title">
             <h2>Dashboard Mahasiswa</h2>
             <p>Pantau seluruh status laporan pengaduan Anda di Jurusan Teknologi Informasi</p>
+            <</div>
+            </div>
 
         <!-- 4 Reactive Stat Cards -->
         <div class="stats-grid">
@@ -147,7 +149,6 @@
         <div class="data-card">
           <div class="data-card-header">
             <h3>Pengaduan Terbaru</h3>
-            <a href="riwayat.php" style="font-size: 0.85rem; color: var(--accent-blue); text-decoration: none; font-weight: 600;">Lihat Semua & Pelacakan →</a>
           </div>
 
           <div class="table-responsive">

@@ -3,8 +3,6 @@
  * SIPEKA - Dashboard Admin Program Studi (Admin Prodi)
  * Unit Wewenang: Pelayanan Akademik (KRS, Nilai, Jadwal Perkuliahan, Administrasi Prodi)
  */
-require_once __DIR__ . '/../../includes/auth.php';
-$user = guard_page_access('unit', 'prodi');
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -12,7 +10,7 @@ $user = guard_page_access('unit', 'prodi');
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin Prodi - SIPEKA Polinema</title>
-  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../../assets/css/style.css">
 </head>
 <body data-unit="prodi">
 
