@@ -121,42 +121,10 @@
           <button type="button" class="role-tab-btn active" id="tabMahasiswa" onclick="switchRole('mahasiswa')">
             <span> Mahasiswa </span>
           </button>
-          <button type="button" class="role-tab-btn" id="tabUnit" onclick="switchRole('unit')">
-            <span> Unit </span>
-          </button>
         </div>
 
         <form id="registerForm" novalidate>
           <input type="hidden" id="selectedRole" name="role" value="mahasiswa">
-
-          <!-- 1. FIELD KHUSUS UNIT  -->
-          <div id="unitFields" style="display: none;">
-            <div class="form-group">
-              <label for="regKodeUnit">Unit Penanggung Jawab <span style="color: #ef4444;">*</span></label>
-              <select id="regKodeUnit" name="kode_unit" class="form-input" style="font-weight: 600; cursor: pointer;" onchange="updateUnitDescription()">
-                <option value="sekjur"> Sekretariat Jurusan </option>
-                <option value="prodi"> Admin Program Studi </option>
-                <option value="kajur"> Ketua Jurusan </option>
-                <option value="kps"> Ketua Program Studi </option>
-              </select>
-              <div id="unitDescBox" class="unit-info-box">
-                Wewenang: Kerusakan sarana ruang kelas, AC, lab komputer, proyektor, lift, toilet umum, dan fasilitas fisik kampus.
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="regNip">NIP / Identitas Pegawai <span style="color: #ef4444;">*</span></label>
-              <input 
-                type="text" 
-                id="regNip" 
-                name="nip" 
-                class="form-input" 
-                placeholder="Contoh: 198403152010121002" 
-                maxlength="20"
-              >
-              <div id="errNip" class="error-msg">NIP atau nomor identitas dinas wajib diisi.</div>
-            </div>
-          </div>
 
           <!-- 2. NAMA LENGKAP (Bersama) -->
           <div class="form-group">
@@ -172,7 +140,7 @@
             <div id="errNama" class="error-msg">Nama lengkap minimal 3 karakter.</div>
           </div>
 
-          <!-- 3. FIELD KHUSUS MAHASISWA (NIM & Prodi) -->
+          <!-- NIM & Prodi -->
           <div id="mhsFields">
             <div class="form-grid-2">
               <div class="form-group">
@@ -199,7 +167,7 @@
             </div>
           </div>
 
-          <!-- 4. EMAIL & TELEPON (Bersama) -->
+          <!-- 4. EMAIL & TELEPON  -->
           <div class="form-grid-2">
             <div class="form-group">
               <label for="regEmail" id="labelEmail">Email Mahasiswa <span style="color: #ef4444;">*</span></label>
@@ -226,7 +194,7 @@
             </div>
           </div>
 
-          <!-- 5. PASSWORD & KONFIRMASI (Bersama) -->
+          <!-- 5. PASSWORD & KONFIRMASI -->
           <div class="form-grid-2">
             <div class="form-group">
               <label for="regPassword">Kata Sandi <span style="color: #ef4444;">*</span></label>
