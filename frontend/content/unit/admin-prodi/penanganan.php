@@ -151,5 +151,6 @@
   <script src="../../../assets/js/store.js"></script>
   <script src="../../../assets/js/ui.js"></script>
   <script src="../../../assets/js/app.js"></script>
+  <script src="../../../assets/js/api.js"></script>
 </body>
 </html>

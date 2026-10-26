@@ -149,6 +149,7 @@
         <div class="data-card">
           <div class="data-card-header">
             <h3>Pengaduan Terbaru</h3>
+
           </div>
 
           <div class="table-responsive">
@@ -177,5 +178,6 @@
   <script src="../../assets/js/store.js"></script>
   <script src="../../assets/js/ui.js"></script>
   <script src="../../assets/js/app.js"></script>
+  <script src="../../assets/js/api.js"></script>
 </body>
 </html>
