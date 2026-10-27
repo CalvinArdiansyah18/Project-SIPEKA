@@ -24,7 +24,7 @@ window.sipekaAPI = {
           success: true,
           user: data,
           // Sesuaikan arah redirect berdasarkan role dari database
-          redirect: data.role === 'unit' ? '../unit/sekjur/dashboard.php' : '../mahasiswa/dashboard.php'
+          redirect: data.role === 'unit' ? getUnitDashboardPath(data.nama_unit, '..')  : '../mahasiswa/dashboard.php'
         };
       } else {
         return {
