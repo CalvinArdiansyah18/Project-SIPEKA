@@ -74,17 +74,14 @@
         </form>
 
         <p class="auth-footer-text">
-         Belum memiliki akun? <a href="register.php">Daftar Akun</a>
+        Belum memiliki akun? <a href="register.php">Daftar Akun</a>
         </p>
       </div>
     </main>
   </div>
 
   <!-- tes -->
-   <script src="../../assets/js/store.js"></script>
-  <script src="../../assets/js/ui.js"></script>
-  <script src="../../assets/js/app.js"></script>
-  <script src="../../assets/js/api.js"></script>
+  <?php include __DIR__ . '/../../includes/scripts.php'; ?>
 
 </body>
 </html>
