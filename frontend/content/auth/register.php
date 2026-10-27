@@ -18,15 +18,15 @@
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
-    .role-tabs {
+    /* .role-tabs {
       display: flex;
       background-color: #e2e8f0;
       border-radius: var(--radius-sm);
       padding: 4px;
       margin-bottom: 1.5rem;
       gap: 4px;
-    }
-    .role-tab-btn {
+    } */
+    /* .role-tab-btn {
       flex: 1;
       padding: 0.65rem 0.5rem;
       border: none;
@@ -41,7 +41,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-    }
+    } */
     .role-tab-btn.active {
       background-color: #ffffff;
       color: var(--primary-navy);
@@ -115,6 +115,7 @@
           <h2>Buat Akun Baru</h2>
         </header>
 
+        <form id="registerForm">
           <!-- 2. NAMA LENGKAP (Bersama) -->
           <div class="form-group">
             <label for="regNama" id="labelNama">Nama Lengkap Mahasiswa <span style="color: #ef4444;">*</span></label>
@@ -224,7 +225,7 @@
     </main>
   </div>
   <!-- tes -->
-   <script src="../../assets/js/store.js"></script>
+  <script src="../../assets/js/store.js"></script>
   <script src="../../assets/js/ui.js"></script>
   <script src="../../assets/js/app.js"></script>
   <script src="../../assets/js/api.js"></script>
