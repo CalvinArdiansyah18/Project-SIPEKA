@@ -12,15 +12,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const path = window.location.pathname;
 
-  if ((path.includes('dashboard.php') || path.includes('dashboard.html')) && path.includes('mahasiswa')) {
+  if (path.includes('dashboard.php') && path.includes('mahasiswa')) {
     initMahasiswaDashboard();
-  } else if (path.includes('riwayat.php') || path.includes('riwayat.html')) {
+  } else if (path.includes('riwayat.php')) {
     initRiwayatPage();
-  } else if (path.includes('buat-laporan.php') || path.includes('buat-laporan.html')) {
+  } else if (path.includes('buat-laporan.php')) {
     initBuatLaporanPage();
-  } else if ((path.includes('dashboard.php') || path.includes('dashboard.html')) && path.includes('unit')) {
+  } else if (path.includes('dashboard.php') && path.includes('unit')) {
     initUnitDashboard();
-  } else if (path.includes('login.php') || path.includes('login.html')) {
+  } else if (path.includes('login.php')) {
     initLoginPage();
   } else if (path.includes('register.php')) {
     initRegisterPage();
@@ -126,7 +126,6 @@ function initLoginPage() {
     const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Memverifikasi...';
     }
 
     try {
@@ -146,32 +145,29 @@ function initLoginPage() {
         showToast(res ? res.message : 'Login gagal. Periksa kembali email dan password.', 'error');
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.textContent = 'LOGIN KE SISTEM';
+          submitBtn.textContent = 'LOGIN';
         }
       }
     } catch (err) {
       showToast('Terjadi kesalahan pada sistem otentikasi.', 'error');
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'LOGIN KE SISTEM';
+        submitBtn.textContent = 'LOGIN';
       }
     }
   });
 }
 
 // ==============================================================================
-// 2. REGISTRATION PAGE CONTROLLER (DUAL ROLE: MAHASISWA & ADMIN UNIT)
+// 2. REGISTRATION PAGE CONTROLLER (KHUSUS MAHASISWA)
 // ==============================================================================
 function initRegisterPage() {
   const form = document.getElementById('registerForm');
   if (!form) return;
 
-  const roleInput = document.getElementById('selectedRole');
   const namaInput = document.getElementById('regNama');
   const nimInput = document.getElementById('regNim');
   const prodiInput = document.getElementById('regProdi');
-  const unitSelect = document.getElementById('regKodeUnit');
-  const nipInput = document.getElementById('regNip');
   const emailInput = document.getElementById('regEmail');
   const telpInput = document.getElementById('regTelepon');
   const passInput = document.getElementById('regPassword');
@@ -196,7 +192,6 @@ function initRegisterPage() {
     e.preventDefault();
     clearErrors();
 
-    const role = roleInput ? roleInput.value : 'mahasiswa';
     const nama = namaInput ? namaInput.value.trim() : '';
     const email = emailInput ? emailInput.value.trim() : '';
     const telp = telpInput ? telpInput.value.trim() : '';
@@ -226,35 +221,22 @@ function initRegisterPage() {
       hasError = true;
     }
 
+    // Registrasi publik hanya untuk mahasiswa. Role ditentukan server, bukan dikirim dari sini.
+    const nim = nimInput ? nimInput.value.trim() : '';
+    const prodi = prodiInput ? prodiInput.value : '';
+    if (!nim || !/^[0-9]{8,15}$/.test(nim)) {
+      showError(nimInput, 'errNim', 'NIM harus berupa angka (8-15 digit).');
+      hasError = true;
+    }
+
     const payload = {
-      role: role,
       nama: nama,
       email: email,
       nomor_telepon: telp,
       password: pass,
+      nim: nim,
       confirm_password: confirm
     };
-
-    if (role === 'unit') {
-      const kodeUnit = unitSelect ? unitSelect.value : 'sekjur';
-      const nip = nipInput ? nipInput.value.trim() : '';
-      if (!nip) {
-        showError(nipInput, 'errNip', 'NIP atau nomor identitas dinas wajib diisi.');
-        hasError = true;
-      }
-      payload.kode_unit = kodeUnit;
-      payload.nip = nip;
-    } else {
-      const nim = nimInput ? nimInput.value.trim() : '';
-      const prodi = prodiInput ? prodiInput.value : 'D4 Teknik Informatika';
-      if (!nim || !/^[0-9]{8,15}$/.test(nim)) {
-        showError(nimInput, 'errNim', 'NIM harus berupa angka (8-15 digit).');
-        hasError = true;
-      }
-      payload.nim = nim;
-      payload.program_studi = prodi;
-      payload.jurusan = 'Teknologi Informasi';
-    }
 
     if (hasError) {
       showToast('Mohon perbaiki data pada kolom yang bertanda merah.', 'error');
@@ -271,21 +253,20 @@ function initRegisterPage() {
       if (res && res.success) {
         showToast(res.message || 'Pendaftaran berhasil! Mengalihkan ke dashboard...', 'success');
         setTimeout(() => {
-          const defaultUnitPath = (role === 'unit') ? getUnitDashboardPath(payload.kode_unit) : '../mahasiswa/dashboard.php';
-          window.location.href = res.redirect || defaultUnitPath;
+          window.location.href = res.redirect || 'login.php';
         }, 1000);
       } else {
         showToast(res ? res.message : 'Registrasi gagal. Silakan periksa kembali formulir.', 'error');
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.textContent = (role === 'unit') ? 'DAFTAR SEBAGAI PETUGAS UNIT' : 'DAFTAR SEBAGAI MAHASISWA';
+          submitBtn.textContent = 'DAFTAR SEBAGAI MAHASISWA';
         }
       }
     } catch (err) {
       showToast('Terjadi kesalahan jaringan atau server.', 'error');
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = (role === 'unit') ? 'DAFTAR SEBAGAI PETUGAS UNIT' : 'DAFTAR SEBAGAI MAHASISWA';
+        submitBtn.textContent = 'DAFTAR SEBAGAI MAHASISWA';
       }
     }
   });
