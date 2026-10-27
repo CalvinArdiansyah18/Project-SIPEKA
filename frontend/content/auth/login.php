@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -46,6 +43,7 @@
           <h2>Masuk ke SIPEKA</h2>
         </header>
 
+      <form id="loginForm">
           <div class="form-group">
             <label for="username">Email</label>
             <input 
