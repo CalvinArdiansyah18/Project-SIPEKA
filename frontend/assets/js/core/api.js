@@ -1,4 +1,4 @@
-const API_BASE_PATH = '../../../backend/api/auth';
+const API_BASE_PATH = (window.SIPEKA_CONFIG && window.SIPEKA_CONFIG.apiBase) || '/backend/api/auth';
 
 window.sipekaAPI = {
   login: async function (usernameOrEmail, password, role) {

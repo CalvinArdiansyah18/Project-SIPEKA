@@ -79,10 +79,11 @@ function initRegisterPage() {
         const payload = {
             nama: nama,
             email: email,
+            nomor_telepon: telp,
             password: pass,
             nim: nim,
             program_studi: prodi,
-            nomor_telepon: telp
+            confirm_password: confirm
         };
 
         if (hasError) {
