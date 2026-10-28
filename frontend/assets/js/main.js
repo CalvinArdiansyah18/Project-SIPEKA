@@ -26,28 +26,100 @@ function sipekaLog(...args) {
     if (window.SIPEKA_CONFIG && window.SIPEKA_CONFIG.debug) console.log('[SIPEKA]', ...args);
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Ambil profil sesi aktif
-    let session = null;
-    if (window.sipekaAPI) {
-        session = await window.sipekaAPI.getSession();
-    }
+// ---------------------------------------------------------------
+// PENJAGA SESI
+// Halaman publik   : login.php, register.php  (jika sudah login -> ke dashboard)
+// Halaman lainnya  : wajib login, dan harus sesuai peran (mahasiswa / unit)
+// ---------------------------------------------------------------
+function halamanPublik(path) {
+    return path.includes('login.php') || path.includes('register.php');
+}
+
+// Contoh hasil: "/frontend/content/"  (null jika bukan halaman di bawah /content/)
+function basePathContent(path) {
+    const i = path.indexOf('/content/');
+    return i === -1 ? null : path.substring(0, i + '/content/'.length);
+}
+
+function tujuanDashboard(session, base) {
+    return session.role === 'unit'
+        ? getUnitDashboardPath(session.nama_unit, base.slice(0, -1))   // /frontend/content/unit/<unit>/dashboard.php
+        : base + 'mahasiswa/dashboard.php';
+}
+
+// Mengembalikan { session, lanjut }. lanjut=false berarti pengguna sedang dialihkan.
+async function periksaSesi() {
+    const session = window.sipekaAPI ? await window.sipekaAPI.getSession() : null;
+    const path = window.location.pathname;
+    const base = basePathContent(path);
     sipekaLog('sesi:', session);
+
+    if (base === null) return { session, lanjut: true };
+
+    if (halamanPublik(path)) {
+        if (session) {
+            window.location.replace(tujuanDashboard(session, base));
+            return { session, lanjut: false };
+        }
+        return { session, lanjut: true };
+    }
+
+    // ---- halaman terproteksi ----
+    if (!session) {
+        window.location.replace(base + 'auth/login.php');
+        return { session, lanjut: false };
+    }
+    const tujuan = tujuanDashboard(session, base);
+    const diAreaMahasiswa = path.includes('/content/mahasiswa/');
+    const diAreaUnit = path.includes('/content/unit/');
+    if ((diAreaMahasiswa && session.role !== 'mahasiswa') || (diAreaUnit && session.role !== 'unit')) {
+        window.location.replace(tujuan);          // peran tidak sesuai area halaman
+        return { session, lanjut: false };
+    }
+    if (diAreaUnit) {
+        const folderUnit = tujuan.split('/unit/')[1].split('/')[0];
+        if (!path.includes('/unit/' + folderUnit + '/')) {
+            window.location.replace(tujuan);      // unit membuka area unit lain
+            return { session, lanjut: false };
+        }
+    }
+    return { session, lanjut: true };
+}
+
+// ---------------------------------------------------------------
+// LOGOUT: tunggu server menghapus sesi SEBELUM pindah halaman.
+// Pasang atribut data-logout pada link "Keluar" (tanpa onclick).
+// ---------------------------------------------------------------
+async function sipekaLogout(urlLogin) {
+    try {
+        if (window.sipekaAPI) await window.sipekaAPI.logout();
+    } finally {
+        window.location.replace(urlLogin);
+    }
+}
+
+document.addEventListener('click', (e) => {
+    const link = e.target.closest ? e.target.closest('[data-logout]') : null;
+    if (!link) return;
+    e.preventDefault();
+    sipekaLogout(link.href);
+});
+
+// Halaman dipulihkan dari cache browser (tombol Back): cek ulang sesi & pulihkan tombol
+window.addEventListener('pageshow', async (e) => {
+    if (!e.persisted) return;
+    document.querySelectorAll('button[type="submit"]').forEach((b) => { b.disabled = false; });
+    await periksaSesi();
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Cek sesi (dan alihkan jika perlu)
+    const cek = await periksaSesi();
+    if (!cek.lanjut) return;
     renderUserProfile();
 
+    // 2. Jalankan init halaman yang cocok
     const path = window.location.pathname;
-
-    // 2. Sudah login tapi membuka halaman login/register -> langsung ke dashboard
-    if (session && (path.includes('login.php') || path.includes('register.php'))) {
-        window.location.replace(
-            session.role === 'unit'
-                ? getUnitDashboardPath(session.nama_unit)
-                : '../mahasiswa/dashboard.php'
-        );
-        return;
-    }
-
-    // 3. Jalankan init halaman yang cocok
     const rute = ROUTES.find((r) => r.cocok(path));
     if (!rute) {
         sipekaLog('tidak ada rute untuk', path);
