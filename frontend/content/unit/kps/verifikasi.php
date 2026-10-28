@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SIPEKA - Verifikasi Laporan Tata Tertib (KPS)
  */
@@ -6,12 +7,14 @@
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verifikasi Tata Tertib Mahasiswa - KPS SIPEKA</title>
   <link rel="stylesheet" href="../../../assets/css/style.css">
 </head>
+
 <body data-unit="kps">
 
   <!-- Mobile Topbar -->
@@ -22,7 +25,9 @@
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
       <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+        <line x1="4" x2="20" y1="12" y2="12" />
+        <line x1="4" x2="20" y1="6" y2="6" />
+        <line x1="4" x2="20" y1="18" y2="18" />
       </svg>
     </button>
   </div>
@@ -44,7 +49,8 @@
           <li class="active">
             <a href="dashboard.php">
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1 2-2h2" />
+                <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
               </svg>
               <span>Daftar Laporan Masuk</span>
             </a>
@@ -52,7 +58,8 @@
           <li>
             <a href="profil.php">
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
               </svg>
               <span>Profil Unit</span>
             </a>
@@ -60,7 +67,9 @@
           <li>
             <a href="../../mahasiswa/dashboard.php">
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m16 16 4-4-4-4"/><path d="M4 12h16"/><path d="M8 8v8"/>
+                <path d="m16 16 4-4-4-4" />
+                <path d="M4 12h16" />
+                <path d="M8 8v8" />
               </svg>
               <span>Beralih ke Portal Mhs</span>
             </a>
@@ -69,9 +78,11 @@
       </div>
 
       <div class="sidebar-footer">
-        <a href="../../auth/login.php" onclick="if(window.sipekaAPI) window.sipekaAPI.logout();">
+        <a href="../../auth/login.php" data-logout>
           <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" x2="9" y1="12" y2="12" />
           </svg>
           <span>Keluar</span>
         </a>
@@ -149,8 +160,7 @@
     </main>
   </div>
 
-  <script src="../../../assets/js/store.js"></script>
-  <script src="../../../assets/js/ui.js"></script>
-  <script src="../../../assets/js/app.js"></script>
+  <?php include __DIR__ . '/../../../includes/scripts.php'; ?>
 </body>
+
 </html>

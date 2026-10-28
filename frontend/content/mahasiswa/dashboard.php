@@ -88,7 +88,7 @@
       </div>
 
       <div class="sidebar-footer">
-        <a href="../auth/login.php" onclick="if(window.sipekaAPI) window.sipekaAPI.logout();">
+        <a href="../auth/login.php" data-logout>
           <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
             <polyline points="16 17 21 12 16 7" />
@@ -119,71 +119,71 @@
           <div class="page-title">
             <h2>Dashboard Mahasiswa</h2>
             <p>Pantau seluruh status laporan pengaduan Anda di Jurusan Teknologi Informasi</p>
-            << /div>
           </div>
-
-          <!-- 4 Reactive Stat Cards -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-indicator blue"></div>
-              <div>
-                <div class="stat-number" id="statTotal">0</div>
-                <div class="stat-label">Total Pengaduan</div>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-indicator orange"></div>
-              <div>
-                <div class="stat-number" id="statProses">0</div>
-                <div class="stat-label">Sedang Diproses</div>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-indicator green"></div>
-              <div>
-                <div class="stat-number" id="statSelesai">0</div>
-                <div class="stat-label">Selesai Ditangani</div>
-              </div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-indicator red"></div>
-              <div>
-                <div class="stat-number" id="statDitolak">0</div>
-                <div class="stat-label">Ditolak / Tidak Valid</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Recent Table Section -->
-          <div class="data-card">
-            <div class="data-card-header">
-              <h3>Pengaduan Terbaru</h3>
-
-            </div>
-
-            <div class="table-responsive">
-              <table class="custom-table">
-                <thead>
-                  <tr>
-                    <th>No. Tiket</th>
-                    <th>Kategori</th>
-                    <th>Judul Laporan</th>
-                    <th>Tanggal Kejadian</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody id="recentReportsBody">
-                  <!-- Dynamically populated by app.js -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
         </div>
+
+        <!-- 4 Reactive Stat Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-indicator blue"></div>
+            <div>
+              <div class="stat-number" id="statTotal">0</div>
+              <div class="stat-label">Total Pengaduan</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-indicator orange"></div>
+            <div>
+              <div class="stat-number" id="statProses">0</div>
+              <div class="stat-label">Sedang Diproses</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-indicator green"></div>
+            <div>
+              <div class="stat-number" id="statSelesai">0</div>
+              <div class="stat-label">Selesai Ditangani</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-indicator red"></div>
+            <div>
+              <div class="stat-number" id="statDitolak">0</div>
+              <div class="stat-label">Ditolak / Tidak Valid</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Table Section -->
+        <div class="data-card">
+          <div class="data-card-header">
+            <h3>Pengaduan Terbaru</h3>
+
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>No. Tiket</th>
+                  <th>Kategori</th>
+                  <th>Judul Laporan</th>
+                  <th>Tanggal Kejadian</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="recentReportsBody">
+                <!-- Dynamically populated by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
     </main>
   </div>
 

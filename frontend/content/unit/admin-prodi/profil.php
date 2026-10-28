@@ -1,10 +1,12 @@
 <?php
+
 /**
  * SIPEKA - Profil Petugas Admin Program Studi (Admin Prodi)
  */
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +19,7 @@
       gap: 1.5rem;
       align-items: start;
     }
+
     .profile-card {
       background: #ffffff;
       border: 1px solid var(--border-color);
@@ -25,6 +28,7 @@
       box-shadow: var(--shadow-sm);
       text-align: center;
     }
+
     .avatar-large {
       width: 80px;
       height: 80px;
@@ -39,17 +43,20 @@
       margin: 0 auto 1rem;
       box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
     }
+
     .profile-detail-list {
       text-align: left;
       margin-top: 1.5rem;
       border-top: 1px solid var(--border-color);
       padding-top: 1rem;
     }
+
     .profile-detail-item {
       display: flex;
       flex-direction: column;
       margin-bottom: 0.85rem;
     }
+
     .profile-detail-item .label {
       font-size: 0.75rem;
       color: var(--text-muted);
@@ -57,18 +64,21 @@
       letter-spacing: 0.5px;
       font-weight: 600;
     }
+
     .profile-detail-item .value {
       font-size: 0.9rem;
       color: var(--text-main);
       font-weight: 500;
       margin-top: 2px;
     }
+
     .stat-badge-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0.75rem;
       margin-bottom: 1.5rem;
     }
+
     .stat-badge-card {
       background: #f8fafc;
       border: 1px solid var(--border-color);
@@ -76,22 +86,31 @@
       padding: 0.85rem;
       text-align: center;
     }
+
     .stat-badge-card .num {
       font-size: 1.35rem;
       font-weight: 700;
       color: var(--primary-navy);
     }
+
     .stat-badge-card .txt {
       font-size: 0.75rem;
       color: var(--text-muted);
       margin-top: 2px;
     }
+
     @media (max-width: 900px) {
-      .profile-grid { grid-template-columns: 1fr; }
-      .stat-badge-grid { grid-template-columns: repeat(2, 1fr); }
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-badge-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
+
 <body data-unit="prodi">
 
   <!-- Mobile Topbar -->
@@ -102,7 +121,9 @@
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
       <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+        <line x1="4" x2="20" y1="12" y2="12" />
+        <line x1="4" x2="20" y1="6" y2="6" />
+        <line x1="4" x2="20" y1="18" y2="18" />
       </svg>
     </button>
   </div>
@@ -124,7 +145,8 @@
           <li>
             <a href="dashboard.php">
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1 2-2h2" />
+                <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
               </svg>
               <span>Daftar Laporan Masuk</span>
             </a>
@@ -132,7 +154,8 @@
           <li class="active">
             <a href="profil.php">
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
               </svg>
               <span>Profil Unit</span>
             </a>
@@ -140,7 +163,9 @@
           <li>
             <a href="../../mahasiswa/dashboard.php">
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m16 16 4-4-4-4"/><path d="M4 12h16"/><path d="M8 8v8"/>
+                <path d="m16 16 4-4-4-4" />
+                <path d="M4 12h16" />
+                <path d="M8 8v8" />
               </svg>
               <span>Beralih ke Portal Mhs</span>
             </a>
@@ -149,9 +174,11 @@
       </div>
 
       <div class="sidebar-footer">
-        <a href="../../auth/login.php" onclick="if(window.sipekaAPI) window.sipekaAPI.logout();">
+        <a href="../../auth/login.php" data-logout>
           <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" x2="9" y1="12" y2="12" />
           </svg>
           <span>Keluar</span>
         </a>
@@ -221,7 +248,7 @@
             <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 1.25rem;">
               <h4 style="color: #166534; margin: 0 0 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
                 Wewenang Penanganan Unit
               </h4>
@@ -304,9 +331,7 @@
     </main>
   </div>
 
-  <script src="../../assets/js/store.js"></script>
-  <script src="../../assets/js/api.js"></script>
-  <script src="../../assets/js/ui.js"></script>
-  <script src="../../assets/js/app.js"></script>
+  <?php include __DIR__ . '/../../../includes/scripts.php'; ?>
 </body>
+
 </html>
