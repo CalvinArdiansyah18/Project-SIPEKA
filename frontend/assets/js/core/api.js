@@ -1,4 +1,31 @@
+// Alamat API diisi otomatis oleh includes/scripts.php (window.SIPEKA_CONFIG.apiBase)
 const API_BASE_PATH = (window.SIPEKA_CONFIG && window.SIPEKA_CONFIG.apiBase) || '/backend/api/auth';
+// Akar API (satu tingkat di atas /auth): dipakai endpoint /mahasiswa/... dan /unit/...
+const API_ROOT_PATH = API_BASE_PATH.replace(/\/auth\/?$/, '');
+
+// GET ke endpoint backend. Parameter kosong dan 'all' tidak dikirim.
+// Melempar Error (dengan pesan dari server) jika status bukan 2xx.
+async function apiGet(path, params = {}) {
+  const qs = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null && v !== '' && v !== 'all') qs.append(k, v);
+  });
+  const url = `${API_ROOT_PATH}/${path}` + (qs.toString() ? `?${qs}` : '');
+  const res = await fetch(url, { method: 'GET', credentials: 'include' });
+  const text = await res.text();
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch (e) {
+    throw new Error('Server tidak mengirim JSON:\n' + text.slice(0, 300));
+  }
+  if (!res.ok) {
+    const err = new Error(data.message || 'Terjadi kesalahan pada server.');
+    err.status = res.status;
+    throw err;
+  }
+  return data;
+}
 
 window.sipekaAPI = {
   login: async function (usernameOrEmail, password, role) {
@@ -109,6 +136,16 @@ window.sipekaAPI = {
     } catch (err) {
       return { message: 'Gagal melakukan logout.' };
     }
+  },
+
+  // 5. DASHBOARD (data asli dari database)
+  getDashboardMahasiswa: async function (limit = 5) {
+    return apiGet('mahasiswa/dashboard.php', { limit });
+  },
+
+  // filter: { status: 'all|menunggu|proses|selesai|ditolak', q: 'kata kunci' }
+  getDashboardUnit: async function (filter = {}) {
+    return apiGet('unit/dashboard.php', { status: filter.status, q: filter.q });
   },
 
   // --- STUB / LOCAL STORAGE HELPER UNTUK FITUR DASHBOARD & LAPORAN ---
