@@ -15,7 +15,7 @@ function showToast(message, type = 'success') {
 
   const toast = document.createElement('div');
   toast.className = `toast toast-${type}`;
-  
+
   const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
   toast.innerHTML = `
     <span class="toast-icon">${icon}</span>
@@ -62,6 +62,17 @@ function getStatusBadge(status) {
       return `<span class="badge badge-success">Selesai</span>`;
     case 'Tidak Valid':
       return `<span class="badge badge-danger">Tidak Valid</span>`;
+    // Kode status dari database (enum status_laporan)
+    case 'menunggu':
+      return `<span class="badge badge-warning">Menunggu Validasi</span>`;
+    case 'diproses':
+      return `<span class="badge badge-info">Diproses</span>`;
+    case 'dalam_penanganan':
+      return `<span class="badge badge-info">Dalam Penanganan</span>`;
+    case 'selesai':
+      return `<span class="badge badge-success">Selesai</span>`;
+    case 'ditolak':
+      return `<span class="badge badge-danger">Ditolak</span>`;
     default:
       return `<span class="badge">${status}</span>`;
   }
@@ -111,4 +122,3 @@ document.addEventListener('click', (e) => {
     if (activeModal) closeModal(activeModal.id);
   }
 });
-
