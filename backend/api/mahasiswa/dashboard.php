@@ -1,7 +1,6 @@
 <?php
 // GET /backend/api/mahasiswa/dashboard.php?limit=5
 // Data dashboard mahasiswa yang sedang login: ringkasan jumlah + laporan terbaru.
-//
 // Jawaban:
 // {
 //   "stats":   { "total", "menunggu", "proses", "selesai", "ditolak" },

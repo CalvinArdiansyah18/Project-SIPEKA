@@ -3,7 +3,6 @@
 // Data dashboard petugas unit: ringkasan + daftar laporan yang masuk ke UNIT-nya.
 // Unit ditentukan dari SESSION (users.id_unit), bukan dari input frontend,
 // sehingga petugas tidak bisa melihat laporan unit lain.
-//
 // Parameter (opsional):
 //   status : all | menunggu | proses (diproses + dalam_penanganan) | diproses |
 //            dalam_penanganan | selesai | ditolak

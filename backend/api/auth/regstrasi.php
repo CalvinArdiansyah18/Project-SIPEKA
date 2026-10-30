@@ -2,7 +2,6 @@
 // POST /backend/api/auth/register.php
 // Registrasi KHUSUS mahasiswa. Role selalu 'mahasiswa' (ditentukan di sini, bukan dari frontend).
 // Akun unit dibuat langsung lewat database.
-//
 // Body JSON: { "nama", "email", "password", "nim", "program_studi", "nomor_telepon" (opsional) }
 
 require __DIR__ . '/../../config/bootstrap.php';
