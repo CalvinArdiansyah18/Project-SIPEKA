@@ -1,6 +1,6 @@
 /**
  * Fungsi bantu yang dipakai banyak halaman.
- * Fungsi  : getUnitFromPath(), getUnitDashboardPath(), renderUserProfile(), getEmptyStateHtml()
+ * Fungsi  : getUnitFromPath(), getUnitDashboardPath(), renderUserProfile(), escapeHtml(), getEmptyStateHtml()
  */
 
 // Helper: Deteksi Unit dari URL path
@@ -48,7 +48,7 @@ function renderUserProfile() {
         if (nameEl) nameEl.textContent = user.nama;
         if (roleEl) {
             roleEl.textContent = user.role === 'mahasiswa'
-                ? `NIM: ${user.nim || '254107020095'} (${user.prodi || 'TI-2F'})`
+                ? `NIM: ${user.nim || '-'} (${user.program_studi || '-'})`
                 : `Unit: ${user.nama_unit || unitNames[pathUnit] || 'Unit Penanganan'}`;
         }
         if (avatarEl && user.nama) {
@@ -59,6 +59,13 @@ function renderUserProfile() {
         if (roleEl) roleEl.textContent = unitNames[pathUnit];
         if (avatarEl) avatarEl.textContent = unitInitials[pathUnit] || 'UN';
     }
+}
+
+// Helper: amankan teks dari pengguna sebelum disisipkan ke innerHTML (mencegah XSS)
+function escapeHtml(teks) {
+    return String(teks ?? '').replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
 }
 
 // Helper: SVG Empty State Generator
