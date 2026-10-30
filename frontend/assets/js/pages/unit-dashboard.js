@@ -2,32 +2,89 @@
  * Dashboard Unit
  * Halaman : content/unit/{unit}/dashboard.php
  * Fungsi  : initUnitDashboard(), window.openValidationModal(), window.openResolutionModal()
+ * Data    : initUnitDashboard() memakai data asli (backend/api/unit/dashboard.php).
+ *           openValidationModal/openResolutionModal MASIH data dummy (dikerjakan di tahap form).
  * Catatan : openValidationModal/openResolutionModal juga bisa dipakai halaman unit lain.
  * Dipanggil dari main.js (router) sesuai URL halaman.
  */
 
 // =======================================
 // UNIT DASHBOARD & DISPOSITION CONTROLLER
+// Data: GET backend/api/unit/dashboard.php (unit ditentukan server dari akun yang login)
 // =======================================
 async function initUnitDashboard() {
-    const explicitUnit = document.body.dataset.unit || getUnitFromPath();
-    const unitFilter = document.getElementById('unitFilterSelect');
     const searchInput = document.getElementById('searchUnitReports');
     const statusFilter = document.getElementById('statusFilterUnit');
     const tbody = document.getElementById('unitReportsBody');
+    if (!tbody) return;
+
+    // Nilai dropdown di HTML -> parameter filter di backend
+    const STATUS_PARAM = {
+        'all': 'all',
+        'Menunggu Validasi': 'menunggu',
+        'Dalam Penanganan': 'proses',        // mencakup: diproses + dalam_penanganan
+        'Selesai': 'selesai',
+        'Tidak Valid': 'ditolak'
+    };
+
+    function setText(id, nilai) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = nilai ?? 0;
+    }
+
+    // Tombol aksi menuju halaman kerja unit (halaman tersebut dikerjakan di tahap berikutnya)
+    function tombolAksi(r) {
+        const t = encodeURIComponent(r.no_tiket);
+        if (r.status === 'menunggu') {
+            return `<a class="btn-action" style="padding: 0.35rem 0.8rem; font-size: 0.75rem; display: inline-block; text-decoration: none;" href="verifikasi.php?tiket=${t}">Validasi</a>`;
+        }
+        if (r.status === 'diproses' || r.status === 'dalam_penanganan') {
+            return `<a class="btn-detail" href="penanganan.php?tiket=${t}">Kelola Penanganan</a>`;
+        }
+        return `<a class="btn-detail" href="penanganan.php?tiket=${t}">Lihat</a>`;
+    }
+
+    let permintaanTerakhir = 0;   // mencegah respons lama menimpa respons yang lebih baru
 
     async function loadUnitReports() {
-        const selectedUnit = explicitUnit || (unitFilter ? unitFilter.value : 'all');
-        const query = searchInput ? searchInput.value.trim() : '';
-        const statusVal = statusFilter ? statusFilter.value : 'all';
+        const idPermintaan = ++permintaanTerakhir;
+        const statusDipilih = statusFilter ? statusFilter.value : 'all';
 
-        const reports = await window.sipekaAPI.getReports({
-            unit: selectedUnit,
-            status: statusVal,
-            q: query
-        });
+        let data;
+        try {
+            data = await window.sipekaAPI.getDashboardUnit({
+                status: STATUS_PARAM[statusDipilih] ?? statusDipilih,
+                q: searchInput ? searchInput.value.trim() : ''
+            });
+        } catch (error) {
+            if (idPermintaan !== permintaanTerakhir) return;
+            console.error('[SIPEKA] Gagal memuat dashboard unit:', err);
+            showToast(err.message || 'Gagal memuat data dashboard.', 'error');
+            tbody.innerHTML = getEmptyStateHtml('Gagal Memuat Data', escapeHtml(err.message || 'Terjadi kesalahan pada server.'));
+            return;
+        }
 
-        const stats = await window.sipekaAPI.getStats(selectedUnit);
+        if (idPermintaan !== permintaanTerakhir) return;
+
+        const stats = data.stats || {};
+        const reports = data.laporan || [];
+
+        setText('unitStatValidasi', stats.menunggu);
+        setText('unitStatProses', stats.proses);
+        setText('unitStatSelesai', stats.selesai);
+
+        if (reports.length === 0) {
+            tbody.innerHTML = getEmptyStateHtml('Tidak Ada Laporan', 'Tidak ada laporan yang sesuai dengan filter atau pencarian pada unit ini.');
+            return;
+        }
+
+        // const reports = await window.sipekaAPI.getReports({
+        //     unit: selectedUnit,
+        //     status: statusVal,
+        //     q: query
+        // });
+
+        // const stats = await window.sipekaAPI.getStats(selectedUnit);
 
         const mValidasi = document.getElementById('unitStatValidasi');
         const mProses = document.getElementById('unitStatProses');
@@ -68,10 +125,17 @@ async function initUnitDashboard() {
         }).join('');
     }
 
-    if (unitFilter) unitFilter.addEventListener('change', () => loadUnitReports());
     if (searchInput) searchInput.addEventListener('input', () => loadUnitReports());
     if (statusFilter) statusFilter.addEventListener('change', () => loadUnitReports());
 
+    let timerCari;
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            clearTimeout(timerCari);
+            timerCari = setTimeout(loadUnitReports, 350);
+        });
+    }
+    if (statusFilter) statusFilter.addEventListener('change', () => loadUnitReports());
     await loadUnitReports();
 }
 
