@@ -33,9 +33,9 @@ $files = [
     'pages/mahasiswa/buat-laporan.js',
     'pages/unit/unit-dashboard.js',
     'pages/unit/penanganan.js',
+    'pages/unit/verifikasi.js',
     'pages/profile.js',
     'pages/riwayat.js',
-    'pages/verifikasi.js',
     'main.js',                  // router, HARUS terakhir
 ];
 ?>
