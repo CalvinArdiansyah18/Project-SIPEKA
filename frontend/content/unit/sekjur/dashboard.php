@@ -1,23 +1,12 @@
-<?php
-
-/**
- * SIPEKA - Dashboard Petugas Sekretariat Jurusan (Sekjur)
- * Unit Wewenang: Fasilitas Kampus (AC, Lab, Proyektor, Sarana & Prasarana)
- */
-
-?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Sekjur - SIPEKA Polinema</title>
   <link rel="stylesheet" href="../../../assets/css/style.css">
 </head>
-
 <body data-unit="sekjur">
-
   <!-- Mobile Topbar -->
   <div class="mobile-topbar" style="background-color: #1e293b;">
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -63,16 +52,6 @@
                 <circle cx="12" cy="7" r="4" />
               </svg>
               <span>Profil Unit</span>
-            </a>
-          </li>
-          <li>
-            <a href="../../mahasiswa/dashboard.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m16 16 4-4-4-4" />
-                <path d="M4 12h16" />
-                <path d="M8 8v8" />
-              </svg>
-              <span>Beralih ke Portal Mhs</span>
             </a>
           </li>
         </ul>
@@ -273,5 +252,4 @@
 
   <?php include __DIR__ . '/../../../includes/scripts.php'; ?>
 </body>
-
 </html>

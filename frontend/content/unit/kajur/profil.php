@@ -1,119 +1,13 @@
-<?php
-
-/**
- * SIPEKA - Profil Ketua Jurusan (Kajur)
- */
-
-?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profil Ketua Jurusan - SIPEKA</title>
   <link rel="stylesheet" href="../../../assets/css/style.css">
-  <style>
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 1.5rem;
-      align-items: start;
-    }
-
-    .profile-card {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1.75rem;
-      box-shadow: var(--shadow-sm);
-      text-align: center;
-    }
-
-    .avatar-large {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #b45309, #d97706);
-      color: #ffffff;
-      font-size: 2rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-      box-shadow: 0 4px 12px rgba(180, 83, 9, 0.25);
-    }
-
-    .profile-detail-list {
-      text-align: left;
-      margin-top: 1.5rem;
-      border-top: 1px solid var(--border-color);
-      padding-top: 1rem;
-    }
-
-    .profile-detail-item {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 0.85rem;
-    }
-
-    .profile-detail-item .label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-
-    .profile-detail-item .value {
-      font-size: 0.9rem;
-      color: var(--text-main);
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    .stat-badge-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .stat-badge-card {
-      background: #f8fafc;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 0.85rem;
-      text-align: center;
-    }
-
-    .stat-badge-card .num {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--primary-navy);
-    }
-
-    .stat-badge-card .txt {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    @media (max-width: 900px) {
-      .profile-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stat-badge-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../../../assets/css/profile.css">
 </head>
-
 <body data-unit="kajur">
-
   <!-- Mobile Topbar -->
   <div class="mobile-topbar" style="background-color: #1e293b;">
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -159,16 +53,6 @@
                 <circle cx="12" cy="7" r="4" />
               </svg>
               <span>Profil Unit</span>
-            </a>
-          </li>
-          <li>
-            <a href="../../mahasiswa/dashboard.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m16 16 4-4-4-4" />
-                <path d="M4 12h16" />
-                <path d="M8 8v8" />
-              </svg>
-              <span>Beralih ke Portal Mhs</span>
             </a>
           </li>
         </ul>
