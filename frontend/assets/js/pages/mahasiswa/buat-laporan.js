@@ -133,3 +133,62 @@ async function initBuatLaporanPage() {
         }
     });
 }
+
+// Set max date to today so future dates cannot be picked
+const today = new Date().toISOString().split('T')[0];
+const tglInput = document.getElementById('tanggal');
+if (tglInput) {
+    tglInput.max = today;
+    tglInput.value = today;
+}
+
+// Instant Image Thumbnail Preview using FileReader API
+const fileInput = document.getElementById('fileUpload');
+const previewContainer = document.getElementById('previewContainer');
+
+if (fileInput && previewContainer) {
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('Ukuran berkas melebihi 5 MB. Silakan pilih berkas yang lebih kecil.', 'error');
+                fileInput.value = '';
+                previewContainer.innerHTML = '';
+                return;
+            }
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewContainer.innerHTML = `
+                <div class="upload-preview-card">
+                  <img src="${e.target.result}" alt="Preview Bukti" class="upload-preview-thumb">
+                  <div class="upload-preview-info">
+                    <h5>${file.name}</h5>
+                    <p>${(file.size / 1024 / 1024).toFixed(2)} MB • Berkas Gambar Siap Diunggah</p>
+                  </div>
+                  <button type="button" class="btn-detail" onclick="clearUpload()" style="padding: 4px 8px; color: #ef4444; border-color: #fca5a5;">Hapus</button>
+                </div>
+              `;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewContainer.innerHTML = `
+              <div class="upload-preview-card">
+                <div style="font-size: 2rem;">📄</div>
+                <div class="upload-preview-info">
+                  <h5>${file.name}</h5>
+                  <p>${(file.size / 1024 / 1024).toFixed(2)} MB • Dokumen PDF Terlampir</p>
+                </div>
+                <button type="button" class="btn-detail" onclick="clearUpload()" style="padding: 4px 8px; color: #ef4444; border-color: #fca5a5;">Hapus</button>
+              </div>
+            `;
+            }
+        }
+    });
+}
+
+window.clearUpload = function () {
+    if (fileInput) fileInput.value = '';
+    if (previewContainer) previewContainer.innerHTML = '';
+};
