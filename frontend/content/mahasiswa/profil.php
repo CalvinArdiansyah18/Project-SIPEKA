@@ -1,114 +1,13 @@
-<?php
-
-/**
- * SIPEKA - Halaman Profil Pengguna Mahasiswa
- */
-?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profil Saya - SIPEKA Mahasiswa</title>
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <style>
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 1.5rem;
-      align-items: start;
-    }
-
-    .profile-card {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1.75rem;
-      box-shadow: var(--shadow-sm);
-      text-align: center;
-    }
-
-    .avatar-large {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-blue), var(--primary-navy));
-      color: #ffffff;
-      font-size: 2rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
-    }
-
-    .profile-detail-list {
-      text-align: left;
-      margin-top: 1.5rem;
-      border-top: 1px solid var(--border-color);
-      padding-top: 1rem;
-    }
-
-    .profile-detail-item {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 0.85rem;
-    }
-
-    .profile-detail-item .label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-
-    .profile-detail-item .value {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-top: 2px;
-      word-break: break-all;
-    }
-
-    .stat-mini-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      margin-top: 1.25rem;
-      text-align: center;
-    }
-
-    .stat-mini-item {
-      background: var(--bg-light);
-      padding: 0.6rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid #e2e8f0;
-    }
-
-    .stat-mini-num {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--primary-navy);
-    }
-
-    .stat-mini-label {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 900px) {
-      .profile-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../../assets/css/style.css"> 
+  <link rel="stylesheet" href="../../assets/css/profile.css"> 
 </head>
-
 <body>
-
   <!-- Mobile Topbar -->
   <div class="mobile-topbar">
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -345,5 +244,4 @@
 
   <?php include __DIR__ . '/../../includes/scripts.php'; ?>
 </body>
-
 </html>

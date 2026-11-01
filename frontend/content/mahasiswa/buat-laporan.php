@@ -1,21 +1,12 @@
-<?php
-
-/**
- * SIPEKA - Formulir Pembuatan Pengaduan Mahasiswa
- */
-?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detail Pengaduan - SIPEKA</title>
   <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
-
 <body>
-
   <!-- Mobile Topbar -->
   <div class="mobile-topbar">
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -263,5 +254,4 @@
     };
   </script>
 </body>
-
 </html>

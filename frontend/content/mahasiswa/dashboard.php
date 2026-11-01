@@ -1,21 +1,12 @@
-<?php
-
-/**
- * SIPEKA - Dashboard Mahasiswa
- */
-?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Mahasiswa - SIPEKA</title>
   <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
-
 <body>
-
   <!-- Mobile Topbar for Smartphone Screens -->
   <div class="mobile-topbar">
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -189,5 +180,4 @@
 
   <?php include __DIR__ . '/../../includes/scripts.php'; ?>
 </body>
-
 </html>

@@ -1,78 +1,13 @@
-<?php
-
-/**
- * SIPEKA - Riwayat Pengaduan & Tracking Status Mahasiswa
- */
-?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Riwayat Pengaduan & Tracking - SIPEKA</title>
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <style>
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-      margin-top: 1.5rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 7px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background-color: var(--border-color);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: -2rem;
-      top: 4px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background-color: var(--accent-blue);
-      border: 3px solid #ffffff;
-      box-shadow: 0 0 0 2px var(--accent-blue);
-    }
-
-    .timeline-dot.done {
-      background-color: #10b981;
-      box-shadow: 0 0 0 2px #10b981;
-    }
-
-    .timeline-content h5 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--primary-navy);
-      margin-bottom: 2px;
-    }
-
-    .timeline-content .time {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .timeline-content p {
-      font-size: 0.85rem;
-      color: var(--text-main);
-    }
-  </style>
+  <link rel="stylesheet" href="../../assets/css/style.css"> 
+  <link rel="stylesheet" href="../../assets/css/riwayat.css">
 </head>
-
 <body>
-
   <!-- Mobile Topbar -->
   <div class="mobile-topbar">
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -274,5 +209,4 @@
 
   <?php include __DIR__ . '/../../includes/scripts.php'; ?>
 </body>
-
 </html>
