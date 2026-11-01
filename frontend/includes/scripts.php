@@ -23,19 +23,19 @@ $apiUrl  = $apiDir ? substr(str_replace('\\', '/', $apiDir), strlen($docRoot)) :
 
 // Urutan pemuatan
 $files = [
-    'core/store.js',            // data lokal (localStorage)
-    'core/ui.js',               // toast, modal, utilitas tampilan
-    'core/api.js',              // pemanggilan API backend (fetch)
-    'shared/helpers.js',        // fungsi bantu lintas halaman
-    'pages/login.js',
-    'pages/registrasi.js',
+    'core/store.js', // data lokal (localStorage)
+    'core/ui.js', // toast, modal, utilitas tampilan
+    'core/api.js', // pemanggilan API backend (fetch)
+    'shared/helpers.js', // fungsi bantu lintas halaman
+    'pages/auth/login.js',
+    'pages/auth/registrasi.js',
+    'pages/mahasiswa/mahasiswa-dashboard.js',
+    'pages/mahasiswa/buat-laporan.js',
+    'pages/unit/unit-dashboard.js',
+    'pages/unit/penanganan.js',
     'pages/profile.js',
-    'pages/mahasiswa-dashboard.js',
-    'pages/buat-laporan.js',
     'pages/riwayat.js',
-    'pages/unit-dashboard.js',
     'pages/verifikasi.js',
-    'pages/penanganan.js',
     'main.js',                  // router, HARUS terakhir
 ];
 ?>
