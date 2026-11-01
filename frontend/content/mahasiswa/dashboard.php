@@ -118,7 +118,7 @@
           <div class="stat-card">
             <div class="stat-indicator blue"></div>
             <div>
-              <div class="stat-number" id="statTotal">0</div>
+              <div class="stat-number" id="statTotal"> </div>
               <div class="stat-label">Total Pengaduan</div>
             </div>
           </div>
@@ -126,7 +126,7 @@
           <div class="stat-card">
             <div class="stat-indicator orange"></div>
             <div>
-              <div class="stat-number" id="statProses">0</div>
+              <div class="stat-number" id="statProses"> </div>
               <div class="stat-label">Sedang Diproses</div>
             </div>
           </div>
@@ -134,7 +134,7 @@
           <div class="stat-card">
             <div class="stat-indicator green"></div>
             <div>
-              <div class="stat-number" id="statSelesai">0</div>
+              <div class="stat-number" id="statSelesai"> </div>
               <div class="stat-label">Selesai Ditangani</div>
             </div>
           </div>
@@ -142,7 +142,7 @@
           <div class="stat-card">
             <div class="stat-indicator red"></div>
             <div>
-              <div class="stat-number" id="statDitolak">0</div>
+              <div class="stat-number" id="statDitolak"> </div>
               <div class="stat-label">Ditolak / Tidak Valid</div>
             </div>
           </div>
