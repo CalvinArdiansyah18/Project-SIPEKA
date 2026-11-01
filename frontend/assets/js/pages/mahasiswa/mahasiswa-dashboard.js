@@ -50,9 +50,6 @@ async function initMahasiswaDashboard() {
       <td>${escapeHtml(r.judul_laporan)}</td>
       <td>${formatDate(r.tanggal_kejadian)}</td>
       <td>${getStatusBadge(r.status)}</td>
-      <td>
-        <a href="riwayat.php?tiket=${encodeURIComponent(r.no_tiket)}" class="btn-detail">Detail</a>
-      </td>
     </tr>
   `).join('');
 }

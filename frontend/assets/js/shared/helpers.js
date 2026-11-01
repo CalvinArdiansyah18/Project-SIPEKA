@@ -68,6 +68,28 @@ function escapeHtml(teks) {
     }[c]));
 }
 
+// Helper: label status dari kode database (enum status_laporan)
+function getStatusLabel(kode) {
+    const label = {
+        menunggu: 'Menunggu Validasi',
+        diproses: 'Diproses',
+        dalam_penanganan: 'Dalam Penanganan',
+        selesai: 'Selesai',
+        ditolak: 'Ditolak'
+    };
+    return label[kode] || kode || '-';
+}
+
+// Helper: tanggal + jam, contoh "5 Oktober 2026 09.30" (menerima format ISO 8601 dari backend)
+function formatDateTime(iso) {
+    if (!iso) return '-';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return String(iso);
+    return d.toLocaleString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+}
+
 // Helper: SVG Empty State Generator
 function getEmptyStateHtml(title, description) {
     return `
