@@ -158,7 +158,7 @@
                 </svg>
                 <p style="font-size: 0.9rem; font-weight: 600; color: var(--text-main);">Klik untuk unggah foto atau seret berkas ke sini</p>
                 <p style="font-size: 0.8rem; color: var(--text-muted);">Format didukung: JPG, PNG, WEBP, PDF (Maks. 5 MB)</p>
-                <input type="file" id="fileUpload" style="display: none;" accept="image/*,.pdf">
+                <input type="file" id="fileUpload" style="display: none;" accept="image/*,video/*,.pdf" multiple required>
               </div>
 
               <!-- Container for Live Thumbnail Preview -->
