@@ -126,10 +126,11 @@
           <div style="display: flex; gap: 0.75rem;">
             <select id="statusFilter" class="filter-select">
               <option value="all">Semua Status</option>
-              <option value="Menunggu Validasi">Menunggu Validasi</option>
-              <option value="Dalam Penanganan">Dalam Penanganan</option>
-              <option value="Selesai">Selesai</option>
-              <option value="Tidak Valid">Tidak Valid</option>
+              <option value="menunggu">Menunggu Validasi</option>
+              <option value="diproses">Diproses</option>
+              <option value="dalam_penanganan">Dalam Penanganan</option>
+              <option value="selesai">Selesai</option>
+              <option value="ditolak">Tidak Valid</option>
             </select>
           </div>
         </div>
@@ -150,7 +151,7 @@
                 </tr>
               </thead>
               <tbody id="riwayatTableBody">
-                <!-- Dynamically rendered by app.js -->
+                <!-- Diisi dari database oleh pages/riwayat.js -->
               </tbody>
             </table>
           </div>
@@ -165,7 +166,7 @@
     <div class="modal-dialog">
       <div class="modal-header">
         <div>
-          <h3 id="modalTiket">Tiket #KP-0000</h3>
+          <h3 id="modalTiket"> </h3>
           <p id="modalJudul" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 4px;"></p>
         </div>
         <button class="modal-close-btn" onclick="closeModal('trackingModal')">✕</button>
@@ -198,11 +199,12 @@
 
       <h4 style="font-size: 1rem; color: var(--primary-navy); border-top: 1px solid var(--border-color); padding-top: 1.25rem;">Linimasa Penanganan (Status History)</h4>
       <div class="timeline" id="modalTimeline">
-        <!-- Rendered dynamically from store.js -->
+        <!-- Diisi dari database oleh pages/riwayat.js -->
       </div>
 
-      <div style="text-align: right; margin-top: 1.5rem;">
-        <button class="btn-detail" onclick="closeModal('trackingModal')" style="padding: 0.6rem 1.5rem;">Tutup</button>
+      <h4 style="font-size: 1rem; color: var(--primary-navy); border-top: 1px solid var(--border-color); padding-top: 1.25rem; margin-top: 1rem;">Tanggapan &amp; Penanganan Unit</h4>
+      <div id="modalCatatan">
+        <!-- Diisi dari database oleh pages/riwayat.js -->
       </div>
     </div>
   </div>

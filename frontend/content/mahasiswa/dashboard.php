@@ -164,7 +164,7 @@
                   <th>Judul Laporan</th>
                   <th>Tanggal Kejadian</th>
                   <th>Status</th>
-                  <th>Aksi</th>
+                  <!-- <th>Aksi</th> -->
                 </tr>
               </thead>
               <tbody id="recentReportsBody">
