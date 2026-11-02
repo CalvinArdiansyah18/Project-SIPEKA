@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Masuk ke SIPEKA - Sistem Pengaduan Kampus JTI Polinema</title>
-  <link rel="stylesheet" href="../../assets/css/style.css">
+  <?php include __DIR__ . '/../../includes/styles.php'; ?>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <aside class="auth-hero">
       <div class="auth-hero-header">
         <div class="logo-group">
-          <div class="logo-badge-1">  <img src="../../assets/images/logo/Jti.webp" style="width: 450%; height: auto;"> </div>
+          <div class="logo-badge-1"><img src="../../assets/images/logo/Jti.webp" class="auth-logo-img"></div>
           <div class="logo-text">
             <h1>SIPEKA</h1>
             <p>Sistem Pengaduan Kampus</p>
@@ -28,7 +28,7 @@
       </div>
 
       <div class="auth-hero-footer">
-        <div class="logo-badge-2">  <img src="../../assets/images/logo/polinema.png" style="width: 450%; height: auto;"> </div>
+        <div class="logo-badge-2"><img src="../../assets/images/logo/polinema.png" class="auth-logo-img"></div>
         <div class="campus-info">
           <h3>Jurusan Teknologi Informasi</h3>
           <p>Politeknik Negeri Malang</p>

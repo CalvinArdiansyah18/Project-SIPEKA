@@ -7,76 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrasi Akun - SIPEKA Polinema</title>
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <style>
-    .register-card {
-      width: 100%;
-      max-width: 540px;
-    }
-    .form-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    /* .role-tabs {
-      display: flex;
-      background-color: #e2e8f0;
-      border-radius: var(--radius-sm);
-      padding: 4px;
-      margin-bottom: 1.5rem;
-      gap: 4px;
-    } */
-    /* .role-tab-btn {
-      flex: 1;
-      padding: 0.65rem 0.5rem;
-      border: none;
-      background: transparent;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #64748b;
-      border-radius: calc(var(--radius-sm) - 2px);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    } */
-    .role-tab-btn.active {
-      background-color: #ffffff;
-      color: var(--primary-navy);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    }
-    .role-tab-btn:hover:not(.active) {
-      color: var(--text-main);
-    }
-    .unit-info-box {
-      background-color: #f1f5f9;
-      border-left: 3px solid var(--accent-blue);
-      padding: 0.75rem 1rem;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      font-size: 0.8rem;
-      color: #334155;
-      margin-top: 0.5rem;
-      line-height: 1.4;
-    }
-    .input-error {
-      border-color: #ef4444 !important;
-      background-color: #fef2f2 !important;
-    }
-    .error-msg {
-      font-size: 0.75rem;
-      color: #ef4444;
-      margin-top: 0.25rem;
-      display: none;
-    }
-    @media (max-width: 640px) {
-      .form-grid-2 {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-    }
-  </style>
+  <?php include __DIR__ . '/../../includes/styles.php'; ?>
 </head>
 <body>
 
@@ -85,7 +16,7 @@
     <aside class="auth-hero">
       <div class="auth-hero-header">
         <div class="logo-group">  
-          <div class="logo-badge-1"> <img src="../../assets/images/logo/JTI.webp" style="width: 450%; height: auto;"> </div>
+          <div class="logo-badge-1"><img src="../../assets/images/logo/JTI.webp" class="auth-logo-img"></div>
           <div class="logo-text">
             <h1>SIPEKA</h1>
             <p>Sistem Pengaduan Kampus</p>
@@ -96,11 +27,10 @@
       <div class="auth-hero-body">
         <h2>Layanan Pengaduan Terintegrasi & Disposisi Langsung</h2>
         <p>Hubungkan aspirasi mahasiswa dan respon cepat unit penanggung jawab di lingkungan Jurusan Teknologi Informasi Politeknik Negeri Malang.</p>
-        
       </div>
 
       <div class="auth-hero-footer">
-        <div class="logo-badge-2"> <img src="../../assets/images/logo/polinema.png" style="width: 450%; height: auto;"> </div>
+        <div class="logo-badge-2"><img src="../../assets/images/logo/polinema.png" class="auth-logo-img"></div>
         <div class="campus-info">
           <h3>Jurusan Teknologi Informasi</h3>
           <p>Politeknik Negeri Malang</p>
@@ -116,7 +46,7 @@
         </header>
 
         <form id="registerForm">
-          <!-- 2. NAMA LENGKAP (Bersama) -->
+          <!-- 2. NAMA LENGKAP -->
           <div class="form-group">
             <label for="regNama" id="labelNama">Nama Lengkap Mahasiswa <span style="color: #ef4444;">*</span></label>
             <input 
