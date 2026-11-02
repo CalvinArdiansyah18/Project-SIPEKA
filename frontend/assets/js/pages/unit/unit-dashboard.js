@@ -24,7 +24,7 @@ async function initUnitDashboard() {
         'Menunggu Validasi': 'menunggu',
         'Dalam Penanganan': 'proses',// mencakup: diproses + dalam_penanganan
         'Selesai': 'selesai',
-        'Tidak Valid': 'ditolak'
+        'Ditolak': 'ditolak'
     };
 
     function setText(id, nilai) {
@@ -32,7 +32,7 @@ async function initUnitDashboard() {
         if (el) el.textContent = nilai ?? 0;
     }
 
-    let permintaanTerakhir = 0;   // mencegah respons lama menimpa respons yang lebih baru
+    let permintaanTerakhir = 0; // mencegah respons lama menimpa respons yang lebih baru
 
     async function loadUnitReports() {
         const idPermintaan = ++permintaanTerakhir;
@@ -64,6 +64,7 @@ async function initUnitDashboard() {
         setText('unitStatValidasi', stats.menunggu);
         setText('unitStatProses', stats.proses);
         setText('unitStatSelesai', stats.selesai);
+        setText('unitStatDitolak', stats.ditolak);
 
         if (reports.length === 0) {
             tbody.innerHTML = getEmptyStateHtml('Tidak Ada Laporan', 'Tidak ada laporan yang sesuai dengan filter atau pencarian pada unit ini.');
@@ -73,6 +74,7 @@ async function initUnitDashboard() {
         const mValidasi = document.getElementById('unitStatValidasi');
         const mProses = document.getElementById('unitStatProses');
         const mSelesai = document.getElementById('unitStatSelesai');
+        const mDitolak = document.getElementById('unitStatDitolak');
 
         if (mValidasi) mValidasi.textContent = stats.menunggu ?? 0;
         if (mProses) mProses.textContent = stats.proses ?? 0;
@@ -99,10 +101,9 @@ async function initUnitDashboard() {
                 status === 'dalam_penanganan'
             ) {
                 aksi = `<a class="btn-action" href="penanganan.php?tiket=${tiket}">Penanganan</a>`;
+            } else {
+                aksi = `<a class="btn-action" href="penanganan.php?tiket=${tiket}">Lihat</a>`;
             }
-            // } else {
-            //     aksi = `<a class="btn-detail" href="penanganan.php?tiket=${tiket}" style="display:inline-block;text-decoration:none;">Lihat</a>`;
-            // }
             return `
         <tr>
             <td><strong>${escapeHtml(r.no_tiket)}</strong></td>
