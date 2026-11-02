@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tindak Lanjut &amp; Penyelesaian - Kajur SIPEKA</title>
-  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <?php include __DIR__ . '/../../../includes/styles.php'; ?>
 </head>
 <body data-unit="kajur">
   <!-- Mobile Topbar -->
-  <div class="mobile-topbar" style="background-color: #1e293b;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <div class="logo-badge" style="background: #b45309; width: 30px; height: 30px; font-size: 0.9rem;">KJ</div>
-      <span style="font-weight: 700; font-size: 1.05rem; letter-spacing: -0.5px;">SIPEKA Kajur</span>
+  <div class="mobile-topbar topbar--unit">
+    <div class="topbar-brand">
+      <div class="logo-badge logo-badge--sm">KJ</div>
+      <span class="topbar-title">SIPEKA Kajur</span>
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
       <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -25,13 +25,13 @@
   <div class="sidebar-backdrop"></div>
 
   <div class="app-layout">
-    <aside class="app-sidebar" style="background-color: #1e293b;">
+    <aside class="app-sidebar sidebar--unit">
       <div>
         <div class="sidebar-logo">
-          <div class="logo-badge" style="background: #b45309;">KJ</div>
+          <div class="logo-badge">KJ</div>
           <div class="logo-text">
-            <h1 style="color: #fff; font-size: 1.15rem;">SIPEKA Kajur</h1>
-            <p style="font-size: 0.7rem; color: #94a3b8;">Ketua Jurusan TI Polinema</p>
+            <h1>SIPEKA Kajur</h1>
+            <p>Ketua Jurusan TI Polinema</p>
           </div>
         </div>
 
@@ -72,10 +72,10 @@
     <main class="app-main">
       <header class="app-header">
         <div class="header-breadcrumb">
-          <span style="color: var(--text-muted); font-size: 0.85rem;">Portal Kajur &rsaquo; <strong>Tindakan Penyelesaian Etika</strong></span>
+          <span class="breadcrumb-text">Portal Kajur &rsaquo; <strong>Tindakan Penyelesaian Etika</strong></span>
         </div>
-        <div class="user-profile" style="cursor: pointer;" onclick="window.location.href='profil.php'">
-          <div class="avatar" style="background-color: #b45309;">KJ</div>
+        <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
+          <div class="avatar">KJ</div>
           <div class="user-info">
             <div class="user-name">Ketua Jurusan TI</div>
             <div class="user-role">Pimpinan Jurusan &amp; Pengawasan Etika</div>
@@ -89,10 +89,10 @@
           <p>Dokumentasikan hasil pemanggilan, kesepakatan kuliah pengganti, atau berita acara pimpinan.</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+        <div class="detail-grid detail-grid--even">
           <!-- Left: Report Summary -->
-          <div class="form-card" style="max-width: 100%;">
-            <h3 style="margin-bottom: 1.5rem; color: var(--primary-navy); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Ringkasan Kasus Etika</h3>
+          <div class="form-card form-card--full">
+            <h3 class="card-title card-title--bordered">Ringkasan Kasus Etika</h3>
             <table class="summary-table">
               <tr>
                 <td class="label">Nomor Tiket</td>
@@ -114,12 +114,12 @@
           </div>
 
           <!-- Right: Resolution Form -->
-          <div class="form-card" style="max-width: 100%;">
-            <h3 style="margin-bottom: 1.5rem; color: var(--primary-navy);">Form Berita Acara Penyelesaian</h3>
+          <div class="form-card form-card--full">
+            <h3 class="card-title card-title--bordered">Form Berita Acara Penyelesaian</h3>
             <form id="pageResolutionForm">
               <div class="form-group">
-                <label for="pageResTindakan">Keterangan Keputusan / Penyelesaian Pimpinan <span style="color: #ef4444;">*</span></label>
-                <textarea id="pageResTindakan" class="form-input" placeholder="Tuliskan keputusan rapat pimpinan jurusan, teguran, jadwal kuliah pengganti, dll..." required style="min-height: 120px;"></textarea>
+                <label for="pageResTindakan">Keterangan Keputusan / Penyelesaian Pimpinan <span class="required-mark">*</span></label>
+                <textarea id="pageResTindakan" class="form-input" placeholder="Tuliskan keputusan rapat pimpinan jurusan, teguran, jadwal kuliah pengganti, dll..." required></textarea>
               </div>
 
               <div class="form-group">
@@ -127,9 +127,9 @@
                 <input type="file" class="form-input" accept="image/*,.pdf">
               </div>
 
-              <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
-                <a href="dashboard.php" class="btn-detail" style="text-decoration: none; padding: 0.65rem 1.25rem;">Batal</a>
-                <button type="submit" class="btn-primary" style="background-color: #10b981; width: auto; margin-top: 0;">✓ Simpan &amp; Tandai SELESAI</button>
+              <div class="modal-actions mt-lg">
+                <a href="dashboard.php" class="btn-detail">Batal</a>
+                <button type="submit" class="btn-primary btn-success btn-inline">✓ Simpan &amp; Tandai SELESAI</button>
               </div>
             </form>
           </div>

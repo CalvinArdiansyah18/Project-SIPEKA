@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profil Ketua Jurusan - SIPEKA</title>
-  <link rel="stylesheet" href="../../../assets/css/style.css">
-  <link rel="stylesheet" href="../../../assets/css/profile.css">
+  <?php include __DIR__ . '/../../../includes/styles.php'; ?>
 </head>
 <body data-unit="kajur">
   <!-- Mobile Topbar -->
-  <div class="mobile-topbar" style="background-color: #1e293b;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <div class="logo-badge" style="background: #b45309; width: 30px; height: 30px; font-size: 0.9rem;">KJ</div>
-      <span style="font-weight: 700; font-size: 1.05rem; letter-spacing: -0.5px;">SIPEKA Kajur</span>
+  <div class="mobile-topbar topbar--unit">
+    <div class="topbar-brand">
+      <div class="logo-badge logo-badge--sm">KJ</div>
+      <span class="topbar-title">SIPEKA Kajur</span>
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
       <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -26,13 +25,13 @@
   <div class="sidebar-backdrop"></div>
 
   <div class="app-layout">
-    <aside class="app-sidebar" style="background-color: #1e293b;">
+    <aside class="app-sidebar sidebar--unit">
       <div>
         <div class="sidebar-logo">
-          <div class="logo-badge" style="background: #b45309;">KJ</div>
+          <div class="logo-badge">KJ</div>
           <div class="logo-text">
-            <h1 style="color: #fff; font-size: 1.15rem;">SIPEKA Kajur</h1>
-            <p style="font-size: 0.7rem; color: #94a3b8;">Ketua Jurusan TI Polinema</p>
+            <h1>SIPEKA Kajur</h1>
+            <p>Ketua Jurusan TI Polinema</p>
           </div>
         </div>
 
@@ -73,10 +72,10 @@
     <main class="app-main">
       <header class="app-header">
         <div class="header-breadcrumb">
-          <span style="color: var(--text-muted); font-size: 0.85rem;">Portal Penanganan Unit Resmi &rsaquo; <strong>Profil Ketua Jurusan</strong></span>
+          <span class="breadcrumb-text">Portal Penanganan Unit Resmi &rsaquo; <strong>Profil Ketua Jurusan</strong></span>
         </div>
         <div class="user-profile">
-          <div class="avatar" style="background-color: #b45309;">KJ</div>
+          <div class="avatar">KJ</div>
           <div class="user-info">
             <div class="user-name">Ketua Jurusan TI</div>
             <div class="user-role">Pimpinan Jurusan &amp; Pengawasan Etika</div>
@@ -85,7 +84,7 @@
       </header>
 
       <div class="content-container">
-        <div class="page-title" style="margin-bottom: 1.5rem;">
+        <div class="page-title page-title--tight">
           <h2>Profil Pimpinan &amp; Petugas Kajur</h2>
           <p>Informasi identitas kedinasan pimpinan jurusan, cakupan wewenang etika &amp; pungli, serta pengaturan akun.</p>
         </div>
@@ -94,8 +93,8 @@
           <!-- Left: Identity Card -->
           <div class="profile-card">
             <div class="avatar-large" id="profAvatar">KJ</div>
-            <h3 id="profCardNama" style="color: var(--primary-navy); margin-bottom: 0.25rem;">Ketua Jurusan TI Polinema</h3>
-            <span class="badge" style="background: #fef3c7; color: #b45309; padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600;">
+            <h3 id="profCardNama" class="profile-name">Ketua Jurusan TI Polinema</h3>
+            <span class="badge badge-soft">
               ⚖️ Pimpinan Jurusan &amp; Etika
             </span>
 
@@ -110,7 +109,7 @@
               </div>
               <div class="profile-detail-item">
                 <span class="label">Status Jabatan</span>
-                <span class="value" style="color: #16a34a; font-weight: 600;">Aktif &amp; Terverifikasi</span>
+                <span class="value text-success">Aktif &amp; Terverifikasi</span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Email Kedinasan</span>
@@ -128,48 +127,48 @@
           </div>
 
           <!-- Right: Forms & Scope -->
-          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="profile-side">
             <!-- Authority Scope Info Box -->
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 1.25rem;">
-              <h4 style="color: #166534; margin: 0 0 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <div class="info-box info-box--green">
+              <h4>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
                 Wewenang Penanganan unit
               </h4>
-              <p id="profDetailWewenang" style="font-size: 0.85rem; color: #15803d; line-height: 1.6; margin: 0;">
+              <p id="profDetailWewenang">
                 Menangani secara langsung kode etik tenaga pengajar dan staf kependidikan, transparansi akademik, ketidakhadiran dosen, serta pencegahan dan penindakan tegas segala bentuk dugaan pungutan liar (pungli) di luar ketentuan resmi kampus.
               </p>
             </div>
 
             <!-- Workload Stats -->
-            <div class="data-card" style="padding: 1.25rem;">
-              <h4 style="color: var(--primary-navy); margin: 0 0 1rem; font-size: 0.95rem;">Ringkasan Beban Pengawasan Kajur</h4>
+            <div class="data-card card-padded">
+              <h4 class="card-subtitle">Ringkasan Beban Pengawasan Kajur</h4>
               <div class="stat-badge-grid">
                 <div class="stat-badge-card">
                   <div class="num" id="statProfTotal">0</div>
                   <div class="txt">Total Masuk</div>
                 </div>
                 <div class="stat-badge-card">
-                  <div class="num" id="statProfMenunggu" style="color: #ea580c;">0</div>
+                  <div class="num text-warning" id="statProfMenunggu">0</div>
                   <div class="txt">Perlu Validasi</div>
                 </div>
                 <div class="stat-badge-card">
-                  <div class="num" id="statProfProses" style="color: #2563eb;">0</div>
+                  <div class="num text-info" id="statProfProses">0</div>
                   <div class="txt">Klarifikasi Aktif</div>
                 </div>
                 <div class="stat-badge-card">
-                  <div class="num" id="statProfSelesai" style="color: #16a34a;">0</div>
+                  <div class="num text-success" id="statProfSelesai">0</div>
                   <div class="txt">Terselesaikan</div>
                 </div>
               </div>
             </div>
 
             <!-- Edit Profile Form -->
-            <div class="data-card" style="padding: 1.5rem;">
-              <h4 style="color: var(--primary-navy); margin: 0 0 1.25rem;">Perbarui Data Kontak Pimpinan / Staf Ahli</h4>
+            <div class="data-card card-padded-lg">
+              <h4 class="card-subtitle card-subtitle--spaced">Perbarui Data Kontak Pimpinan / Staf Ahli</h4>
               <form id="editProfileForm">
-                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-grid">
                   <div class="form-group">
                     <label for="editNama">Nama Lengkap &amp; Gelar</label>
                     <input type="text" id="editNama" class="form-input" placeholder="Nama Ketua Jurusan" required>
@@ -179,21 +178,21 @@
                     <input type="text" id="editTelepon" class="form-input" placeholder="Contoh: 081234567890">
                   </div>
                 </div>
-                <div style="text-align: right; margin-top: 1rem;">
-                  <button type="submit" class="btn-primary" style="width: auto; padding: 0.65rem 1.5rem;">Simpan Perubahan</button>
+                <div class="text-right mt-md">
+                  <button type="submit" class="btn-primary btn-inline">Simpan Perubahan</button>
                 </div>
               </form>
             </div>
 
             <!-- Change Password Form -->
-            <!-- <div class="data-card" style="padding: 1.5rem;">
-              <h4 style="color: var(--primary-navy); margin: 0 0 1.25rem;">Ganti Kata Sandi Akun Pimpinan</h4>
+            <!-- <div class="data-card card-padded-lg">
+              <h4 class="card-subtitle card-subtitle--spaced">Ganti Kata Sandi Akun Pimpinan</h4>
               <form id="changePasswordForm">
                 <div class="form-group">
                   <label for="passLama">Kata Sandi Saat Ini</label>
                   <input type="password" id="passLama" class="form-input" placeholder="Masukkan kata sandi lama Anda" required>
                 </div>
-                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-grid">
                   <div class="form-group">
                     <label for="passBaru">Kata Sandi Baru</label>
                     <input type="password" id="passBaru" class="form-input" placeholder="Minimal 6 karakter" required>
@@ -203,8 +202,8 @@
                     <input type="password" id="passKonfirm" class="form-input" placeholder="Konfirmasi kata sandi" required>
                   </div>
                 </div>
-                <div style="text-align: right; margin-top: 1rem;">
-                  <button type="submit" class="btn-primary" style="width: auto; padding: 0.65rem 1.5rem; background: #0f172a;">Perbarui Kata Sandi</button>
+                <div class="text-right mt-md">
+                  <button type="submit" class="btn-primary btn-navy btn-inline">Perbarui Kata Sandi</button>
                 </div>
               </form>
             </div> -->
