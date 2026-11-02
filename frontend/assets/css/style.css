@@ -395,25 +395,22 @@ body {
   font-size: 0.875rem;
   color: var(--text-muted);
 }
-
+/* 
 .btn-action {
   padding: 0.65rem 1.25rem;
-  background-color: var(--accent-blue);
   color: #ffffff;
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 600;
   border-radius: var(--radius-sm);
-  display: inline-flex;
   align-items: center;
-  gap: 8px;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
-}
+} */
 
-.btn-action:hover {
+/* .btn-action:hover {
   background-color: #1d4ed8;
-}
+} */
 
 /* Stat Cards Grid */
 .stats-grid {
@@ -548,7 +545,7 @@ body {
   color: #dc2626;
 }
 
-.btn-detail {
+/* .btn-detail {
   padding: 0.35rem 0.75rem;
   background-color: #f1f5f9;
   color: var(--text-main);
@@ -564,7 +561,7 @@ body {
   background-color: var(--accent-blue);
   color: #ffffff;
   border-color: var(--accent-blue);
-}
+} */
 
 /* SVG Icons Integration */
 .icon {
