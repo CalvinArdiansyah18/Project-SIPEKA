@@ -8,7 +8,7 @@ Proyek ini menggunakan arsitektur **Decoupled/Separated** yang memisahkan modul 
 
 | No | Nama | NIM | Peran Utama di Proyek |
 | :--- | :--- | :--- | :--- |
-| 1 | **Salsabila Widyadhana** | 254107020200 | Project Manager (Ketua Tim) merangkap Sekretaris/Dokumentator |
+| 1 | **Salsabila Widyadhana** | 254107020200 | Project Manager (Ketua Tim) merangkap Dokumentator |
 | 2 | **Calvin Ardiansyah** | 254107020214 | Backend Developer |
 | 3 | **Ghafin Fitrah Ramadhan** | 254107020170 | UI/UX Designer |
 | 4 | **Galih Maula Mumtaza** | 254107020095 | Frontend Developer |
