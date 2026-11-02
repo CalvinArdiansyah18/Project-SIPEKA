@@ -143,7 +143,7 @@
             <div class="stat-indicator red"></div>
             <div>
               <div class="stat-number" id="statDitolak"> </div>
-              <div class="stat-label">Ditolak / Tidak Valid</div>
+              <div class="stat-label">Ditolak</div>
             </div>
           </div>
         </div>
