@@ -1,18 +1,16 @@
-# SIPEKA: Sistem Pengaduan Kampus (Khusus Mahasiswa JTI) 
+# SIPEKA: Sistem Pengaduan Kampus (Khusus Jurusan JTI) 
 
-**SIPEKA** adalah platform digital berbasis web yang dirancang khusus untuk memfasilitasi mahasiswa Jurusan Teknologi Informasi (JTI) dalam menyampaikan aspirasi, keluhan, sarana prasarana, serta pengaduan terkait lingkungan akademik kampus. Proyek ini memisahkan struktur kode secara terorganisir ke dalam arsitektur Modul Frontend dan Backend untuk memastikan performa dan pemeliharaan kode yang optimal.
+**SIPEKA** adalah platform pengaduan berbasis web yang dirancang khusus untuk lingkungan Jurusan Teknologi Informasi (JTI) Politeknik Negeri Malang. Sistem ini memfasilitasi mahasiswa untuk menyampaikan aspirasi atau keluhan secara terstruktur, yang kemudian secara otomatis didisposisikan ke unit berwenang (Sekretaris Jurusan, Admin Prodi, Ketua Jurusan, dan KPS) tanpa melalui admin utama.
+
+Proyek ini menggunakan arsitektur **Decoupled/Separated** yang memisahkan modul Frontend (*client-side*) dan Backend (*server-side*) untuk efisiensi pengembangan dan integrasi tim.
 
 ---
 
-## 👥 Anggota Kelompok 6
+## Tim Pengembang (Kelompok 6 - TI-2F)
 
-Berikut adalah identitas dan pembagian peran anggota tim pengembang:
-
-| Nama | NIM | Peran / Fokus Kontribusi |
-| :--- | :--- | :--- |
-| **Salsabila Widyadhana** | 254107020200 | Project Manager (PM) |
-| **Calvin Ardiansyah** | 254107020214 | Backend Developer |
-| **Ghafin Fitrah R** | 254107020170 | UI/UX Designer |
-| **Galih Maula M.** | 254107020095 | Frontend Developer |
+*   **Salsabila Widyadhana** (254107020200) — *Project Manager & Dokumentator*
+*   **Calvin Ardiansyah** (254107020214) — *Backend Developer*
+*   **Ghafin Fitrah Ramadhan** (254107020170) — *UI/UX Designer*
+*   **Galih Maula Mumtaza** (254107020095) — *Frontend Developer*
 
 ---
