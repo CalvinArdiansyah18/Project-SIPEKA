@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Sekjur - SIPEKA Polinema</title>
-  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <?php include __DIR__ . '/../../../includes/styles.php'; ?>
 </head>
 <body data-unit="sekjur">
   <!-- Mobile Topbar -->
-  <div class="mobile-topbar" style="background-color: #1e293b;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <div class="logo-badge" style="background: #2563eb; width: 30px; height: 30px; font-size: 0.9rem;">SJ</div>
-      <span style="font-weight: 700; font-size: 1.05rem; letter-spacing: -0.5px;">SIPEKA Sekjur</span>
+  <div class="mobile-topbar topbar--unit">
+    <div class="topbar-brand">
+      <div class="logo-badge logo-badge--sm">SJ</div>
+      <span class="topbar-title">SIPEKA Sekjur</span>
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
       <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -25,13 +25,13 @@
   <div class="sidebar-backdrop"></div>
 
   <div class="app-layout">
-    <aside class="app-sidebar" style="background-color: #1e293b;">
+    <aside class="app-sidebar sidebar--unit">
       <div>
         <div class="sidebar-logo">
-          <div class="logo-badge" style="background: #2563eb;">SJ</div>
+          <div class="logo-badge">SJ</div>
           <div class="logo-text">
-            <h1 style="color: #fff; font-size: 1.15rem;">SIPEKA Sekjur</h1>
-            <p style="font-size: 0.7rem; color: #94a3b8;">Sekretariat Jurusan (Sarpras)</p>
+            <h1>SIPEKA Sekjur</h1>
+            <p>Sekretariat Jurusan (Sarpras)</p>
           </div>
         </div>
 
@@ -72,10 +72,10 @@
     <main class="app-main">
       <header class="app-header">
         <div class="header-breadcrumb">
-          <span style="color: var(--text-muted); font-size: 0.85rem;">Portal Penanganan Unit Resmi &rsaquo; <strong>Sekretariat Jurusan</strong></span>
+          <span class="breadcrumb-text">Portal Penanganan Unit Resmi &rsaquo; <strong>Sekretariat Jurusan</strong></span>
         </div>
-        <div class="user-profile" style="cursor: pointer;" onclick="window.location.href='profil.php'">
-          <div class="avatar" style="background-color: #2563eb;">SJ</div>
+        <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
+          <div class="avatar avatar--unit">SJ</div>
           <div class="user-info">
             <div class="user-name">Staff Sekretariat Jurusan</div>
             <div class="user-role">Unit Sarana &amp; Prasarana</div>
@@ -84,16 +84,16 @@
       </header>
 
       <div class="content-container">
-        <div class="page-header-row" style="align-items: flex-start;">
+        <div class="page-header-row page-header-row--top">
           <div class="page-title">
-            <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem;">
+            <div class="page-title-row">
               <h2>Dashboard Sekretariat Jurusan (Sekjur)</h2>
-              <span class="badge" style="background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.65rem; font-size: 0.75rem; font-weight: 700; border-radius: 9999px;">Fasilitas Kampus</span>
+              <span class="badge badge-soft">Fasilitas Kampus</span>
             </div>
             <p>Kelola disposisi pengaduan fasilitas kelas, lab komputer, proyektor, AC, dan sarana prasarana Gedung Sipil &amp; JTI.</p>
           </div>
           <div>
-            <select id="statusFilterUnit" class="filter-select" style="font-weight: 600; background: #ffffff; border-color: var(--accent-blue);">
+            <select id="statusFilterUnit" class="filter-select filter-select--accent">
               <option value="all">Semua Status</option>
               <option value="Menunggu Validasi">Menunggu Validasi</option>
               <option value="Dalam Penanganan">Dalam Penanganan</option>
@@ -181,12 +181,12 @@
       <div class="modal-header">
         <div>
           <h3>Verifikasi Laporan Masuk</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">Tiket #<span id="valTiket"></span></p>
+          <p class="modal-subtitle">Tiket #<span id="valTiket"></span></p>
         </div>
         <button class="modal-close-btn" onclick="closeModal('validationModal')">✕</button>
       </div>
 
-      <table class="summary-table" style="margin-bottom: 1.5rem;">
+      <table class="summary-table summary-table--tight">
         <tr>
           <td class="label">Pelapor</td>
           <td id="valPelapor"></td>
@@ -205,14 +205,14 @@
         </tr>
       </table>
 
-      <div style="background-color: #f8fafc; border: 1px solid var(--border-color); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
-        <p style="font-size: 0.85rem; color: var(--text-main); font-weight: 600;">Keputusan Validasi Sekjur:</p>
-        <p style="font-size: 0.8rem; color: var(--text-muted);">Jika disetujui, laporan masuk status <strong>Dalam Penanganan</strong> dan teknisi sarpras segera ditugaskan ke lokasi.</p>
+      <div class="info-box">
+        <p class="info-box__title">Keputusan Validasi Sekjur:</p>
+        <p class="info-box__text">Jika disetujui, laporan masuk status <strong>Dalam Penanganan</strong> dan teknisi sarpras segera ditugaskan ke lokasi.</p>
       </div>
 
-      <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
-        <button type="button" class="btn-primary" id="btnReject" style="background-color: #ef4444; width: auto; margin-top: 0;">✕ Tolak (Tidak Valid)</button>
-        <button type="button" class="btn-primary" id="btnApprove" style="background-color: #10b981; width: auto; margin-top: 0;">✓ Setujui (Laporan Valid)</button>
+      <div class="modal-actions">
+        <button type="button" class="btn-primary btn-danger btn-inline" id="btnReject">✕ Tolak (Tidak Valid)</button>
+        <button type="button" class="btn-primary btn-success btn-inline" id="btnApprove">✓ Setujui (Laporan Valid)</button>
       </div>
     </div>
   </div>
@@ -224,12 +224,12 @@
       <div class="modal-header">
         <div>
           <h3>Pencatatan Penanganan Sarpras</h3>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">Tiket #<span id="resTiket"></span></p>
+          <p class="modal-subtitle">Tiket #<span id="resTiket"></span></p>
         </div>
         <button class="modal-close-btn" onclick="closeModal('resolutionModal')">✕</button>
       </div>
 
-      <table class="summary-table" style="margin-bottom: 1.5rem;">
+      <table class="summary-table summary-table--tight">
         <tr>
           <td class="label">Judul Sarpras</td>
           <td id="resJudul"></td>
@@ -242,8 +242,8 @@
 
       <form id="resolutionForm">
         <div class="form-group">
-          <label for="resTindakan">Keterangan Tindakan Penanganan Teknisi <span style="color: #ef4444;">*</span></label>
-          <textarea id="resTindakan" class="form-input" placeholder="Tuliskan tindakan perbaikan fisik, penggantian komponen, atau perbaikan teknisi..." required style="min-height: 100px;"></textarea>
+          <label for="resTindakan">Keterangan Tindakan Penanganan Teknisi <span class="required-mark">*</span></label>
+          <textarea id="resTindakan" class="form-input" placeholder="Tuliskan tindakan perbaikan fisik, penggantian komponen, atau perbaikan teknisi..." required></textarea>
         </div>
 
         <div class="form-group">
@@ -251,9 +251,9 @@
           <input type="file" class="form-input" accept="image/*,.pdf">
         </div>
 
-        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+        <div class="modal-actions mt-lg">
           <button type="button" class="btn-detail" onclick="closeModal('resolutionModal')">Batal</button>
-          <button type="submit" class="btn-primary" style="background-color: #10b981; width: auto; margin-top: 0;">✓ Simpan & Tandai SELESAI</button>
+          <button type="submit" class="btn-primary btn-success btn-inline">✓ Simpan & Tandai SELESAI</button>
         </div>
       </form>
     </div>
