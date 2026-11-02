@@ -98,6 +98,7 @@
               <option value="Menunggu Validasi">Menunggu Validasi</option>
               <option value="Dalam Penanganan">Dalam Penanganan</option>
               <option value="Selesai">Selesai</option>
+              <option value="Ditolak">Ditolak</option>
             </select>
           </div>
         </div>
@@ -131,7 +132,7 @@
           <div class="stat-card">
             <div class="stat-indicator red"></div>
             <div>
-              <div class="stat-number" id="unitStatSelesai">0</div>
+              <div class="stat-number" id="unitStatDitolak">0</div>
               <div class="stat-label">Ditolak</div>
             </div>
           </div>
