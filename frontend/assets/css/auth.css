@@ -1,0 +1,187 @@
+/* ==========================================================================
+   auth.css — halaman autentikasi (login & registrasi)
+   ========================================================================== */
+
+/* Tata letak layar terbagi */
+.auth-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.auth-hero {
+  flex: 0 0 50%;
+  background: url(../../assets/images/backgrounds/gedungSipil.jpg) no-repeat center / cover fixed;
+  color: floralwhite;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-hero-header .logo-group {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.logo-badge-1,
+.logo-badge-2 {
+  background: var(--accent-orange);
+  color: #ffffff;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+}
+
+.auth-logo-img {
+  width: 450%;
+  height: auto;
+}
+
+/* Ukuran judul hero berbeda dari sidebar */
+.auth-hero .logo-text h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.auth-hero .logo-text p {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+}
+
+.auth-hero-body {
+  max-width: 480px;
+  margin: auto 0;
+}
+
+.auth-hero-body h2 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.auth-hero-body p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+.auth-hero-footer {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.campus-logo {
+  height: 48px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.campus-info h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.campus-info p {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Sisi formulir */
+.auth-form-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  background-color: #f2f2f2;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-card-header {
+  margin-bottom: 2rem;
+}
+
+.auth-card-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 0.5rem;
+}
+
+.auth-card-header p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.auth-footer-text {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 1.75rem;
+}
+
+.auth-footer-text a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-footer-text a:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   Halaman registrasi
+   -------------------------------------------------------------------------- */
+.register-card {
+  width: 100%;
+  max-width: 540px;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
+
+.error-msg {
+  display: none;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #ef4444;
+}
+
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

@@ -1,0 +1,40 @@
+/* ==========================================================================
+   themes.css — warna brand per unit (ditentukan oleh <body data-unit="...">)
+   Halaman unit memakai atribut data-unit, sehingga warna logo/avatar/badge
+   otomatis mengikuti unit tanpa perlu inline style di setiap elemen.
+   ========================================================================== */
+
+body[data-unit="sekjur"] {
+  --unit-brand: #2563eb;
+  --unit-soft-bg: #e0f2fe;
+  --unit-soft-text: #0369a1;
+}
+
+body[data-unit="prodi"] {
+  --unit-brand: #0284c7;
+  --unit-soft-bg: #f0fdf4;
+  --unit-soft-text: #15803d;
+}
+
+body[data-unit="kajur"] {
+  --unit-brand: #b45309;
+  --unit-soft-bg: #fef3c7;
+  --unit-soft-text: #b45309;
+}
+
+body[data-unit="kps"] {
+  --unit-brand: #4338ca;
+  --unit-soft-bg: #ede9fe;
+  --unit-soft-text: #6d28d9;
+}
+
+/* Terapkan warna brand pada komponen terkait */
+body[data-unit] .logo-badge,
+body[data-unit] .avatar {
+  background-color: var(--unit-brand);
+}
+
+body[data-unit] .badge-soft {
+  background-color: var(--unit-soft-bg);
+  color: var(--unit-soft-text);
+}

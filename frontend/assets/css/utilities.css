@@ -1,0 +1,71 @@
+/* ==========================================================================
+   utilities.css — kelas bantu kecil (warna teks, jarak, visibilitas)
+   ========================================================================== */
+
+/* Warna teks */
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-success {
+  color: #16a34a;
+}
+
+.text-emerald {
+  color: #10b981;
+}
+
+.text-danger {
+  color: #ef4444;
+}
+
+.text-info {
+  color: #2563eb;
+}
+
+.text-warning {
+  color: #ea580c;
+}
+
+.text-orange {
+  color: var(--accent-orange);
+}
+
+/* Perataan */
+.text-right {
+  text-align: right;
+}
+
+/* Jarak */
+.mt-sm {
+  margin-top: 0.5rem;
+}
+
+.mt-md {
+  margin-top: 1rem;
+}
+
+.mt-lg {
+  margin-top: 1.5rem;
+}
+
+.mb-lg {
+  margin-bottom: 1.5rem;
+}
+
+/* Visibilitas */
+.hidden {
+  display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

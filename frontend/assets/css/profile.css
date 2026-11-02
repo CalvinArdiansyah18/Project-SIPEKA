@@ -5,6 +5,12 @@
   align-items: start;
 }
 
+.profile-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .profile-card {
   background: #ffffff;
   border: 1px solid var(--border-color);
@@ -12,6 +18,52 @@
   padding: 1.75rem;
   box-shadow: var(--shadow-sm);
   text-align: center;
+}
+
+.profile-name {
+  color: var(--primary-navy);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.profile-badge {
+  display: inline-block;
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+/* Statistik ringkas (profil mahasiswa) */
+.stat-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.stat-mini-item {
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+}
+
+.stat-mini-num {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  line-height: 1.2;
+}
+
+.stat-mini-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
 }
 
 .avatar-large {

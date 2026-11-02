@@ -1,0 +1,347 @@
+/* ==========================================================================
+   layout.css — kerangka aplikasi: sidebar, header, konten, dan responsif
+   ========================================================================== */
+
+/* Logo (dipakai sidebar & hero auth) */
+.logo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: var(--accent-blue);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.logo-badge--sm {
+  width: 30px;
+  height: 30px;
+  font-size: 0.9rem;
+}
+
+.logo-text h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.logo-text p {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+/* Kerangka utama */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.app-sidebar {
+  width: 250px;
+  background-color: var(--primary-navy);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.sidebar-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.sidebar-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.sidebar-menu li.active a {
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.sidebar-footer a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.75rem 1rem;
+  color: #ef4444;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+}
+
+.sidebar-footer a:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Varian warna unit (slate-800) */
+.sidebar--unit {
+  background-color: #1e293b;
+}
+
+/* Area konten utama */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-light);
+  overflow-y: auto;
+}
+
+/* Header atas */
+.app-header {
+  height: 64px;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.header-breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.breadcrumb-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-profile--clickable {
+  cursor: pointer;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.avatar--unit {
+  background-color: #2563eb;
+}
+
+.user-info .user-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.user-info .user-role {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Wadah konten dashboard */
+.content-container {
+  padding: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
+
+.page-header-row--top {
+  align-items: flex-start;
+}
+
+.page-title h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+}
+
+.page-title p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.page-title--spaced {
+  margin-bottom: 2rem;
+}
+
+.page-title--tight {
+  margin-bottom: 1.5rem;
+}
+
+.page-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Ikon di dalam sidebar */
+.sidebar-menu a .icon {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+
+.sidebar-menu a:hover .icon,
+.sidebar-menu li.active a .icon {
+  color: #ffffff;
+}
+
+/* Topbar mobile */
+.mobile-topbar {
+  display: none;
+  background-color: var(--primary-navy);
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar--unit {
+  background-color: #1e293b;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.5px;
+}
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+.hamburger-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 998;
+}
+
+/* Responsif layout aplikasi */
+@media (max-width: 900px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .mobile-topbar {
+    display: flex;
+  }
+
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    z-index: 999;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .app-sidebar.active {
+    left: 0;
+  }
+
+  .sidebar-backdrop.active {
+    display: block;
+  }
+
+  .app-header {
+    display: none;
+  }
+
+  .content-container {
+    padding: 1.25rem 1rem;
+  }
+}
