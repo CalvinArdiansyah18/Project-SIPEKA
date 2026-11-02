@@ -186,7 +186,7 @@
             </div>
 
             <!-- Change Password Form -->
-            <div class="data-card" style="padding: 1.5rem;">
+            <!-- <div class="data-card" style="padding: 1.5rem;">
               <h4 style="color: var(--primary-navy); margin: 0 0 1.25rem;">Ganti Kata Sandi Akun Dinas</h4>
               <form id="changePasswordForm">
                 <div class="form-group">
@@ -207,7 +207,7 @@
                   <button type="submit" class="btn-primary" style="width: auto; padding: 0.65rem 1.5rem; background: #0f172a;">Perbarui Kata Sandi</button>
                 </div>
               </form>
-            </div>
+            </div> -->
 
           </div>
         </div>
