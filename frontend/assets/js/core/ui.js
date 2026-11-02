@@ -51,6 +51,106 @@ function closeModal(modalId) {
   }
 }
 
+// In-page text prompt (pengganti window.prompt bawaan browser).
+// Mengembalikan Promise<string|null>: teks yang diisi, atau null bila dibatalkan.
+function sipekaPrompt(options = {}) {
+  const {
+    title = 'Masukkan Keterangan',
+    message = '',
+    placeholder = '',
+    confirmText = 'Simpan',
+    cancelText = 'Batal',
+    danger = false,
+    required = true,
+    maxLength = 500,
+  } = options;
+
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+
+  return new Promise((resolve) => {
+    const modalId = 'sipekaPromptModal';
+    const lama = document.getElementById(modalId);
+    if (lama) lama.remove();
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = modalId;
+    modal.innerHTML = `
+      <div class="modal-backdrop" data-prompt-cancel></div>
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="sipekaPromptTitle" style="max-width: 480px;">
+        <div class="modal-header">
+          <div>
+            <h3 id="sipekaPromptTitle">${esc(title)}</h3>
+          </div>
+          <button type="button" class="modal-close-btn" data-prompt-cancel aria-label="Tutup">✕</button>
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <textarea class="form-input" data-prompt-input rows="4" maxlength="${Number(maxLength) || 500}"
+            placeholder="${esc(placeholder)}" style="min-height: 110px;"></textarea>
+          <div class="prompt-error" data-prompt-error></div>
+        </div>
+        <div class="prompt-actions">
+          <button type="button" class="btn-primary" data-prompt-confirm
+            style="width: auto; margin-top: 0; background-color: ${danger ? '#ef4444' : 'var(--accent-blue)'};">${esc(confirmText)}</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    const input = modal.querySelector('[data-prompt-input]');
+    const errorEl = modal.querySelector('[data-prompt-error]');
+    const btnConfirm = modal.querySelector('[data-prompt-confirm]');
+
+    let selesai = false;
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        bersihkan(null);
+      }
+    };
+    const bersihkan = (hasil) => {
+      if (selesai) return;
+      selesai = true;
+      document.removeEventListener('keydown', onKey);
+      closeModal(modalId);
+      modal.remove();
+      resolve(hasil);
+    };
+
+    modal.querySelectorAll('[data-prompt-cancel]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        // Jangan biarkan listener global ikut menutup modal lain di belakangnya.
+        e.stopPropagation();
+        bersihkan(null);
+      });
+    });
+
+    btnConfirm.addEventListener('click', () => {
+      const nilai = input.value.trim();
+      if (required && nilai === '') {
+        errorEl.textContent = 'Kolom ini wajib diisi.';
+        errorEl.style.display = 'block';
+        input.focus();
+        return;
+      }
+      bersihkan(nilai);
+    });
+
+    input.addEventListener('input', () => {
+      errorEl.style.display = 'none';
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) btnConfirm.click();
+    });
+
+    document.addEventListener('keydown', onKey);
+    openModal(modalId);
+    setTimeout(() => input.focus(), 50);
+  });
+}
+
 // Status Badge Generator
 function getStatusBadge(status) {
   switch (status) {

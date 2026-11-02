@@ -66,7 +66,6 @@ async function initVerifikasiPage() {
                         'approve',
                         'Laporan telah divalidasi oleh petugas unit.'
                     );
-                    showToast(`Laporan ${report.no_tiket} berhasil disetujui!`, 'success');
                     setTimeout(() => window.location.href = 'dashboard.php', 700);
                 } catch (error) {
                     btnApprove.disabled = false;
@@ -78,7 +77,13 @@ async function initVerifikasiPage() {
         if (btnReject) {
             btnReject.onclick = async (e) => {
                 e.preventDefault();
-                const reason = prompt('Masukkan alasan penolakan laporan:');
+                const reason = await sipekaPrompt({
+                    title: 'Tolak Laporan',
+                    message: `Tiket ${report.no_tiket} akan ditandai tidak valid. Alasan penolakan dicatat pada riwayat laporan.`,
+                    placeholder: 'Contoh: Bukti foto tidak sesuai dengan lokasi kejadian.',
+                    confirmText: 'Tolak Laporan',
+                    danger: true,
+                });
                 if (!reason) return;
                 btnReject.disabled = true;
                 try {
@@ -87,7 +92,6 @@ async function initVerifikasiPage() {
                         'reject',
                         `Ditolak unit: ${reason}`
                     );
-                    showToast(`Laporan ${report.no_tiket} ditandai tidak valid.`, 'error');
                     setTimeout(() => window.location.href = 'dashboard.php', 700);
                 } catch (error) {
                     btnReject.disabled = false;

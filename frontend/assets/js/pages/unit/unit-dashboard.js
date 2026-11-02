@@ -173,7 +173,13 @@ window.openValidationModal = async function (noTiket) {
     const btnReject = document.getElementById('btnReject');
     if (btnReject) {
         btnReject.onclick = async () => {
-            const reason = prompt('Masukkan alasan penolakan laporan:');
+            const reason = await sipekaPrompt({
+                title: 'Tolak Laporan',
+                message: `Tiket ${report.no_tiket} akan ditandai tidak valid. Alasan penolakan dicatat pada riwayat laporan.`,
+                placeholder: 'Contoh: Bukti foto tidak sesuai dengan lokasi kejadian.',
+                confirmText: 'Tolak Laporan',
+                danger: true,
+            });
             if (!reason) return;
             btnReject.disabled = true;
             try {
@@ -185,7 +191,7 @@ window.openValidationModal = async function (noTiket) {
                 showToast(error.message || 'Gagal menolak laporan.', 'error');
             } finally {
                 btnReject.disabled = false;
-            }       
+            }
         };
     }
 
