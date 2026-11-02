@@ -3,7 +3,8 @@
  * Halaman : content/unit/{unit}/dashboard.php
  * Fungsi  : initUnitDashboard(), window.openValidationModal(), window.openResolutionModal()
  * Data    : initUnitDashboard() memakai data asli (backend/api/unit/dashboard.php).
- *           openValidationModal/openResolutionModal MASIH data dummy (dikerjakan di tahap form).
+ *           openValidationModal() memakai API unit/detail.php + unit/validasi.php.
+ *           openResolutionModal() masih memakai store lokal (tahap penanganan).
  * Catatan : openValidationModal/openResolutionModal juga bisa dipakai halaman unit lain.
  * Dipanggil dari main.js (router) sesuai URL halaman.
  */
@@ -12,6 +13,10 @@
 // UNIT DASHBOARD & DISPOSITION CONTROLLER
 // Data: GET backend/api/unit/dashboard.php (unit ditentukan server dari akun yang login)
 // =======================================
+
+// Dipakai modal validasi/penanganan untuk memuat ulang daftar tanpa memasang listener ganda.
+let muatUlangDashboardUnit = null;
+
 async function initUnitDashboard() {
     const searchInput = document.getElementById('searchUnitReports');
     const statusFilter = document.getElementById('statusFilterUnit');
@@ -67,22 +72,10 @@ async function initUnitDashboard() {
         setText('unitStatDitolak', stats.ditolak);
 
         if (reports.length === 0) {
-            tbody.innerHTML = getEmptyStateHtml('Tidak Ada Laporan', 'Tidak ada laporan yang sesuai dengan filter atau pencarian pada unit ini.');
-            return;
-        }
-
-        const mValidasi = document.getElementById('unitStatValidasi');
-        const mProses = document.getElementById('unitStatProses');
-        const mSelesai = document.getElementById('unitStatSelesai');
-        const mDitolak = document.getElementById('unitStatDitolak');
-
-        if (mValidasi) mValidasi.textContent = stats.menunggu ?? 0;
-        if (mProses) mProses.textContent = stats.proses ?? 0;
-        if (mSelesai) mSelesai.textContent = stats.selesai ?? 0;
-
-        if (!tbody) return;
-        if (!reports || reports.length === 0) {
-            tbody.innerHTML = getEmptyStateHtml('Tidak Ada Laporan Masuk', 'Tidak ada laporan pengaduan pada unit ini saat ini. Semua laporan telah selesai diproses atau belum ada keluhan baru.');
+            tbody.innerHTML = getEmptyStateHtml(
+                'Tidak Ada Laporan Masuk',
+                'Tidak ada laporan yang sesuai dengan filter atau pencarian pada unit ini.'
+            );
             return;
         }
 
@@ -122,9 +115,6 @@ async function initUnitDashboard() {
         }).join('');
     }
 
-    if (searchInput) searchInput.addEventListener('input', () => loadUnitReports());
-    if (statusFilter) statusFilter.addEventListener('change', () => loadUnitReports());
-
     let timerCari;
     if (searchInput) {
         searchInput.addEventListener('input', () => {
@@ -133,13 +123,23 @@ async function initUnitDashboard() {
         });
     }
     if (statusFilter) statusFilter.addEventListener('change', () => loadUnitReports());
+    muatUlangDashboardUnit = loadUnitReports;
     await loadUnitReports();
 }
 
 // Modal Validasi (Unit Staff)
 window.openValidationModal = async function (noTiket) {
-    const report = await window.sipekaAPI.getReportDetail(noTiket);
-    if (!report) return;
+    let report;
+    try {
+        report = await window.sipekaAPI.getReportDetail(noTiket);
+    } catch (error) {
+        showToast(error.message || 'Gagal memuat detail laporan.', 'error');
+        return;
+    }
+    if (!report) {
+        showToast('Laporan tidak ditemukan pada unit Anda.', 'error');
+        return;
+    }
 
     const tEl = document.getElementById('valTiket');
     const pelaporEl = document.getElementById('valPelapor');
@@ -148,18 +148,25 @@ window.openValidationModal = async function (noTiket) {
     const kronEl = document.getElementById('valKronologi');
 
     if (tEl) tEl.textContent = report.no_tiket;
-    if (pelaporEl) pelaporEl.textContent = `${report.nama_pelapor || report.nama_mahasiswa} (${report.nim_pelapor || report.nim})`;
+    if (pelaporEl) pelaporEl.textContent = `${report.nama_pelapor || '-'} (${report.nim || '-'})`;
     if (judulEl) judulEl.textContent = report.judul_laporan;
-    if (lokasiEl) lokasiEl.textContent = report.lokasi;
-    if (kronEl) kronEl.textContent = report.kronologi;
+    if (lokasiEl) lokasiEl.textContent = report.lokasi || '-';
+    if (kronEl) kronEl.textContent = report.kronologi || '-';
 
     const btnApprove = document.getElementById('btnApprove');
     if (btnApprove) {
         btnApprove.onclick = async () => {
-            await window.sipekaAPI.validateReport(noTiket, 'approve', 'Staff Unit memvalidasi kebenaran laporan. Penugasan teknisi atau tindak lanjut telah dijadwalkan.');
-            showToast(`Tiket #${noTiket} telah divalidasi dan masuk status Penanganan!`, 'success');
-            closeModal('validationModal');
-            initUnitDashboard();
+            btnApprove.disabled = true;
+            try {
+                await window.sipekaAPI.validateReport(noTiket, 'approve', 'Staff Unit memvalidasi kebenaran laporan. Penugasan teknisi atau tindak lanjut telah dijadwalkan.');
+                showToast(`Tiket #${noTiket} telah divalidasi dan masuk status Penanganan!`, 'success');
+                closeModal('validationModal');
+                if (muatUlangDashboardUnit) await muatUlangDashboardUnit();
+            } catch (error) {
+                showToast(error.message || 'Gagal memvalidasi laporan.', 'error');
+            } finally {
+                btnApprove.disabled = false;
+            }
         };
     }
 
@@ -167,12 +174,18 @@ window.openValidationModal = async function (noTiket) {
     if (btnReject) {
         btnReject.onclick = async () => {
             const reason = prompt('Masukkan alasan penolakan laporan:');
-            if (reason) {
+            if (!reason) return;
+            btnReject.disabled = true;
+            try {
                 await window.sipekaAPI.validateReport(noTiket, 'reject', `Laporan ditolak oleh unit: ${reason}`);
                 showToast(`Tiket #${noTiket} ditandai Tidak Valid.`, 'error');
                 closeModal('validationModal');
-                initUnitDashboard();
-            }
+                if (muatUlangDashboardUnit) await muatUlangDashboardUnit();
+            } catch (error) {
+                showToast(error.message || 'Gagal menolak laporan.', 'error');
+            } finally {
+                btnReject.disabled = false;
+            }       
         };
     }
 

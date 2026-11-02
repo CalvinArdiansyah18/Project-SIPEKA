@@ -42,6 +42,29 @@ async function apiPostForm(path, formData) {
   return bacaRespons(res);
 }
 
+// POST body JSON (dipakai untuk aksi seperti validasi laporan).
+async function apiPostJson(path, payload = {}) {
+  const res = await fetch(`${API_ROOT_PATH}/${path}`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  return bacaRespons(res);
+}
+
+// Label status di UI -> parameter filter status di backend.
+function statusKeParam(status) {
+  const peta = {
+    'Menunggu Validasi': 'menunggu',
+    'Dalam Penanganan': 'proses',
+    'Selesai': 'selesai',
+    'Tidak Valid': 'ditolak',
+    'Ditolak': 'ditolak',
+  };
+  return peta[status] || status || 'all';
+}
+
 window.sipekaAPI = {
   login: async function (usernameOrEmail, password, role) {
     try {
@@ -66,7 +89,7 @@ window.sipekaAPI = {
           success: true,
           user: data,
           // Sesuaikan arah redirect berdasarkan role dari database
-          redirect: data.role === 'unit' ? getUnitDashboardPath(data.nama_unit, '..')  : '../mahasiswa/dashboard.php'
+          redirect: data.role === 'unit' ? getUnitDashboardPath(data.nama_unit, '..') : '../mahasiswa/dashboard.php'
         };
       } else {
         return {
@@ -162,7 +185,7 @@ window.sipekaAPI = {
   getDashboardUnit: async function (filter = {}) {
     return apiGet('unit/dashboard.php', { status: filter.status, q: filter.q });
   },
-  
+
   // 6. LAPORAN (data asli dari database)
   getKategoriLaporan: async function () {
     return apiGet('laporan/kategori.php');
@@ -208,16 +231,21 @@ window.sipekaAPI = {
     return window.sipekaStore ? window.sipekaStore.getStats(unitId) : { total: 0, menunggu: 0, proses: 0, selesai: 0, ditolak: 0 };
   },
 
-  getReports: async function (filter) {
+  getReports: async function (filter = {}) {
+    // Di area unit, daftar laporan harus datang dari backend (bukan localStorage).
+    if (filter.unit && filter.unit !== 'all') {
+      const data = await apiGet('unit/dashboard.php', {
+        status: statusKeParam(filter.status),
+        q: filter.q,
+      });
+      return data.laporan || [];
+    }
     if (!window.sipekaStore) return [];
     let reports = window.sipekaStore.getAllReports();
-    if (filter && filter.status && filter.status !== 'all') {
+    if (filter.status && filter.status !== 'all') {
       reports = reports.filter(r => r.status === filter.status);
     }
-    if (filter && filter.unit && filter.unit !== 'all') {
-      reports = reports.filter(r => r.unit_id === filter.unit);
-    }
-    if (filter && filter.q) {
+    if (filter.q) {
       const q = filter.q.toLowerCase();
       reports = reports.filter(r => r.no_tiket.toLowerCase().includes(q) || r.judul_laporan.toLowerCase().includes(q));
     }
@@ -225,7 +253,14 @@ window.sipekaAPI = {
   },
 
   getReportDetail: async function (noTiket) {
-    return window.sipekaStore ? window.sipekaStore.getReportById(noTiket) : null;
+     // Halaman unit memakai endpoint khusus unit (dibatasi id_unit dari session).
+    const diAreaUnit = window.location.pathname.includes('/unit/');
+    if (diAreaUnit) {
+      const data = await apiGet('unit/detail.php', { tiket: noTiket });
+      return data.laporan || null;
+    }
+    const data = await apiGet('laporan/detail.php', { tiket: noTiket });
+    return data.laporan || null;
   },
 
   createReport: async function (payload) {
@@ -237,12 +272,11 @@ window.sipekaAPI = {
   },
 
   validateReport: async function (noTiket, action, ket) {
-    if (window.sipekaStore) {
-      const status = action === 'approve' ? 'Dalam Penanganan' : 'Tidak Valid';
-      window.sipekaStore.updateStatus(noTiket, status, ket);
-      return { success: true };
-    }
-    return { success: false };
+    return apiPostJson('unit/validasi.php', {
+      tiket: noTiket,
+      action: action,
+      keterangan: ket,
+    });
   },
 
   resolveReport: async function (noTiket, tindakan) {
