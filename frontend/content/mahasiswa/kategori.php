@@ -94,12 +94,7 @@
     <main class="app-main">
       <header class="app-header">
         <div class="header-breadcrumb">
-          <a href="dashboard.php" style="color: var(--accent-blue); text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px;">
-            <svg class="icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m15 18-6-6 6-6" />
-            </svg>
-            Dashboard
-          </a>
+          <a href="dashboard.php" style="color: var(--text-muted); text-decoration: none; font-size: 0.85rem;">Dashboard</a>
           <span style="color: var(--text-muted); font-size: 0.85rem;"> / Buat Pengaduan</span>
         </div>
         <div class="user-profile" style="cursor: pointer;" onclick="window.location.href='profil.php'">
