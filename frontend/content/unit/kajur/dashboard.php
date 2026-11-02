@@ -98,6 +98,7 @@
               <option value="Menunggu Validasi">Menunggu Validasi</option>
               <option value="Dalam Penanganan">Dalam Penanganan</option>
               <option value="Selesai">Selesai</option>
+              <option value="Ditolak">Ditolak</option>
             </select>
           </div>
         </div>
@@ -108,7 +109,7 @@
             <div class="stat-indicator orange"></div>
             <div>
               <div class="stat-number" id="unitStatValidasi">0</div>
-              <div class="stat-label">Perlu Divalidasi</div>
+              <div class="stat-label">Menunggu</div>
             </div>
           </div>
 
@@ -116,7 +117,7 @@
             <div class="stat-indicator blue"></div>
             <div>
               <div class="stat-number" id="unitStatProses">0</div>
-              <div class="stat-label">Dalam Penanganan</div>
+              <div class="stat-label">Diproses</div>
             </div>
           </div>
 
@@ -124,7 +125,15 @@
             <div class="stat-indicator green"></div>
             <div>
               <div class="stat-number" id="unitStatSelesai">0</div>
-              <div class="stat-label">Selesai Ditangani</div>
+              <div class="stat-label">Selesai</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-indicator red"></div>
+            <div>
+              <div class="stat-number" id="unitStatDitolak">0</div>
+              <div class="stat-label">Ditolak</div>
             </div>
           </div>
         </div>

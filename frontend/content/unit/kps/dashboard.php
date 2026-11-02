@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard KPS - SIPEKA Polinema</title>
   <link rel="stylesheet" href="../../../assets/css/style.css">
 </head>
+
 <body data-unit="kps">
   <!-- Mobile Topbar -->
   <div class="mobile-topbar" style="background-color: #1e293b;">
@@ -97,6 +99,7 @@
               <option value="Menunggu Validasi">Menunggu Validasi</option>
               <option value="Dalam Penanganan">Dalam Penanganan</option>
               <option value="Selesai">Selesai</option>
+              <option value="Ditolak">Ditolak</option>
             </select>
           </div>
         </div>
@@ -107,7 +110,7 @@
             <div class="stat-indicator orange"></div>
             <div>
               <div class="stat-number" id="unitStatValidasi">0</div>
-              <div class="stat-label">Perlu Divalidasi</div>
+              <div class="stat-label">Menunggu</div>
             </div>
           </div>
 
@@ -115,7 +118,7 @@
             <div class="stat-indicator blue"></div>
             <div>
               <div class="stat-number" id="unitStatProses">0</div>
-              <div class="stat-label">Dalam Penanganan</div>
+              <div class="stat-label">Diproses</div>
             </div>
           </div>
 
@@ -123,7 +126,15 @@
             <div class="stat-indicator green"></div>
             <div>
               <div class="stat-number" id="unitStatSelesai">0</div>
-              <div class="stat-label">Selesai Ditangani</div>
+              <div class="stat-label">Selesai</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-indicator red"></div>
+            <div>
+              <div class="stat-number" id="unitStatDitolak">0</div>
+              <div class="stat-label">Ditolak</div>
             </div>
           </div>
         </div>
@@ -251,4 +262,5 @@
 
   <?php include __DIR__ . '/../../../includes/scripts.php'; ?>
 </body>
+
 </html>
