@@ -24,7 +24,7 @@ if ($id_bukti <= 0) {
 $st = $pdo->prepare(
     'SELECT b.nama_file, b.path_file, b.jenis_file, l.id_mahasiswa, k.id_unit
     FROM bukti_laporan b
-    JOIN laporan  l ON l.id_laporan  = b.id_laporan
+    JOIN laporan l ON l.id_laporan  = b.id_laporan
     JOIN kategori k ON k.id_kategori = l.id_kategori
     WHERE b.id_bukti = :id'
 );

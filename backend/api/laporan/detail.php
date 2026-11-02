@@ -27,7 +27,7 @@ if ($id_laporan === null) {
 
 // ---------- 1. data laporan (hanya jika milik mahasiswa ini) ----------
 $st = $pdo->prepare(
-    'SELECT l.id_laporan ' . sql_no_tiket('l.') . ' AS no_tiket,
+    'SELECT l.id_laporan, ' . sql_no_tiket('l.') . ' AS no_tiket,
             l.judul_laporan, l.lokasi, l.tanggal_kejadian, l.kronologi, l.status,
             l.tanggal_lapor, l.updated_at,
             k.nama_kategori, un.nama_unit
