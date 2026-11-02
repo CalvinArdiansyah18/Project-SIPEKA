@@ -96,7 +96,7 @@
               <option value="all">Semua Status</option>
               <option value="Menunggu Validasi">Menunggu Validasi</option>
               <option value="Dalam Penanganan">Dalam Penanganan</option>
-              <option value="Selesai">Selesai Ditangani</option>
+              <option value="Selesai">Selesai</option>
             </select>
           </div>
         </div>
