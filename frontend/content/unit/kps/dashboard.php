@@ -145,7 +145,7 @@
             <table class="custom-table">
               <thead>
                 <tr>
-                  <th>No. Tiket</th>
+                  <th>No</th>
                   <th>Data Pelapor</th>
                   <th>Pengaduan Tata Tertib</th>
                   <th>Tanggal</th>

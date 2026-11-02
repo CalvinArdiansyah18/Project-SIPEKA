@@ -159,7 +159,7 @@
             <table class="custom-table">
               <thead>
                 <tr>
-                  <th>No. Tiket</th>
+                  <th>No</th>
                   <th>Kategori</th>
                   <th>Judul Laporan</th>
                   <th>Tanggal Kejadian</th>

@@ -154,7 +154,7 @@
             <table class="custom-table">
               <thead>
                 <tr>
-                  <th>No. Tiket</th>
+                  <th>No</th>
                   <th>Data Pelapor</th>
                   <th>Judul Laporan Sarpras</th>
                   <th>Tanggal</th>

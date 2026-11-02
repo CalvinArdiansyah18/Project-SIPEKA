@@ -95,7 +95,7 @@
             <h3 style="margin-bottom: 1.5rem; color: var(--primary-navy); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Informasi Pengaduan</h3>
             <table class="summary-table">
               <tr>
-                <td class="label">Nomor Tiket</td>
+                <td class="label">Nomor</td>
                 <td><strong id="verifTiket">KP-0013</strong></td>
               </tr>
               <tr>
