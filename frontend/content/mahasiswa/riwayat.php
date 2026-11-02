@@ -191,8 +191,8 @@
             <td id="modalKronologi">-</td>
           </tr>
           <tr>
-            <td class="label">Status Saat Ini</td>
-            <td id="modalStatusBadge">-</td>
+            <td class="label">Tanggal</td>
+            <td id="modalTanggal">-</td>
           </tr>
         </table>
       </div>

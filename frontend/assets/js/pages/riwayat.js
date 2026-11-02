@@ -145,8 +145,8 @@ window.viewReportDetail = async function (noTiket) {
         document.getElementById('modalKronologi').textContent =
             report.kronologi || '-';
 
-        document.getElementById('modalStatusBadge').innerHTML =
-            getStatusBadge(report.status);
+        document.getElementById('modalTanggal').textContent =
+            report.tanggal_kejadian || '-';
 
         // Linimasa status dari tabel riwayat_status
         const timeline = document.getElementById('modalTimeline');
