@@ -94,7 +94,7 @@
     <main class="app-main">
       <header class="app-header">
         <div class="header-breadcrumb">
-          <span style="color: var(--text-muted); font-size: 0.85rem;">Portal Mahasiswa JTI Polinema</span>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Portal Mahasiswa JTI Polinema &rsaquo; <strong>Dashboard</strong></span>
         </div>
         <div class="user-profile" style="cursor: pointer;" onclick="window.location.href='profil.php'">
           <div class="avatar">GM</div>

@@ -93,8 +93,7 @@
     <main class="app-main">
       <header class="app-header">
         <div class="header-breadcrumb">
-          <a href="dashboard.php" style="color: var(--text-muted); text-decoration: none; font-size: 0.85rem;">Dashboard</a>
-          <span style="color: var(--text-muted); font-size: 0.85rem;"> / Riwayat & Tracking Status</span>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">Portal Mahasiswa JTI Polinema &rsaquo; <strong>Riwayat Pengaduan</strong></span>
         </div>
         <div class="user-profile" style="cursor: pointer;" onclick="window.location.href='profil.php'">
           <div class="avatar">GM</div>
