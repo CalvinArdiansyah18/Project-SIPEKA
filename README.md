@@ -14,3 +14,43 @@ Proyek ini menggunakan arsitektur **Decoupled/Separated** yang memisahkan modul 
 | 4 | **Galih Maula Mumtaza** | 254107020095 | Frontend Developer |
 
 ---
+
+## Struktur Folder Proyek
+
+Berikut adalah gambaran struktur direktori dan berkas utama dalam proyek **SIPEKA**:
+
+```text
+Project-SIPEKA/
+├── assets/                  # Berkas statis (CSS, JS, Gambar, Vendor)
+│   ├── css/                 # Stylesheet / Tailwind / Bootstrap
+│   ├── js/                  # Scripts & Logika Frontend
+│   └── images/              # Gambar & Logo Aplikasi
+├── config/                  # Pengaturan & Koneksi Database
+│   ├── database.php         # Konfigurasi Koneksi MySQL
+│   └── config.php           # Pengaturan Aplikasi & URL Base
+├── controllers/             # Alur Logika Pemrosesan (Controllers)
+├── models/                  # Pengelolaan Logika Data (Models)
+├── views/                   # Tampilan Antarmuka Pengguna (Views)
+│   ├── admin/               # Halaman Dashboard Admin
+│   ├── user/                # Halaman Antarmuka Pengguna
+│   └── templates/           # Header, Footer, Sidebar Modul
+├── database/                # Skema & Berkas SQL Database
+│   └── sipeka_db.sql        # Database Dump
+├── uploads/                 # Folder Penyimpanan Berkas/Foto Terunggah
+├── .gitignore               # Berkas yang Diabaikan oleh Git
+├── index.php                # Berkas Utama / Entry Point Aplikasi
+└── README.md                # Dokumentasi Proyek
+```
+
+---
+
+
+## Fitur Utama
+
+* **Autentikasi & Manajemen Pengguna:** Pengaturan hak akses berbasis peran (Admin, Pengguna/Kasir/Petugas).
+* **Dashboard Interaktif:** Visualisasi ringkasan data dan statistik secara *real-time*.
+* **Manajemen Data Utama (Master Data):** Kemudahan dalam menambah, mengubah, menghapus, dan mencari data.
+* **Pencatatan Transaksi / Pelayanan:** Alur kerja sistematis untuk pemrosesan data transaksi atau pelayanan.
+* **Laporan & Rekapitulasi:** Ekspor dan pencetakan rekap data laporan secara akurat.
+
+---
