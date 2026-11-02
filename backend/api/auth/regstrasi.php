@@ -13,13 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $in = json_in();
 
 // Hanya field ini yang diambil. "role" dan "id_unit" dari frontend DIABAIKAN.
-$nama          = trim($in['nama'] ?? '');
-$email         = strtolower(trim($in['email'] ?? ''));
-$password      = $in['password'] ?? '';
-$nim           = trim($in['nim'] ?? '');
+$nama = trim($in['nama'] ?? '');
+$email = strtolower(trim($in['email'] ?? ''));
+$password = $in['password'] ?? '';
+$nim = trim($in['nim'] ?? '');
 $program_studi = trim($in['program_studi'] ?? '');
-$telepon       = trim($in['nomor_telepon'] ?? '');
-$telepon       = $telepon === '' ? null : $telepon;
+$telepon = trim($in['nomor_telepon'] ?? '');
+$telepon = $telepon === '' ? null : $telepon;
 
 // ---------- validasi ----------
 if ($nama === '' || $email === '' || $password === '' || $nim === '' || $program_studi === '') {
@@ -48,9 +48,9 @@ try {
          RETURNING id_user"
     );
     $st->execute([
-        ':nama'  => $nama,
+        ':nama' => $nama,
         ':email' => $email,
-        ':hash'  => password_hash($password, PASSWORD_BCRYPT),
+        ':hash' => password_hash($password, PASSWORD_BCRYPT),
     ]);
     $id_user = $st->fetchColumn();
 
@@ -60,9 +60,9 @@ try {
     );
     $st->execute([
         ':id_user' => $id_user,
-        ':nim'     => $nim,
-        ':prodi'   => $program_studi,
-        ':telp'    => $telepon,
+        ':nim' => $nim,
+        ':prodi' => $program_studi,
+        ':telp' => $telepon,
     ]);
 
     $pdo->commit();

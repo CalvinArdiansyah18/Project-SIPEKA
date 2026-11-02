@@ -65,12 +65,11 @@ $unit = $st->fetch();
 
 //2. ringkasan, dari VIEW v_rekap_unit (tidak terpengaruh filter)
 $st = $pdo->prepare(
-    'SELECT COALESCE(SUM(total_laporan), 0) AS total,
-            COALESCE(SUM(menunggu), 0)      AS menunggu,
+    'SELECT COALESCE(SUM(menunggu), 0) AS menunggu,
             COALESCE(SUM(diproses), 0) + COALESCE(SUM(dalam_penanganan), 0) AS proses,
-            COALESCE(SUM(selesai), 0)       AS selesai,
-            COALESCE(SUM(ditolak), 0)       AS ditolak
-        FROM v_rekap_unit
+            COALESCE(SUM(selesai), 0) AS selesai,
+            COALESCE(SUM(ditolak), 0) AS ditolak
+    FROM v_rekap_unit
     WHERE id_unit = :u'
 );
 $st->execute([':u' => $id_unit]);
@@ -79,13 +78,14 @@ $stats = rapikan_stats($st->fetch());
 // 3. daftar laporan, dari VIEW v_laporan_unit
 // Urutan: laporan yang masih aktif lebih dulu (yang paling lama menunggu di atas),
 // lalu laporan selesai/ditolak (terbaru di atas).
-$sql = "SELECT id_laporan, " . sql_no_tiket() . " AS no_tiket,
+$sql = "SELECT id_laporan, " 
+            . sql_no_tiket() . " AS no_tiket,
             nama_kategori, judul_laporan, lokasi, tanggal_kejadian, tanggal_lapor, status, nama_pelapor, nim, program_studi, jumlah_bukti, jumlah_tanggapan,
             EXTRACT(DAY FROM now() - tanggal_lapor)::int AS hari_sejak_lapor, (status = 'menunggu' AND jumlah_tanggapan = 0 AND tanggal_lapor < now() - INTERVAL '3 days') AS perlu_perhatian
         FROM v_laporan_unit
-    WHERE " . implode(' AND ', $where) . "
-    ORDER BY (status IN ('selesai','ditolak')) ASC, CASE WHEN status IN ('selesai','ditolak') THEN NULL ELSE tanggal_lapor END ASC, tanggal_lapor DESC
-    LIMIT :lim";
+        WHERE " . implode(' AND ', $where) . "
+        ORDER BY (status IN ('selesai','ditolak')) ASC, CASE WHEN status IN ('selesai','ditolak') THEN NULL ELSE tanggal_lapor END ASC, tanggal_lapor DESC
+        LIMIT :lim";
 
 $st = $pdo->prepare($sql);
 foreach ($params as $k => $v) {

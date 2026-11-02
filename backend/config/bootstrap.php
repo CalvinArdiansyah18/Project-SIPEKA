@@ -1,9 +1,9 @@
 <?php
 // File persiapan bersama. Di-require di baris pertama setiap endpoint API.
 
-const APP_DEBUG = true;   // ubah ke false saat demo/produksi supaya pesan error internal tidak bocor
+const APP_DEBUG = true; // ubah ke false saat demo/produksi supaya pesan error internal tidak bocor
 
-ini_set('display_errors', '0');      // jangan tampilkan error PHP sebagai HTML
+ini_set('display_errors', '0'); // jangan tampilkan error PHP sebagai HTML
 error_reporting(E_ALL);
 
 header('Content-Type: application/json; charset=utf-8');
@@ -20,7 +20,7 @@ set_exception_handler(function (Throwable $e) {
 // Cookie session: tidak bisa dibaca JavaScript, hanya dikirim dari situs yang sama
 session_set_cookie_params([
     'lifetime' => 0,
-    'path'     => '/',
+    'path' => '/',
     'httponly' => true,
     'samesite' => 'Lax',
 ]);

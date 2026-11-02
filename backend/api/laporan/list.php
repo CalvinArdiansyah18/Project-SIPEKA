@@ -24,7 +24,7 @@ if ($id_mahasiswa === null) {
     json_out(['message' => 'Profil mahasiswa tidak ditemukan'], 404);
 }
 
-$where  = ['l.id_mahasiswa = :me'];
+$where = ['l.id_mahasiswa = :me'];
 $params = [':me' => $id_mahasiswa];
 
 $status = trim($_GET['status'] ?? 'all');
@@ -49,20 +49,20 @@ if ($q !== '') {
 $limit = max(1, min(200, (int)($_GET['limit'] ?? 100)));
 
 $sql = 'SELECT l.id_laporan,
-               ' . sql_no_tiket('l.') . ' AS no_tiket,
-               k.nama_kategori,
-               un.nama_unit,
-               l.judul_laporan,
-               l.lokasi,
-               l.tanggal_kejadian,
-               l.tanggal_lapor,
-               l.status
-          FROM laporan  l
-          JOIN kategori k  ON k.id_kategori = l.id_kategori
-          JOIN unit     un ON un.id_unit    = k.id_unit
-         WHERE ' . implode(' AND ', $where) . '
-         ORDER BY l.tanggal_lapor DESC, l.id_laporan DESC
-         LIMIT :lim';
+            ' . sql_no_tiket('l.') . ' AS no_tiket,
+            k.nama_kategori,
+            un.nama_unit,
+            l.judul_laporan,
+            l.lokasi,
+            l.tanggal_kejadian,
+            l.tanggal_lapor,
+            l.status
+        FROM laporan  l
+        JOIN kategori k  ON k.id_kategori = l.id_kategori
+        JOIN unit     un ON un.id_unit    = k.id_unit
+        WHERE ' . implode(' AND ', $where) . '
+        ORDER BY l.tanggal_lapor DESC, l.id_laporan DESC
+        LIMIT :lim';
 
 $st = $pdo->prepare($sql);
 foreach ($params as $k => $v) {
@@ -72,7 +72,7 @@ $st->bindValue(':lim', $limit, PDO::PARAM_INT);
 $st->execute();
 
 $laporan = array_map(function ($r) {
-    $r['id_laporan']    = (int)$r['id_laporan'];
+    $r['id_laporan'] = (int)$r['id_laporan'];
     $r['tanggal_lapor'] = iso_waktu($r['tanggal_lapor']);
     return $r;
 }, $st->fetchAll());

@@ -13,14 +13,14 @@ butuh_login('mahasiswa');
 
 $rows = $pdo->query(
     'SELECT k.id_kategori, k.nama_kategori, k.deskripsi, un.id_unit, un.nama_unit
-       FROM kategori k
-       JOIN unit un ON un.id_unit = k.id_unit
-      ORDER BY k.id_kategori'
+    FROM kategori k
+    JOIN unit un ON un.id_unit = k.id_unit
+    ORDER BY k.id_kategori'
 )->fetchAll();
 
 foreach ($rows as &$r) {
     $r['id_kategori'] = (int)$r['id_kategori'];
-    $r['id_unit']     = (int)$r['id_unit'];
+    $r['id_unit'] = (int)$r['id_unit'];
 }
 unset($r);
 

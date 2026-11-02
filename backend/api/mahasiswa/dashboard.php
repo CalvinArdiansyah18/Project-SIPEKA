@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     json_out(['message' => 'Method tidak diizinkan, gunakan GET'], 405);
 }
 
-$user = butuh_login('mahasiswa');                 // unit yang memanggil -> 403
-$id_mahasiswa = $user['id_mahasiswa'];            // diambil dari SESSION, bukan dari input frontend
+$user = butuh_login('mahasiswa'); // unit yang memanggil -> 403
+$id_mahasiswa = $user['id_mahasiswa']; // diambil dari SESSION, bukan dari input frontend
 if ($id_mahasiswa === null) {
     json_out(['message' => 'Profil mahasiswa tidak ditemukan'], 404);
 }
@@ -30,8 +30,8 @@ $st = $pdo->prepare(
             COUNT(*) FILTER (WHERE status IN ('diproses','dalam_penanganan')) AS proses,
             COUNT(*) FILTER (WHERE status = 'selesai') AS selesai,
             COUNT(*) FILTER (WHERE status = 'ditolak') AS ditolak
-       FROM laporan
-      WHERE id_mahasiswa = :id"
+    FROM laporan
+    WHERE id_mahasiswa = :id"
 );
 $st->execute([':id' => $id_mahasiswa]);
 $stats = rapikan_stats($st->fetch());

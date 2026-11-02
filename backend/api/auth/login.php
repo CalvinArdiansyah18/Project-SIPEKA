@@ -9,9 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_out(['message' => 'Method tidak diizinkan, gunakan POST'], 405);
 }
 
-$in       = json_in();
+$in = json_in();
 $identitas = trim($in['email'] ?? '');       // boleh email atau NIM
-$password  = $in['password'] ?? '';
+$password = $in['password'] ?? '';
 
 if ($identitas === '' || $password === '') {
     json_out(['message' => 'Email/NIM dan password wajib diisi'], 400);
@@ -21,15 +21,15 @@ if ($identitas === '' || $password === '') {
 $st = $pdo->prepare(
     'SELECT u.id_user, u.nama, u.password_hash, u.role, u.id_unit, m.id_mahasiswa, un.nama_unit
     FROM users u
-    LEFT JOIN mahasiswa m  ON m.id_user = u.id_user
-    LEFT JOIN unit      un ON un.id_unit = u.id_unit
+    LEFT JOIN mahasiswa m ON m.id_user = u.id_user
+    LEFT JOIN unit un ON un.id_unit = u.id_unit
     WHERE LOWER(u.email) = LOWER(:ident_email)
     OR m.nim = :ident_nim
     LIMIT 1'
 );
 $st->execute([
     ':ident_email' => $identitas,
-    ':ident_nim'   => $identitas,
+    ':ident_nim' => $identitas,
 ]);
 $u = $st->fetch();
 
@@ -42,15 +42,15 @@ if (!$u || !password_verify($password, $u['password_hash'])) {
 session_regenerate_id(true);
 
 $_SESSION['user'] = [
-    'id_user'      => (int)$u['id_user'],
-    'nama'         => $u['nama'],
-    'role'         => $u['role'],
-    'id_unit'      => $u['id_unit'] !== null ? (int)$u['id_unit'] : null,
+    'id_user' => (int)$u['id_user'],
+    'nama' => $u['nama'],
+    'role' => $u['role'],
+    'id_unit' => $u['id_unit'] !== null ? (int)$u['id_unit'] : null,
     'id_mahasiswa' => $u['id_mahasiswa'] !== null ? (int)$u['id_mahasiswa'] : null,
 ];
 
 json_out([
-    'nama'      => $u['nama'],
-    'role'      => $u['role'],
+    'nama' => $u['nama'],
+    'role' => $u['role'],
     'nama_unit' => $u['nama_unit'],
 ]);

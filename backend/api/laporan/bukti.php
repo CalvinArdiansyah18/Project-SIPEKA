@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     json_out(['message' => 'Method tidak diizinkan, gunakan GET'], 405);
 }
 
-$user = butuh_login();           // semua peran boleh masuk; hak akses dicek per berkas di bawah
+$user = butuh_login(); // semua peran boleh masuk; hak akses dicek per berkas di bawah
 $id_bukti = (int)($_GET['id'] ?? 0);
 if ($id_bukti <= 0) {
     json_out(['message' => 'ID bukti tidak valid'], 400);
@@ -23,10 +23,10 @@ if ($id_bukti <= 0) {
 
 $st = $pdo->prepare(
     'SELECT b.nama_file, b.path_file, b.jenis_file, l.id_mahasiswa, k.id_unit
-       FROM bukti_laporan b
-       JOIN laporan  l ON l.id_laporan  = b.id_laporan
-       JOIN kategori k ON k.id_kategori = l.id_kategori
-      WHERE b.id_bukti = :id'
+    FROM bukti_laporan b
+    JOIN laporan  l ON l.id_laporan  = b.id_laporan
+    JOIN kategori k ON k.id_kategori = l.id_kategori
+    WHERE b.id_bukti = :id'
 );
 $st->execute([':id' => $id_bukti]);
 $b = $st->fetch();
@@ -54,7 +54,7 @@ if ($root === false || $full === false || strncmp($full, $root . DIRECTORY_SEPAR
 $nama_ascii = preg_replace('/[^\x20-\x7E]/', '_', $b['nama_file']);
 $nama_ascii = str_replace(['"', '\\'], '_', $nama_ascii);
 
-session_write_close();           // lepaskan kunci session agar permintaan lain tidak menunggu
+session_write_close(); // lepaskan kunci session agar permintaan lain tidak menunggu
 
 header('Content-Type: ' . $b['jenis_file']);
 header('Content-Length: ' . filesize($full));

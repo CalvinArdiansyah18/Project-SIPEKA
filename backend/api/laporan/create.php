@@ -22,23 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $user = butuh_login('mahasiswa');
-$id_mahasiswa = $user['id_mahasiswa'];         // dari SESSION, bukan dari input frontend
+$id_mahasiswa = $user['id_mahasiswa']; // dari SESSION, bukan dari input frontend
 if ($id_mahasiswa === null) {
     json_out(['message' => 'Profil mahasiswa tidak ditemukan'], 404);
 }
 
 // Jika ukuran total kiriman melebihi post_max_size, PHP mengosongkan $_POST dan $_FILES
 if (empty($_POST) && empty($_FILES) && (int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 0) {
-    json_out(['message' => 'Ukuran data yang dikirim melebihi batas server (post_max_size = '
-        . ini_get('post_max_size') . ').'], 413);
+    json_out(['message' => 'Ukuran data yang dikirim melebihi batas server (post_max_size = '. ini_get('post_max_size') . ').'], 413);
 }
 
 // ---------- 1. ambil & validasi input ----------
 $id_kategori = (int)($_POST['id_kategori'] ?? 0);
-$judul       = trim((string)($_POST['judul_laporan'] ?? ''));
-$lokasi      = trim((string)($_POST['lokasi'] ?? ''));
-$tanggal     = trim((string)($_POST['tanggal_kejadian'] ?? ''));
-$kronologi   = trim((string)($_POST['kronologi'] ?? ''));
+$judul = trim((string)($_POST['judul_laporan'] ?? ''));
+$lokasi = trim((string)($_POST['lokasi'] ?? ''));
+$tanggal = trim((string)($_POST['tanggal_kejadian'] ?? ''));
+$kronologi = trim((string)($_POST['kronologi'] ?? ''));
 
 if ($id_kategori <= 0) {
     json_out(['message' => 'Kategori pengaduan wajib dipilih'], 400);
@@ -80,14 +79,14 @@ try {
          RETURNING id_laporan, ' . sql_no_tiket() . ' AS no_tiket'
     );
     $st->execute([
-        ':mhs'       => $id_mahasiswa,
-        ':kat'       => $id_kategori,
-        ':judul'     => $judul,
-        ':lokasi'    => $lokasi,
-        ':tgl'       => $tanggal,
+        ':mhs' => $id_mahasiswa,
+        ':kat' => $id_kategori,
+        ':judul' => $judul,
+        ':lokasi' => $lokasi,
+        ':tgl' => $tanggal,
         ':kronologi' => $kronologi,
     ]);
-    $baris      = $st->fetch();
+    $baris = $st->fetch();
     $id_laporan = (int)$baris['id_laporan'];
 
     if ($berkas !== null) {
@@ -99,9 +98,9 @@ try {
         );
         $st->execute([
             ':laporan' => $id_laporan,
-            ':nama'    => $berkas['nama'],
-            ':path'    => $path_tersimpan,
-            ':jenis'   => $berkas['mime'],
+            ':nama' => $berkas['nama'],
+            ':path' => $path_tersimpan,
+            ':jenis' => $berkas['mime'],
         ]);
     }
 
@@ -113,11 +112,11 @@ try {
     if ($path_tersimpan !== null) {
         @unlink(folder_uploads() . '/' . $path_tersimpan);   // jangan tinggalkan berkas yatim
     }
-    throw $e;   // ditangani handler di bootstrap.php (jawaban JSON 500)
+    throw $e; // ditangani handler di bootstrap.php (jawaban JSON 500)
 }
 
 json_out([
-    'message'    => 'Pengaduan berhasil diajukan',
+    'message' => 'Pengaduan berhasil diajukan',
     'id_laporan' => $id_laporan,
-    'no_tiket'   => $baris['no_tiket'],
+    'no_tiket' => $baris['no_tiket'],
 ], 201);

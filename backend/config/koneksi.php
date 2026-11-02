@@ -1,9 +1,9 @@
 <?php
 $DB_HOST = 'localhost';
 $DB_PORT = '5432';
-$DB_NAME = 'gant_nama_database';
+$DB_NAME = 'db_sipeka';
 $DB_USER = 'postgres';
-$DB_PASS = 'ganti_password_postgres';
+$DB_PASS = '3333';
 
 $pdo = new PDO(
     "pgsql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME",

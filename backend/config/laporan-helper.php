@@ -18,11 +18,11 @@ function id_dari_tiket(string $tiket): ?int
 function rapikan_stats(array $row): array
 {
     return [
-        'total'    => (int)($row['total'] ?? 0),
+        'total' => (int)($row['total'] ?? 0),
         'menunggu' => (int)($row['menunggu'] ?? 0),
-        'proses'   => (int)($row['proses'] ?? 0),     // diproses + dalam_penanganan
-        'selesai'  => (int)($row['selesai'] ?? 0),
-        'ditolak'  => (int)($row['ditolak'] ?? 0),
+        'proses' => (int)($row['proses'] ?? 0), // diproses + dalam_penanganan
+        'selesai' => (int)($row['selesai'] ?? 0),
+        'ditolak' => (int)($row['ditolak'] ?? 0),
     ];
 }
 
@@ -54,12 +54,12 @@ function panjang_teks(string $s): int
 function kondisi_status(string $kolom = 'status'): array
 {
     return [
-        'menunggu'         => "$kolom = 'menunggu'",
-        'proses'           => "$kolom IN ('diproses','dalam_penanganan')",   // gabungan untuk tampilan
-        'diproses'         => "$kolom = 'diproses'",
+        'menunggu' => "$kolom = 'menunggu'",
+        'proses' => "$kolom IN ('diproses','dalam_penanganan')", // gabungan untuk tampilan
+        'diproses' => "$kolom = 'diproses'",
         'dalam_penanganan' => "$kolom = 'dalam_penanganan'",
-        'selesai'          => "$kolom = 'selesai'",
-        'ditolak'          => "$kolom = 'ditolak'",
+        'selesai' => "$kolom = 'selesai'",
+        'ditolak' => "$kolom = 'ditolak'",
     ];
 }
 
@@ -69,11 +69,11 @@ function kondisi_status(string $kolom = 'status'): array
 // dan hanya disajikan lewat api/laporan/bukti.php setelah pengecekan hak akses.
 // ---------------------------------------------------------------
 
-const UPLOAD_MAKS_BYTE = 5 * 1024 * 1024;   // 5 MB
-const UPLOAD_JENIS = [                      // MIME yang diizinkan => ekstensi penyimpanan
-    'image/jpeg'      => 'jpg',
-    'image/png'       => 'png',
-    'image/webp'      => 'webp',
+const UPLOAD_MAKS_BYTE = 5 * 1024 * 1024; // 5 MB
+const UPLOAD_JENIS = [ // MIME yang diizinkan => ekstensi penyimpanan
+    'image/jpeg' => 'jpg',
+    'image/png' => 'png',
+    'image/webp' => 'webp',
     'application/pdf' => 'pdf',
 ];
 
@@ -88,10 +88,10 @@ function deteksi_mime(string $path): ?string
 {
     $h = @file_get_contents($path, false, null, 0, 12);
     if ($h === false || $h === '') return null;
-    if (strncmp($h, "\xFF\xD8\xFF", 3) === 0)                        return 'image/jpeg';
-    if (strncmp($h, "\x89PNG\r\n\x1a\n", 8) === 0)                   return 'image/png';
+    if (strncmp($h, "\xFF\xD8\xFF", 3) === 0) return 'image/jpeg';
+    if (strncmp($h, "\x89PNG\r\n\x1a\n", 8) === 0) return 'image/png';
     if (strncmp($h, 'RIFF', 4) === 0 && substr($h, 8, 4) === 'WEBP') return 'image/webp';
-    if (strncmp($h, '%PDF-', 5) === 0)                               return 'application/pdf';
+    if (strncmp($h, '%PDF-', 5) === 0) return 'application/pdf';
     return null;
 }
 
@@ -134,10 +134,10 @@ function periksa_berkas_upload(string $field): ?array
     $nama = substr($nama === '' || $nama === null ? 'berkas' : $nama, 0, 150);
 
     return [
-        'tmp'  => $f['tmp_name'],
+        'tmp' => $f['tmp_name'],
         'nama' => $nama,
         'mime' => $mime,
-        'ext'  => UPLOAD_JENIS[$mime],
+        'ext' => UPLOAD_JENIS[$mime],
         'size' => (int)$f['size'],
     ];
 }
