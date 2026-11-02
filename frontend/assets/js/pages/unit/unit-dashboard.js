@@ -22,7 +22,7 @@ async function initUnitDashboard() {
     const STATUS_PARAM = {
         'all': 'all',
         'Menunggu Validasi': 'menunggu',
-        'Dalam Penanganan': 'proses',        // mencakup: diproses + dalam_penanganan
+        'Dalam Penanganan': 'proses',// mencakup: diproses + dalam_penanganan
         'Selesai': 'selesai',
         'Tidak Valid': 'ditolak'
     };
@@ -30,18 +30,6 @@ async function initUnitDashboard() {
     function setText(id, nilai) {
         const el = document.getElementById(id);
         if (el) el.textContent = nilai ?? 0;
-    }
-
-    // Tombol aksi menuju halaman kerja unit (halaman tersebut dikerjakan di tahap berikutnya)
-    function tombolAksi(r) {
-        const t = encodeURIComponent(r.no_tiket);
-        if (r.status === 'menunggu') {
-            return `<a class="btn-action" style="padding: 0.35rem 0.8rem; font-size: 0.75rem; display: inline-block; text-decoration: none;" href="verifikasi.php?tiket=${t}">Validasi</a>`;
-        }
-        if (r.status === 'diproses' || r.status === 'dalam_penanganan') {
-            return `<a class="btn-detail" href="penanganan.php?tiket=${t}">Kelola Penanganan</a>`;
-        }
-        return `<a class="btn-detail" href="penanganan.php?tiket=${t}">Lihat</a>`;
     }
 
     let permintaanTerakhir = 0;   // mencegah respons lama menimpa respons yang lebih baru
@@ -58,9 +46,13 @@ async function initUnitDashboard() {
             });
         } catch (error) {
             if (idPermintaan !== permintaanTerakhir) return;
-            console.error('[SIPEKA] Gagal memuat dashboard unit:', err);
-            showToast(err.message || 'Gagal memuat data dashboard.', 'error');
-            tbody.innerHTML = getEmptyStateHtml('Gagal Memuat Data', escapeHtml(err.message || 'Terjadi kesalahan pada server.'));
+            console.error('[SIPEKA] Gagal memuat dashboard unit:', error);
+            showToast(error.message || 'Gagal memuat data dashboard.', 'error');
+            tbody.innerHTML = getEmptyStateHtml(
+                'Gagal Memuat Data',
+                escapeHtml(error.message || 'Terjadi kesalahan pada server.')
+            );
+
             return;
         }
 
@@ -78,14 +70,6 @@ async function initUnitDashboard() {
             return;
         }
 
-        // const reports = await window.sipekaAPI.getReports({
-        //     unit: selectedUnit,
-        //     status: statusVal,
-        //     q: query
-        // });
-
-        // const stats = await window.sipekaAPI.getStats(selectedUnit);
-
         const mValidasi = document.getElementById('unitStatValidasi');
         const mProses = document.getElementById('unitStatProses');
         const mSelesai = document.getElementById('unitStatSelesai');
@@ -101,27 +85,39 @@ async function initUnitDashboard() {
         }
 
         tbody.innerHTML = reports.map(r => {
-            const pelaporNama = r.nama_pelapor || r.nama_mahasiswa || 'Mahasiswa JTI';
-            const pelaporNim = r.nim_pelapor || r.nim || '254107020095';
+            const pelaporNama = escapeHtml(r.nama_pelapor || '-');
+            const pelaporNim = escapeHtml(r.nim || '-');
+            const tiket = encodeURIComponent(r.no_tiket);
+            const status = String(r.status || '').toLowerCase();
 
+            let aksi = '';
+
+            if (status === 'menunggu') {
+                aksi = `<a class="btn-action" href="verifikasi.php?tiket=${tiket}">Validasi</a>`;
+            } else if (
+                status === 'diproses' ||
+                status === 'dalam_penanganan'
+            ) {
+                aksi = `<a class="btn-action" href="penanganan.php?tiket=${tiket}">Penanganan</a>`;
+            }
+            // } else {
+            //     aksi = `<a class="btn-detail" href="penanganan.php?tiket=${tiket}" style="display:inline-block;text-decoration:none;">Lihat</a>`;
+            // }
             return `
-        <tr style="${r.status === 'Menunggu Validasi' ? 'background-color: #fffbeb;' : ''}">
-          <td><strong>${r.no_tiket}</strong></td>
-          <td>
-            <div style="font-weight: 600;">${pelaporNama}</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted);">${pelaporNim}</div>
-          </td>
-          <td>${r.judul_laporan}</td>
-          <td>${formatDate(r.tanggal_kejadian)}</td>
-          <td>${getStatusBadge(r.status)}</td>
-          <td>
-            ${r.status === 'Menunggu Validasi' ?
-                    `<button class="btn-action" style="padding: 0.35rem 0.8rem; font-size: 0.75rem;" onclick="openValidationModal('${r.no_tiket}')">Validasi</button>` :
-                    `<button class="btn-detail" onclick="openResolutionModal('${r.no_tiket}')">Kelola Penanganan</button>`
-                }
-          </td>
+        <tr>
+            <td><strong>${escapeHtml(r.no_tiket)}</strong></td>
+            <td>
+                <div style="font-weight:600;">${pelaporNama}</div>
+                <div style="font-size:.75rem;color:var(--text-muted);">
+                    ${pelaporNim}
+                </div>
+            </td>
+            <td>${escapeHtml(r.judul_laporan)}</td>
+            <td>${escapeHtml(formatDate(r.tanggal_kejadian))}</td>
+            <td>${getStatusBadge(r.status)}</td>
+            <td>${aksi}</td>
         </tr>
-      `;
+    `;
         }).join('');
     }
 
