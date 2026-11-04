@@ -15,42 +15,78 @@ Proyek ini menggunakan arsitektur **Decoupled/Separated** yang memisahkan modul 
 
 ---
 
-## Struktur Folder Proyek
+## Fitur Utama
 
-Berikut adalah gambaran struktur direktori dan berkas utama dalam proyek **SIPEKA**:
+- **Autentikasi & hak akses berbasis peran:** mahasiswa (pengguna) dan unit/petugas (Sekjur, Admin Prodi, Kajur, KPS).
+- **Pengajuan pengaduan:** mahasiswa mengirim keluhan atau aspirasi lengkap dengan kategori dan lampiran foto/berkas.
+- **Disposisi otomatis:** pengaduan langsung diteruskan ke unit yang berwenang tanpa perantara admin utama.
+- **Pelacakan status:** mahasiswa dapat memantau progres dan tanggapan atas pengaduannya.
+- **Dashboard interaktif:** ringkasan dan statistik pengaduan.
+- **Laporan & rekapitulasi:** ekspor dan cetak rekap pengaduan.
+
+## Teknologi yang Digunakan
+
+| Kategori | Teknologi |
+| :-- | :-- |
+| Frontend | HTML, CSS, JavaScript |
+| Backend | PHP |
+| Database | PostgreSQL |
+| Tools | Git, GitHub, VS Code, Figma |
+
+## Struktur Folder
 
 ```text
 Project-SIPEKA/
-├── assets/                  # Berkas statis (CSS, JS, Gambar, Vendor)
-│   ├── css/                 # Stylesheet / Tailwind / Bootstrap
-│   ├── js/                  # Scripts & Logika Frontend
-│   └── images/              # Gambar & Logo Aplikasi
-├── config/                  # Pengaturan & Koneksi Database
-│   ├── database.php         # Konfigurasi Koneksi MySQL
-│   └── config.php           # Pengaturan Aplikasi & URL Base
-├── controllers/             # Alur Logika Pemrosesan (Controllers)
-├── models/                  # Pengelolaan Logika Data (Models)
-├── views/                   # Tampilan Antarmuka Pengguna (Views)
-│   ├── admin/               # Halaman Dashboard Admin
-│   ├── user/                # Halaman Antarmuka Pengguna
-│   └── templates/           # Header, Footer, Sidebar Modul
-├── database/                # Skema & Berkas SQL Database
-│   └── sipeka_db.sql        # Database Dump
-├── uploads/                 # Folder Penyimpanan Berkas/Foto Terunggah
-├── .gitignore               # Berkas yang Diabaikan oleh Git
-├── index.php                # Berkas Utama / Entry Point Aplikasi
-└── README.md                # Dokumentasi Proyek
+├── assets/                  # Berkas statis
+│   ├── css/                 # Stylesheet
+│   ├── js/                  # Script frontend
+│   └── images/              # Gambar & logo
+├── config/                  # Pengaturan aplikasi
+│   ├── database.php         # Konfigurasi koneksi database
+│   └── config.php           # Pengaturan aplikasi & base URL
+├── controllers/             # Alur logika pemrosesan
+├── models/                  # Pengelolaan data
+├── views/                   # Tampilan antarmuka
+│   ├── admin/               # Dashboard admin/petugas
+│   ├── user/                # Halaman mahasiswa
+│   └── templates/           # Header, footer, sidebar
+├── database/
+│   └── sipeka_db.sql        # Skema & dump database
+├── uploads/                 # Lampiran pengaduan
+├── .gitignore
+├── index.php                # Entry point aplikasi
+└── README.md
 ```
 
----
+## Instalasi & Menjalankan
 
+### Prasyarat
 
-## Fitur Utama
+- PHP >= 8.0 (ekstensi `pdo_pgsql` aktif)
+- PostgreSQL
+- Web server lokal (XAMPP / Laragon) atau PHP built-in server
+- Git
 
-* **Autentikasi & Manajemen Pengguna:** Pengaturan hak akses berbasis peran (Pengguna, Unit/Petugas per kasus.)
-* **Dashboard Interaktif:** Visualisasi ringkasan data dan statistik secara *real-time*.
-* **Manajemen Data Utama (Master Data):** Kemudahan dalam menambah, mengubah, menghapus, dan mencari data.
-* **Pencatatan Transaksi / Pelayanan:** Alur kerja sistematis untuk pemrosesan data pelayanan.
-* **Laporan & Rekapitulasi:** Ekspor dan pencetakan rekap data laporan secara akurat.
+### Langkah-langkah
 
----
+```bash
+# 1. Clone repository
+git clone https://github.com/CalvinArdiansyah18/Project-SIPEKA.git
+cd Project-SIPEKA
+
+# 2. Buat database
+createdb sipeka_db
+
+# 3. Import skema database
+psql -U postgres -d sipeka_db -f database/sipeka_db.sql
+```
+
+4. Sesuaikan koneksi database di `config/database.php` (host, nama database, username, password).
+5. Sesuaikan base URL di `config/config.php`.
+6. Jalankan aplikasi:
+
+```bash
+php -S localhost:8000
+```
+
+Lalu buka `http://localhost:8000` di browser.
