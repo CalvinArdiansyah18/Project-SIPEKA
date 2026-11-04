@@ -47,10 +47,10 @@ Project-SIPEKA/
 
 ## Fitur Utama
 
-* **Autentikasi & Manajemen Pengguna:** Pengaturan hak akses berbasis peran (Admin, Pengguna/Kasir/Petugas).
+* **Autentikasi & Manajemen Pengguna:** Pengaturan hak akses berbasis peran (Pengguna, Unit/Petugas per kasus.)
 * **Dashboard Interaktif:** Visualisasi ringkasan data dan statistik secara *real-time*.
 * **Manajemen Data Utama (Master Data):** Kemudahan dalam menambah, mengubah, menghapus, dan mencari data.
-* **Pencatatan Transaksi / Pelayanan:** Alur kerja sistematis untuk pemrosesan data transaksi atau pelayanan.
+* **Pencatatan Transaksi / Pelayanan:** Alur kerja sistematis untuk pemrosesan data pelayanan.
 * **Laporan & Rekapitulasi:** Ekspor dan pencetakan rekap data laporan secara akurat.
 
 ---
