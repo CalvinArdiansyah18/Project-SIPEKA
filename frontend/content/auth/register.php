@@ -123,10 +123,10 @@
                 id="regPassword" 
                 name="password" 
                 class="form-input" 
-                placeholder="Minimal 6 karakter" 
+                placeholder="Minimal 8 karakter" 
                 required
               >
-              <div id="errPassword" class="error-msg">Password minimal 6 karakter.</div>
+              <div id="errPassword" class="error-msg">Password minimal 8 karakter.</div>
             </div>
 
             <div class="form-group">
