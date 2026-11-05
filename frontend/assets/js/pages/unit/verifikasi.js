@@ -49,6 +49,73 @@ async function initVerifikasiPage() {
         if (lokasiEl) lokasiEl.textContent = report.lokasi || '-';
         if (kronEl) kronEl.textContent = report.kronologi || '-';
 
+        // Menampilkan bukti yang diunggah mahasiswa
+const buktiContainer = document.getElementById('verifBukti');
+
+if (buktiContainer) {
+    buktiContainer.innerHTML = '';
+
+    const daftarBukti = report.bukti || [];
+
+    if (daftarBukti.length === 0) {
+        buktiContainer.innerHTML = `
+            <p class="bukti-kosong">
+                Pelapor tidak melampirkan bukti.
+            </p>
+        `;
+    } else {
+        daftarBukti.forEach((bukti) => {
+            const url = window.sipekaAPI.getBuktiUrl(bukti.id_bukti);
+
+            const item = document.createElement('div');
+            item.className = 'bukti-item';
+
+            const nama = document.createElement('p');
+            nama.className = 'bukti-nama';
+            nama.textContent = bukti.nama_file;
+
+            item.appendChild(nama);
+
+            // Preview gambar
+            if (bukti.jenis_file.startsWith('image/')) {
+                const gambar = document.createElement('img');
+
+                gambar.src = url;
+                gambar.alt = 'Bukti pelapor';
+                gambar.className = 'bukti-image';
+                gambar.loading = 'lazy';
+
+                item.appendChild(gambar);
+            }
+
+            // Preview PDF
+            else if (bukti.jenis_file === 'application/pdf') {
+                const pdf = document.createElement('iframe');
+
+                pdf.src = url;
+                pdf.className = 'bukti-pdf';
+                pdf.title = 'Dokumen bukti pelapor';
+
+                item.appendChild(pdf);
+            }
+
+            // File selain gambar dan PDF
+            else {
+                const link = document.createElement('a');
+
+                link.href = url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = 'Lihat / Unduh Bukti';
+
+                item.appendChild(link);
+            }
+
+            buktiContainer.appendChild(item);
+        });
+    }
+}
+
         if (report.status !== 'menunggu') {
             showToast(`Laporan ini sudah berstatus "${getStatusLabel(report.status)}".`, 'info');
         }

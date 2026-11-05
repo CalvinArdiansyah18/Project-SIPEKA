@@ -252,16 +252,24 @@ window.sipekaAPI = {
     return reports;
   },
 
-  getReportDetail: async function (noTiket) {
-     // Halaman unit memakai endpoint khusus unit (dibatasi id_unit dari session).
+getReportDetail: async function (noTiket) {
     const diAreaUnit = window.location.pathname.includes('/unit/');
+
     if (diAreaUnit) {
-      const data = await apiGet('unit/detail.php', { tiket: noTiket });
-      return data.laporan || null;
+        const data = await apiGet('unit/detail.php', { tiket: noTiket });
+
+        const laporan = data.laporan || null;
+
+        if (laporan) {
+            laporan.bukti = data.bukti || [];
+        }
+
+        return laporan;
     }
+
     const data = await apiGet('laporan/detail.php', { tiket: noTiket });
     return data.laporan || null;
-  },
+},
 
   createReport: async function (payload) {
     if (window.sipekaStore) {

@@ -7,6 +7,7 @@
   <?php include __DIR__ . '/../../../includes/styles.php'; ?>
 </head>
 <body data-unit="sekjur">
+
   <!-- Mobile Topbar -->
   <div class="mobile-topbar topbar--unit">
     <div class="topbar-brand">
@@ -58,7 +59,7 @@
       </div>
 
       <div class="sidebar-footer">
-        <a href="../../auth/login.php" data-logout">
+        <a href="../../auth/login.php" data-logout>
           <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
             <polyline points="16 17 21 12 16 7" />
@@ -74,6 +75,7 @@
         <div class="header-breadcrumb">
           <span class="breadcrumb-text">Portal Sekjur &rsaquo; <strong>Verifikasi Laporan Masuk</strong></span>
         </div>
+
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
           <div class="avatar avatar--unit">SJ</div>
           <div class="user-info">
@@ -84,15 +86,20 @@
       </header>
 
       <div class="content-container">
+
         <div class="page-title">
           <h2>Verifikasi Bukti &amp; Keabsahan Laporan Sarpras</h2>
           <p>Tinjau kelengkapan laporan mahasiswa sebelum menugaskan teknisi sarpras untuk perbaikan.</p>
         </div>
 
+        <!-- Grid Verifikasi -->
         <div class="detail-grid">
-          <!-- Left: Report Details -->
+
+          <!-- KIRI: Informasi Pengaduan dan Bukti Pelapor -->
           <div class="form-card form-card--full">
+
             <h3 class="card-title card-title--bordered">Informasi Pengaduan</h3>
+
             <table class="summary-table">
               <tr>
                 <td class="label">Nomor</td>
@@ -119,27 +126,54 @@
                 <td id="verifKronologi">Proyektor mati mendadak saat sesi praktikum dan stop kontak di baris tengah mengeluarkan percikan kecil.</td>
               </tr>
             </table>
-          </div>
 
-          <!-- Right: Action Card -->
+            <!-- Bukti Pelapor -->
+            <div class="bukti-section">
+              <h3 class="card-title">Bukti Pelapor</h3>
+
+              <div id="verifBukti" class="bukti-container">
+                <p>Memuat bukti pelapor...</p>
+              </div>
+            </div>
+
+          </div>
+          <!-- PENUTUP KOLOM KIRI -->
+
+
+          <!-- KANAN: Keputusan Verifikasi -->
           <div class="form-card form-card--full">
+
             <h3 class="card-title">Keputusan Verifikasi Sekjur</h3>
+
             <p class="card-note">
               Tentukan keabsahan laporan. Laporan yang valid akan langsung diteruskan ke teknisi sarpras.
             </p>
 
             <div class="action-stack">
-              <button type="button" id="btnApprovePage" class="btn-primary btn-success">✓ Setujui (Laporan Valid)</button>
-              <button type="button" id="btnRejectPage" class="btn-primary btn-danger">✕ Tolak (Tidak Valid)</button>
-              <a href="dashboard.php" class="btn-detail mt-sm">Kembali ke Dashboard</a>
+              <button type="button" id="btnApprovePage" class="btn-primary btn-success">
+                ✓ Setujui (Laporan Valid)
+              </button>
+
+              <button type="button" id="btnRejectPage" class="btn-primary btn-danger">
+                ✕ Tolak (Tidak Valid)
+              </button>
+
+              <a href="dashboard.php" class="btn-detail mt-sm">
+                Kembali ke Dashboard
+              </a>
             </div>
+
           </div>
+          <!-- PENUTUP KOLOM KANAN -->
+
         </div>
+        <!-- PENUTUP DETAIL GRID -->
 
       </div>
     </main>
   </div>
 
   <?php include __DIR__ . '/../../../includes/scripts.php'; ?>
+
 </body>
 </html>
