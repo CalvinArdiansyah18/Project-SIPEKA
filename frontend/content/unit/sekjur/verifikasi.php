@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verifikasi Laporan Sarpras - Sekjur SIPEKA</title>
   <?php include __DIR__ . '/../../../includes/styles.php'; ?>
 </head>
+
 <body data-unit="sekjur">
 
   <!-- Mobile Topbar -->
@@ -15,7 +17,8 @@
       <span class="topbar-title">SIPEKA Sekjur</span>
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
-      <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+        stroke-linecap="round" stroke-linejoin="round">
         <line x1="4" x2="20" y1="12" y2="12" />
         <line x1="4" x2="20" y1="6" y2="6" />
         <line x1="4" x2="20" y1="18" y2="18" />
@@ -39,7 +42,8 @@
         <ul class="sidebar-menu">
           <li class="active">
             <a href="dashboard.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1 2-2h2" />
                 <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
               </svg>
@@ -48,7 +52,8 @@
           </li>
           <li>
             <a href="profil.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
@@ -60,7 +65,8 @@
 
       <div class="sidebar-footer">
         <a href="../../auth/login.php" data-logout>
-          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+            fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
             <polyline points="16 17 21 12 16 7" />
             <line x1="21" x2="9" y1="12" y2="12" />
@@ -123,7 +129,8 @@
               </tr>
               <tr>
                 <td class="label">Kronologi Lengkap</td>
-                <td id="verifKronologi">Proyektor mati mendadak saat sesi praktikum dan stop kontak di baris tengah mengeluarkan percikan kecil.</td>
+                <td id="verifKronologi">Proyektor mati mendadak saat sesi praktikum dan stop kontak di baris tengah
+                  mengeluarkan percikan kecil.</td>
               </tr>
             </table>
 
@@ -176,4 +183,5 @@
   <?php include __DIR__ . '/../../../includes/scripts.php'; ?>
 
 </body>
+
 </html>

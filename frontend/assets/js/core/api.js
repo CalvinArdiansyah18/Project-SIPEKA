@@ -1,7 +1,8 @@
 // Alamat API diisi otomatis oleh includes/scripts.php (window.SIPEKA_CONFIG.apiBase)
-const API_BASE_PATH = (window.SIPEKA_CONFIG && window.SIPEKA_CONFIG.apiBase) || '/backend/api/auth';
+const API_BASE_PATH =
+  (window.SIPEKA_CONFIG && window.SIPEKA_CONFIG.apiBase) || "/backend/api/auth";
 // Akar API (satu tingkat di atas /auth): dipakai endpoint /mahasiswa/... dan /unit/...
-const API_ROOT_PATH = API_BASE_PATH.replace(/\/auth\/?$/, '');
+const API_ROOT_PATH = API_BASE_PATH.replace(/\/auth\/?$/, "");
 
 // Membaca respons server: harus JSON; jika status bukan 2xx, lempar Error berisi pesan dari server.
 async function bacaRespons(res) {
@@ -10,10 +11,10 @@ async function bacaRespons(res) {
   try {
     data = JSON.parse(text);
   } catch (e) {
-    throw new Error('Server tidak mengirim JSON:\n' + text.slice(0, 300));
+    throw new Error("Server tidak mengirim JSON:\n" + text.slice(0, 300));
   }
   if (!res.ok) {
-    const err = new Error(data.message || 'Terjadi kesalahan pada server.');
+    const err = new Error(data.message || "Terjadi kesalahan pada server.");
     err.status = res.status;
     throw err;
   }
@@ -24,10 +25,11 @@ async function bacaRespons(res) {
 async function apiGet(path, params = {}) {
   const qs = new URLSearchParams();
   Object.entries(params).forEach(([k, v]) => {
-    if (v !== undefined && v !== null && v !== '' && v !== 'all') qs.append(k, v);
+    if (v !== undefined && v !== null && v !== "" && v !== "all")
+      qs.append(k, v);
   });
-  const url = `${API_ROOT_PATH}/${path}` + (qs.toString() ? `?${qs}` : '');
-  const res = await fetch(url, { method: 'GET', credentials: 'include' });
+  const url = `${API_ROOT_PATH}/${path}` + (qs.toString() ? `?${qs}` : "");
+  const res = await fetch(url, { method: "GET", credentials: "include" });
   return bacaRespons(res);
 }
 
@@ -35,8 +37,8 @@ async function apiGet(path, params = {}) {
 // Jangan mengisi header Content-Type: browser mengaturnya sendiri beserta boundary-nya.
 async function apiPostForm(path, formData) {
   const res = await fetch(`${API_ROOT_PATH}/${path}`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
     body: formData,
   });
   return bacaRespons(res);
@@ -45,9 +47,9 @@ async function apiPostForm(path, formData) {
 // POST body JSON (dipakai untuk aksi seperti validasi laporan).
 async function apiPostJson(path, payload = {}) {
   const res = await fetch(`${API_ROOT_PATH}/${path}`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
   return bacaRespons(res);
@@ -56,26 +58,26 @@ async function apiPostJson(path, payload = {}) {
 // Label status di UI -> parameter filter status di backend.
 function statusKeParam(status) {
   const peta = {
-    'Menunggu Validasi': 'menunggu',
-    'Dalam Penanganan': 'proses',
-    'Selesai': 'selesai',
-    'Tidak Valid': 'ditolak',
-    'Ditolak': 'ditolak',
+    "Menunggu Validasi": "menunggu",
+    "Dalam Penanganan": "proses",
+    Selesai: "selesai",
+    "Tidak Valid": "ditolak",
+    Ditolak: "ditolak",
   };
-  return peta[status] || status || 'all';
+  return peta[status] || status || "all";
 }
 
 window.sipekaAPI = {
   login: async function (usernameOrEmail, password, role) {
     try {
       const response = await fetch(`${API_BASE_PATH}/login.php`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // Wajib agar session PHP cookies tersimpan
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // Wajib agar session PHP cookies tersimpan
         body: JSON.stringify({
           email: usernameOrEmail,
-          password: password
-        })
+          password: password,
+        }),
       });
 
       const data = await response.json();
@@ -89,16 +91,24 @@ window.sipekaAPI = {
           success: true,
           user: data,
           // Sesuaikan arah redirect berdasarkan role dari database
-          redirect: data.role === 'unit' ? getUnitDashboardPath(data.nama_unit, '..') : '../mahasiswa/dashboard.php'
+          redirect:
+            data.role === "unit"
+              ? getUnitDashboardPath(data.nama_unit, "..")
+              : "../mahasiswa/dashboard.php",
         };
       } else {
         return {
           success: false,
-          message: data.message || 'Login gagal. Periksa kembali email/NIM dan password.'
+          message:
+            data.message ||
+            "Login gagal. Periksa kembali email/NIM dan password.",
         };
       }
     } catch (err) {
-      return { success: false, message: 'Terjadi kesalahan jaringan ke server.' };
+      return {
+        success: false,
+        message: "Terjadi kesalahan jaringan ke server.",
+      };
     }
   },
 
@@ -106,17 +116,17 @@ window.sipekaAPI = {
   register: async function (payload) {
     try {
       const response = await fetch(`${API_BASE_PATH}/regstrasi.php`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           nama: payload.nama,
           email: payload.email,
           password: payload.password,
           nim: payload.nim,
           program_studi: payload.program_studi,
-          nomor_telepon: payload.nomor_telepon
-        })
+          nomor_telepon: payload.nomor_telepon,
+        }),
       });
 
       const data = await response.json();
@@ -124,17 +134,20 @@ window.sipekaAPI = {
       if (response.ok) {
         return {
           success: true,
-          message: data.message || 'Registrasi berhasil!',
-          redirect: '../auth/login.php'
+          message: data.message || "Registrasi berhasil!",
+          redirect: "../auth/login.php",
         };
       } else {
         return {
           success: false,
-          message: data.message || 'Registrasi gagal.'
+          message: data.message || "Registrasi gagal.",
         };
       }
     } catch (err) {
-      return { success: false, message: 'Terjadi kesalahan jaringan atau server.' };
+      return {
+        success: false,
+        message: "Terjadi kesalahan jaringan atau server.",
+      };
     }
   },
 
@@ -142,8 +155,8 @@ window.sipekaAPI = {
   getSession: async function () {
     try {
       const response = await fetch(`${API_BASE_PATH}/validasi.php`, {
-        method: 'GET',
-        credentials: 'include'
+        method: "GET",
+        credentials: "include",
       });
 
       if (response.ok) {
@@ -163,8 +176,8 @@ window.sipekaAPI = {
   logout: async function () {
     try {
       const response = await fetch(`${API_BASE_PATH}/logout.php`, {
-        method: 'POST',
-        credentials: 'include'
+        method: "POST",
+        credentials: "include",
       });
       const data = await response.json();
       if (window.sipekaStore) {
@@ -172,37 +185,37 @@ window.sipekaAPI = {
       }
       return data;
     } catch (err) {
-      return { message: 'Gagal melakukan logout.' };
+      return { message: "Gagal melakukan logout." };
     }
   },
 
   // 5. DASHBOARD (data asli dari database)
   getDashboardMahasiswa: async function (limit = 5) {
-    return apiGet('mahasiswa/dashboard.php', { limit });
+    return apiGet("mahasiswa/dashboard.php", { limit });
   },
 
   // filter: { status: 'all|menunggu|proses|selesai|ditolak', q: 'kata kunci' }
   getDashboardUnit: async function (filter = {}) {
-    return apiGet('unit/dashboard.php', { status: filter.status, q: filter.q });
+    return apiGet("unit/dashboard.php", { status: filter.status, q: filter.q });
   },
 
   // 6. LAPORAN (data asli dari database)
   getKategoriLaporan: async function () {
-    return apiGet('laporan/kategori.php');
+    return apiGet("laporan/kategori.php");
   },
 
   // formData: id_kategori, judul_laporan, lokasi, tanggal_kejadian, kronologi, bukti (berkas, opsional)
   createLaporan: async function (formData) {
-    return apiPostForm('laporan/create.php', formData);
+    return apiPostForm("laporan/create.php", formData);
   },
 
   // filter: { status: 'all|menunggu|proses|selesai|ditolak', q: 'kata kunci' }
   getRiwayatLaporan: async function (filter = {}) {
-    return apiGet('laporan/list.php', { status: filter.status, q: filter.q });
+    return apiGet("laporan/list.php", { status: filter.status, q: filter.q });
   },
 
   getDetailLaporan: async function (noTiket) {
-    return apiGet('laporan/detail.php', { tiket: noTiket });
+    return apiGet("laporan/detail.php", { tiket: noTiket });
   },
 
   // Alamat berkas bukti (dilindungi: hanya pemilik laporan / unit penanggung jawab yang bisa membuka)
@@ -220,21 +233,23 @@ window.sipekaAPI = {
     const user = window.sipekaStore ? window.sipekaStore.getUser() : {};
     const updated = { ...user, ...data };
     if (window.sipekaStore) window.sipekaStore.setUser(updated);
-    return { success: true, message: 'Profil berhasil diperbarui!' };
+    return { success: true, message: "Profil berhasil diperbarui!" };
   },
 
   changePassword: async function () {
-    return { success: true, message: 'Kata sandi berhasil diperbarui!' };
+    return { success: true, message: "Kata sandi berhasil diperbarui!" };
   },
 
   getStats: async function (unitId) {
-    return window.sipekaStore ? window.sipekaStore.getStats(unitId) : { total: 0, menunggu: 0, proses: 0, selesai: 0, ditolak: 0 };
+    return window.sipekaStore
+      ? window.sipekaStore.getStats(unitId)
+      : { total: 0, menunggu: 0, proses: 0, selesai: 0, ditolak: 0 };
   },
 
   getReports: async function (filter = {}) {
     // Di area unit, daftar laporan harus datang dari backend (bukan localStorage).
-    if (filter.unit && filter.unit !== 'all') {
-      const data = await apiGet('unit/dashboard.php', {
+    if (filter.unit && filter.unit !== "all") {
+      const data = await apiGet("unit/dashboard.php", {
         status: statusKeParam(filter.status),
         q: filter.q,
       });
@@ -242,45 +257,49 @@ window.sipekaAPI = {
     }
     if (!window.sipekaStore) return [];
     let reports = window.sipekaStore.getAllReports();
-    if (filter.status && filter.status !== 'all') {
-      reports = reports.filter(r => r.status === filter.status);
+    if (filter.status && filter.status !== "all") {
+      reports = reports.filter((r) => r.status === filter.status);
     }
     if (filter.q) {
       const q = filter.q.toLowerCase();
-      reports = reports.filter(r => r.no_tiket.toLowerCase().includes(q) || r.judul_laporan.toLowerCase().includes(q));
+      reports = reports.filter(
+        (r) =>
+          r.no_tiket.toLowerCase().includes(q) ||
+          r.judul_laporan.toLowerCase().includes(q),
+      );
     }
     return reports;
   },
 
-getReportDetail: async function (noTiket) {
-    const diAreaUnit = window.location.pathname.includes('/unit/');
+  getReportDetail: async function (noTiket) {
+    const diAreaUnit = window.location.pathname.includes("/unit/");
 
     if (diAreaUnit) {
-        const data = await apiGet('unit/detail.php', { tiket: noTiket });
+      const data = await apiGet("unit/detail.php", { tiket: noTiket });
 
-        const laporan = data.laporan || null;
+      const laporan = data.laporan || null;
 
-        if (laporan) {
-            laporan.bukti = data.bukti || [];
-        }
+      if (laporan) {
+        laporan.bukti = data.bukti || [];
+      }
 
-        return laporan;
+      return laporan;
     }
 
-    const data = await apiGet('laporan/detail.php', { tiket: noTiket });
+    const data = await apiGet("laporan/detail.php", { tiket: noTiket });
     return data.laporan || null;
-},
+  },
 
   createReport: async function (payload) {
     if (window.sipekaStore) {
       const newReport = window.sipekaStore.createReport(payload);
       return { success: true, data: newReport };
     }
-    return { success: false, message: 'Gagal membuat laporan' };
+    return { success: false, message: "Gagal membuat laporan" };
   },
 
   validateReport: async function (noTiket, action, ket) {
-    return apiPostJson('unit/validasi.php', {
+    return apiPostJson("unit/validasi.php", {
       tiket: noTiket,
       action: action,
       keterangan: ket,
@@ -289,11 +308,11 @@ getReportDetail: async function (noTiket) {
 
   resolveReport: async function (noTiket, tindakan) {
     if (window.sipekaStore) {
-      window.sipekaStore.updateStatus(noTiket, 'Selesai', tindakan, {
-        penanganan: { tindakan: tindakan, teknisi: 'Petugas Unit' }
+      window.sipekaStore.updateStatus(noTiket, "Selesai", tindakan, {
+        penanganan: { tindakan: tindakan, teknisi: "Petugas Unit" },
       });
       return { success: true };
     }
     return { success: false };
-  }
+  },
 };

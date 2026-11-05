@@ -12,11 +12,13 @@
   <!-- Mobile Topbar -->
   <div class="mobile-topbar topbar--unit">
     <div class="topbar-brand">
-      <div class="logo-badge logo-badge--sm">KP</div>
+      <div class="logo-badge logo-badge--sm"><img src="../../../assets/images/logo/Jti.webp" alt="Logo SIPEKA"
+          class="logo-JTI"></div>
       <span class="topbar-title">SIPEKA KPS</span>
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
-      <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+        stroke-linecap="round" stroke-linejoin="round">
         <line x1="4" x2="20" y1="12" y2="12" />
         <line x1="4" x2="20" y1="6" y2="6" />
         <line x1="4" x2="20" y1="18" y2="18" />
@@ -29,7 +31,8 @@
     <aside class="app-sidebar sidebar--unit">
       <div>
         <div class="sidebar-logo">
-          <div class="logo-badge">KP</div>
+          <div class="logo-badge"><img src="../../../assets/images/logo/Jti.webp" alt="Logo SIPEKA" class="logo-JTI">
+          </div>
           <div class="logo-text">
             <h1>SIPEKA KPS</h1>
             <p>Ketua Program Studi JTI</p>
@@ -39,7 +42,8 @@
         <ul class="sidebar-menu">
           <li class="active">
             <a href="dashboard.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1 2-2h2" />
                 <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
               </svg>
@@ -48,7 +52,8 @@
           </li>
           <li>
             <a href="profil.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
@@ -60,7 +65,8 @@
 
       <div class="sidebar-footer">
         <a href="../../auth/login.php" data-logout>
-          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+            fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
             <polyline points="16 17 21 12 16 7" />
             <line x1="21" x2="9" y1="12" y2="12" />
@@ -73,7 +79,8 @@
     <main class="app-main">
       <header class="app-header">
         <div class="header-breadcrumb">
-          <span class="breadcrumb-text">Portal Penanganan Unit Resmi &rsaquo; <strong>Ketua Program Studi (KPS)</strong></span>
+          <span class="breadcrumb-text">Portal Penanganan Unit Resmi &rsaquo; <strong>Ketua Program Studi
+              (KPS)</strong></span>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
           <div class="avatar">KP</div>
@@ -91,7 +98,8 @@
               <h2>Dashboard Ketua Program Studi (KPS)</h2>
               <span class="badge badge-soft">Tata Tertib Mahasiswa</span>
             </div>
-            <p>Pengawasan ketertiban perkuliahan, mediasi perselisihan mahasiswa, kecurangan akademik, dan penegakan kode etik mahasiswa JTI Polinema.</p>
+            <p>Pengawasan ketertiban perkuliahan, mediasi perselisihan mahasiswa, kecurangan akademik, dan penegakan
+              kode etik mahasiswa JTI Polinema.</p>
           </div>
           <div>
             <select id="statusFilterUnit" class="filter-select filter-select--accent">
@@ -142,11 +150,13 @@
         <!-- Search Toolbar -->
         <div class="toolbar-row">
           <div class="search-box">
-            <svg class="icon search-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="icon search-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"
+              stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.3-4.3" />
             </svg>
-            <input type="text" id="searchUnitReports" class="search-input" placeholder="Cari laporan ketertiban berdasarkan nomor tiket, judul, atau nama mahasiswa...">
+            <input type="text" id="searchUnitReports" class="search-input"
+              placeholder="Cari laporan ketertiban berdasarkan nomor tiket, judul, atau nama mahasiswa...">
           </div>
         </div>
 
@@ -208,12 +218,14 @@
 
       <div class="info-box">
         <p class="info-box__title">Keputusan Validasi KPS:</p>
-        <p class="info-box__text">Laporan valid akan masuk status <strong>Dalam Penanganan</strong> untuk mediasi atau pembinaan tata tertib mahasiswa bersangkutan.</p>
+        <p class="info-box__text">Laporan valid akan masuk status <strong>Dalam Penanganan</strong> untuk mediasi atau
+          pembinaan tata tertib mahasiswa bersangkutan.</p>
       </div>
 
       <div class="modal-actions">
         <button type="button" class="btn-primary btn-danger btn-inline" id="btnReject">✕ Tolak (Tidak Valid)</button>
-        <button type="button" class="btn-primary btn-success btn-inline" id="btnApprove">✓ Setujui (Mulai Penanganan)</button>
+        <button type="button" class="btn-primary btn-success btn-inline" id="btnApprove">✓ Setujui (Mulai
+          Penanganan)</button>
       </div>
     </div>
   </div>
@@ -244,7 +256,9 @@
       <form id="resolutionForm">
         <div class="form-group">
           <label for="resTindakan">Keterangan Tindakan Pembinaan / Mediasi <span class="required-mark">*</span></label>
-          <textarea id="resTindakan" class="form-input" placeholder="Tuliskan hasil mediasi antar mahasiswa, sanksi akademik, atau surat pernyataan..." required></textarea>
+          <textarea id="resTindakan" class="form-input"
+            placeholder="Tuliskan hasil mediasi antar mahasiswa, sanksi akademik, atau surat pernyataan..."
+            required></textarea>
         </div>
 
         <div class="form-group">

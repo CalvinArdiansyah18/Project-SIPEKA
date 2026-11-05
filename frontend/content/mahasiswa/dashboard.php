@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Mahasiswa - SIPEKA</title>
   <?php include __DIR__ . '/../../includes/styles.php'; ?>
 </head>
+
 <body>
   <!-- Mobile Topbar for Smartphone Screens -->
   <div class="mobile-topbar">
     <div class="topbar-brand">
-      <div class="logo-badge logo-badge--sm">i</div>
+      <div class="logo-badge logo-badge--sm"><img src="../../assets/images/logo/Jti.webp" alt="Logo SIPEKA"
+          class="logo-JTI"></div>
       <span class="topbar-title">SIPEKA</span>
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
-      <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+        stroke-linecap="round" stroke-linejoin="round">
         <line x1="4" x2="20" y1="12" y2="12" />
         <line x1="4" x2="20" y1="6" y2="6" />
         <line x1="4" x2="20" y1="18" y2="18" />
@@ -29,7 +33,8 @@
     <aside class="app-sidebar">
       <div>
         <div class="sidebar-logo">
-          <div class="logo-badge">i</div>
+          <div class="logo-badge"><img src="../../assets/images/logo/Jti.webp" alt="Logo SIPEKA" class="logo-JTI"></div>
+
           <div class="logo-text">
             <h1>SIPEKA</h1>
             <p>Sistem Pengaduan Kampus</p>
@@ -39,7 +44,8 @@
         <ul class="sidebar-menu">
           <li class="active">
             <a href="dashboard.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <rect width="7" height="9" x="3" y="3" rx="1" />
                 <rect width="7" height="5" x="14" y="3" rx="1" />
                 <rect width="7" height="9" x="14" y="12" rx="1" />
@@ -50,7 +56,8 @@
           </li>
           <li>
             <a href="kategori.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 20h9" />
                 <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
               </svg>
@@ -59,7 +66,8 @@
           </li>
           <li>
             <a href="riwayat.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12 6 12 12 16 14" />
               </svg>
@@ -68,7 +76,8 @@
           </li>
           <li>
             <a href="profil.php">
-              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
@@ -80,7 +89,8 @@
 
       <div class="sidebar-footer">
         <a href="../auth/login.php" data-logout>
-          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+            fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
             <polyline points="16 17 21 12 16 7" />
             <line x1="21" x2="9" y1="12" y2="12" />
@@ -180,4 +190,5 @@
 
   <?php include __DIR__ . '/../../includes/scripts.php'; ?>
 </body>
+
 </html>

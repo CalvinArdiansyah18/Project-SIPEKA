@@ -23,9 +23,9 @@ if ($id_unit === null) {
 }
 
 $in = json_in();
-$tiket = trim((string)($in['tiket'] ?? ''));
-$action = strtolower(trim((string)($in['action'] ?? '')));
-$keterangan = trim((string)($in['keterangan'] ?? ''));
+$tiket = trim((string) ($in['tiket'] ?? ''));
+$action = strtolower(trim((string) ($in['action'] ?? '')));
+$keterangan = trim((string) ($in['keterangan'] ?? ''));
 
 $id_laporan = id_dari_tiket($tiket);
 if ($id_laporan === null) {
@@ -58,7 +58,7 @@ $row = $st->fetch();
 if (!$row) {
     json_out(['message' => 'Laporan tidak ditemukan'], 404);
 }
-if ((int)$row['id_unit'] !== $id_unit) {
+if ((int) $row['id_unit'] !== $id_unit) {
     json_out(['message' => 'Laporan bukan tanggung jawab unit Anda'], 403);
 }
 if ($row['status'] !== 'menunggu') {
