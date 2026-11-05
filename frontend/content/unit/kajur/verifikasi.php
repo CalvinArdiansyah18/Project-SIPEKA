@@ -128,29 +128,49 @@
                   ketentuan UKT.</td>
               </tr>
             </table>
-          </div>
 
-          <!-- Right: Action Card -->
-          <div class="form-card form-card--full">
-            <h3 class="card-title">Keputusan Validasi Kajur</h3>
-            <p class="card-note">
-              Tentukan keabsahan pengaduan. Jika valid, pimpinan akan menerbitkan surat panggilan klarifikasi resmi.
-            </p>
+            <div class="bukti-section">
+              <h3 class="card-title">Bukti Pelapor</h3>
 
-            <div class="action-stack">
-              <button type="button" id="btnApprovePage" class="btn-primary btn-success">✓ Setujui (Laporan
-                Valid)</button>
-              <button type="button" id="btnRejectPage" class="btn-primary btn-danger">✕ Tolak (Tidak Valid)</button>
-              <a href="dashboard.php" class="btn-detail mt-sm">Kembali ke Dashboard</a>
+              <div id="verifBukti" class="bukti-container">
+                <p>Memuat bukti pelapor...</p>
+              </div>
             </div>
-          </div>
-        </div>
 
+          </div>
+
+        <!-- Right: Action Card -->
+        <div class="form-card form-card--full">
+
+          <h3 class="card-title">Keputusan Verifikasi Kajur</h3>
+
+          <p class="card-note">
+            Tentukan keabsahan pengaduan. Jika valid, pimpinan akan menerbitkan surat panggilan klarifikasi resmi.
+          </p>
+
+          <div class="action-stack">
+            <button type="button" id="btnApprovePage" class="btn-primary btn-success">
+              ✓ Setujui (Laporan Valid)
+            </button>
+
+            <button type="button" id="btnRejectPage" class="btn-primary btn-danger">
+              ✕ Tolak (Tidak Valid)
+            </button>
+
+            <a href="dashboard.php" class="btn-detail mt-sm">
+              Kembali ke Dashboard
+            </a>
+          </div>
+
+        </div>
       </div>
-    </main>
+
+  </div>
+  </main>
   </div>
 
   <?php include __DIR__ . '/../../../includes/scripts.php'; ?>
 </body>
+
 
 </html>
