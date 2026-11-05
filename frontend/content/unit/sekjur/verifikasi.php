@@ -13,7 +13,8 @@
   <!-- Mobile Topbar -->
   <div class="mobile-topbar topbar--unit">
     <div class="topbar-brand">
-      <div class="logo-badge logo-badge--sm">SJ</div>
+      <div class="logo-badge logo-badge--sm"><img src="../../../assets/images/logo/Jti.webp" alt="Logo SIPEKA"
+          class="logo-JTI"></div>
       <span class="topbar-title">SIPEKA Sekjur</span>
     </div>
     <button class="hamburger-btn" aria-label="Buka Menu">
@@ -32,7 +33,8 @@
     <aside class="app-sidebar sidebar--unit">
       <div>
         <div class="sidebar-logo">
-          <div class="logo-badge">SJ</div>
+          <div class="logo-badge "><img src="../../../assets/images/logo/Jti.webp" alt="Logo SIPEKA"
+              class="logo-JTI"></div>
           <div class="logo-text">
             <h1>SIPEKA Sekjur</h1>
             <p>Sekretariat Jurusan (Sarpras)</p>
