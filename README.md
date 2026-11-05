@@ -37,25 +37,56 @@ Proyek ini menggunakan arsitektur **Decoupled/Separated** yang memisahkan modul 
 
 ```text
 Project-SIPEKA/
-├── assets/                  # Berkas statis
-│   ├── css/                 # Stylesheet
-│   ├── js/                  # Script frontend
-│   └── images/              # Gambar & logo
-├── config/                  # Pengaturan aplikasi
-│   ├── database.php         # Konfigurasi koneksi database
-│   └── config.php           # Pengaturan aplikasi & base URL
-├── controllers/             # Alur logika pemrosesan
-├── models/                  # Pengelolaan data
-├── views/                   # Tampilan antarmuka
-│   ├── admin/               # Dashboard admin/petugas
-│   ├── user/                # Halaman mahasiswa
-│   └── templates/           # Header, footer, sidebar
-├── database/
-│   └── sipeka_db.sql        # Skema & dump database
-├── uploads/                 # Lampiran pengaduan
-├── .gitignore
-├── index.php                # Entry point aplikasi
-└── README.md
+│
+├── backend/                         # Bagian backend (server-side)
+│   │
+│   ├── api/                          # Kumpulan API aplikasi
+│   │   ├── auth/                     # API autentikasi (login, registrasi)
+│   │   ├── laporan/                  # API pengelolaan laporan pengaduan
+│   │   ├── mahasiswa/                # API khusus mahasiswa
+│   │   └── unit/                     # API khusus pengelola unit
+│   │
+│   └── config/                       # Konfigurasi backend
+│
+├── DB/                               # Skema & dump database
+│
+├── frontend/                         # Bagian frontend (tampilan aplikasi)
+│   │
+│   ├── assets/                       # Berkas aset pendukung tampilan
+│   │   │
+│   │   ├── css/                      # Stylesheet untuk desain aplikasi
+│   │   │
+│   │   ├── images/                   # Penyimpanan gambar aplikasi
+│   │   │   ├── backgrounds/          # Gambar latar belakang
+│   │   │   └── logo/                 # Logo aplikasi
+│   │   │
+│   │   └── js/                       # Script JavaScript frontend
+│   │       │
+│   │       ├── core/                 # Fungsi inti aplikasi
+│   │       │
+│   │       ├── pages/                # Script khusus setiap halaman
+│   │       │   ├── auth/             # Script halaman autentikasi
+│   │       │   ├── mahasiswa/        # Script fitur mahasiswa
+│   │       │   └── unit/             # Script fitur unit
+│   │       │
+│   │       └── shared/               # Script yang digunakan bersama
+│   │
+│   ├── content/                      # Halaman-halaman aplikasi
+│   │   │
+│   │   ├── auth/                     # Halaman login dan registrasi
+│   │   │
+│   │   ├── mahasiswa/                # Halaman khusus mahasiswa
+│   │   │
+│   │   └── unit/                     # Halaman khusus pengelola unit
+│   │       │
+│   │       ├── admin-prodi/          # Halaman administrator program studi
+│   │       ├── kajur/                # Halaman ketua jurusan
+│   │       ├── kps/                  # Halaman koordinator program studi
+│   │       └── sekjur/               # Halaman sekretaris jurusan
+│   │
+│   └── includes/                     # Komponen tampilan yang digunakan berulang
+│
+└── README.md                         # Dokumentasi dan panduan proyek
 ```
 
 ## Instalasi & Menjalankan
