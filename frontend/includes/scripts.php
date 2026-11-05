@@ -32,6 +32,7 @@ $files = [
     'pages/mahasiswa/mahasiswa-dashboard.js',
     'pages/mahasiswa/buat-laporan.js',
     'pages/unit/unit-dashboard.js',
+    'pages/unit/detail-selesai.js',
     'pages/unit/penanganan.js',
     'pages/unit/verifikasi.js',
     'pages/profile.js',
