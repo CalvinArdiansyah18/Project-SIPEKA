@@ -872,6 +872,11 @@
   align-items: start;
 }
 
+.detail-selesai-grid[hidden],
+#loadingDetail[hidden] {
+  display: none;
+}
+
 .detail-selesai-card {
   background: white;
   padding: 22px;
