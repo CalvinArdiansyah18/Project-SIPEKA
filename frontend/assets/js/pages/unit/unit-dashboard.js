@@ -95,7 +95,7 @@ async function initUnitDashboard() {
             ) {
                 aksi = `<a class="btn-action" href="penanganan.php?tiket=${tiket}">Penanganan</a>`;
             } else {
-                aksi = `<a class="btn-action" href="penanganan.php?tiket=${tiket}">Lihat</a>`;
+                aksi = `<a class="btn-action" href="detail-selesai.php?tiket=${tiket}">Lihat</a>`;
             }
             return `
         <tr>
