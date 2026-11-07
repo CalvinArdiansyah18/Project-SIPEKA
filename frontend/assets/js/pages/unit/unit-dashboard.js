@@ -4,7 +4,7 @@
  * Fungsi  : initUnitDashboard(), window.openValidationModal(), window.openResolutionModal()
  * Data    : initUnitDashboard() memakai data asli (backend/api/unit/dashboard.php).
  *           openValidationModal() memakai API unit/detail.php + unit/validasi.php.
- *           openResolutionModal() masih memakai store lokal (tahap penanganan).
+ *           openResolutionModal() memakai API unit/selesai.php.
  * Catatan : openValidationModal/openResolutionModal juga bisa dipakai halaman unit lain.
  * Dipanggil dari main.js (router) sesuai URL halaman.
  */
@@ -219,10 +219,14 @@ window.openResolutionModal = async function (noTiket) {
             const fileProof = form.querySelector('input[type="file"]');
             const rawProof = fileProof && fileProof.files.length > 0 ? fileProof.files[0] : null;
 
-            await window.sipekaAPI.resolveReport(noTiket, tindakan, rawProof);
-            showToast(`Tiket #${noTiket} berhasil ditandai SELESAI!`, 'success');
-            closeModal('resolutionModal');
-            initUnitDashboard();
+            try {
+                await window.sipekaAPI.resolveReport(noTiket, tindakan, rawProof);
+                showToast(`Tiket ${noTiket} berhasil ditandai SELESAI!`, 'success');
+                closeModal('resolutionModal');
+                if (muatUlangDashboardUnit) await muatUlangDashboardUnit();
+            } catch (error) {
+                showToast(error.message || 'Gagal menyelesaikan laporan.', 'error');
+            }
         };
     }
 
