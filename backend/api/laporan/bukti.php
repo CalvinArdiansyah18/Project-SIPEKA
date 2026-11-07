@@ -21,13 +21,23 @@ if ($id_bukti <= 0) {
     json_out(['message' => 'ID bukti tidak valid'], 400);
 }
 
-$st = $pdo->prepare(
-    'SELECT b.nama_file, b.path_file, b.jenis_file, l.id_mahasiswa, k.id_unit
-    FROM bukti_laporan b
-    JOIN laporan l ON l.id_laporan  = b.id_laporan
-    JOIN kategori k ON k.id_kategori = l.id_kategori
-    WHERE b.id_bukti = :id'
-);
+$sumber = ($_GET['sumber'] ?? '') === 'penanganan' ? 'penanganan' : 'laporan';
+if ($sumber === 'penanganan') {
+    $sql = 'SELECT b.nama_file, b.path_file, b.jenis_file, l.id_mahasiswa, k.id_unit
+        FROM bukti_penanganan b
+        JOIN penanganan p ON p.id_penanganan = b.id_penanganan
+        JOIN laporan l ON l.id_laporan  = p.id_laporan
+        JOIN kategori k ON k.id_kategori = l.id_kategori
+        WHERE b.id_bukti = :id';
+} else {
+    $sql = 'SELECT b.nama_file, b.path_file, b.jenis_file, l.id_mahasiswa, k.id_unit
+        FROM bukti_laporan b
+        JOIN laporan l ON l.id_laporan  = b.id_laporan
+        JOIN kategori k ON k.id_kategori = l.id_kategori
+        WHERE b.id_bukti = :id';
+}
+
+$st = $pdo->prepare($sql);
 $st->execute([':id' => $id_bukti]);
 $b = $st->fetch();
 
