@@ -20,6 +20,7 @@ const ROUTES = [
     { nama: 'profil', cocok: (p) => p.includes('profil.php'), jalankan: () => initProfilePage() },
     { nama: 'verifikasi', cocok: (p) => p.includes('verifikasi.php'), jalankan: () => initVerifikasiPage() },
     { nama: 'penanganan', cocok: (p) => p.includes('penanganan.php'), jalankan: () => initPenangananPage() },
+    { nama: 'detail-selesai', cocok: (p) => p.includes('detail-selesai.php'), jalankan: () => initDetailSelesaiPage() },
 ];
 
 function sipekaLog(...args) {
