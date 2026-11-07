@@ -1,6 +1,7 @@
 /**
  * Fungsi bantu yang dipakai banyak halaman.
- * Fungsi  : getUnitFromPath(), getUnitDashboardPath(), renderUserProfile(), escapeHtml(), getEmptyStateHtml()
+ * Fungsi  : getUnitFromPath(), getUnitDashboardPath(), renderUserProfile(), escapeHtml(), getEmptyStateHtml(),
+ * renderDaftarBukti()
  */
 
 // Helper: Deteksi Unit dari URL path
@@ -106,4 +107,66 @@ function getEmptyStateHtml(title, description) {
       </td>
     </tr>
   `;
+}
+
+// Helper: tampilkan daftar bukti (gambar, PDF, atau tautan) ke dalam sebuah elemen.
+//   wadah       : elemen tujuan
+//   daftar      : [{ id_bukti, nama_file, jenis_file }]
+//   sumber      : 'laporan' | 'penanganan' (menentukan alamat berkas di backend)
+//   pesanKosong : teks bila tidak ada bukti
+function renderDaftarBukti(wadah, daftar, sumber, pesanKosong) {
+    if (!wadah) return;
+    wadah.innerHTML = '';
+
+    if (!daftar || daftar.length === 0) {
+        const kosong = document.createElement('p');
+        kosong.className = 'bukti-kosong';
+        kosong.textContent = pesanKosong || 'Tidak ada bukti.';
+        wadah.appendChild(kosong);
+        return;
+    }
+
+    daftar.forEach((bukti) => {
+        const url = window.sipekaAPI.getBuktiUrl(bukti.id_bukti, sumber);
+        const jenis = String(bukti.jenis_file || '');
+
+        const item = document.createElement('div');
+        item.className = 'bukti-item';
+
+        const nama = document.createElement('p');
+        nama.className = 'bukti-nama';
+        nama.textContent = bukti.nama_file;
+        item.appendChild(nama);
+
+        if (jenis.startsWith('image/')) {
+            const gambar = document.createElement('img');
+            gambar.src = url;
+            gambar.alt = bukti.nama_file;
+            gambar.className = 'bukti-image';
+            gambar.loading = 'lazy';
+            // Berkas bisa hilang dari folder uploads (mis. data contoh): beri pesan, bukan gambar rusak
+            gambar.onerror = () => {
+                const info = document.createElement('p');
+                info.className = 'bukti-kosong';
+                info.textContent = 'Berkas tidak tersedia di server.';
+                gambar.replaceWith(info);
+            };
+            item.appendChild(gambar);
+        } else if (jenis === 'application/pdf') {
+            const pdf = document.createElement('iframe');
+            pdf.src = url;
+            pdf.className = 'bukti-pdf';
+            pdf.title = bukti.nama_file;
+            item.appendChild(pdf);
+        } else {
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = 'Lihat / Unduh Bukti';
+            item.appendChild(link);
+        }
+
+        wadah.appendChild(item);
+    });
 }
