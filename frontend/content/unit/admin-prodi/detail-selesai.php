@@ -113,31 +113,31 @@
                     </div>
 
 
-                    <!-- KARTU KANAN -->
+                    <!-- KARTU KANAN: hasil akhir (status hanya SELESAI atau DITOLAK, diisi dari database) -->
                     <div class="detail-selesai-card">
-                        <h3>Detail Penanganan</h3>
+                        <h3 id="judulKartuKanan">Detail Penanganan</h3>
                         <table class="detail-selesai-table">
                             <tr>
                                 <td>Status</td>
-                                <td><strong style="color:green">SELESAI</strong></td>
+                                <td><strong id="detailStatus">-</strong></td>
                             </tr>
                             <tr>
-                                <td>Petugas</td>
-                                <td id="detailPetugas">Sekjur</td>
+                                <td id="labelPetugas">Petugas</td>
+                                <td id="detailPetugas">-</td>
                             </tr>
                             <tr>
-                                <td>Tanggal</td>
+                                <td id="labelTanggal">Tanggal</td>
                                 <td id="detailTanggal">-</td>
                             </tr>
                         </table>
 
                         <div class="bukti-preview">
-                            <h3>Keterangan Penanganan</h3>
+                            <h3 id="judulKeterangan">Keterangan Penanganan</h3>
                             <p id="detailKeterangan">-</p>
                         </div>
 
-                        <div class="bukti-preview">
-                            <h3>Bukti Penanganan</h3>
+                        <div class="bukti-preview" id="blokBuktiPenanganan">
+                            <h3 id="judulBuktiKanan">Bukti Penanganan</h3>
                             <div id="buktiPenanganan"></div>
                         </div>
                     </div>
