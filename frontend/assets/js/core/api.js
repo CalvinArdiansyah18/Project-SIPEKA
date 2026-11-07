@@ -219,8 +219,10 @@ window.sipekaAPI = {
   },
 
   // Alamat berkas bukti (dilindungi: hanya pemilik laporan / unit penanggung jawab yang bisa membuka)
-  getBuktiUrl: function (idBukti) {
-    return `${API_ROOT_PATH}/laporan/bukti.php?id=${encodeURIComponent(idBukti)}`;
+  // sumber: 'laporan' (bukti dari pelapor, default) atau 'penanganan' (bukti dari petugas unit)
+  getBuktiUrl: function (idBukti, sumber = "laporan") {
+    const extra = sumber === "penanganan" ? "&sumber=penanganan" : "";
+    return `${API_ROOT_PATH}/laporan/bukti.php?id=${encodeURIComponent(idBukti)}${extra}`;
   },
 
   // --- STUB / LOCAL STORAGE HELPER UNTUK FITUR DASHBOARD & LAPORAN ---
@@ -281,6 +283,8 @@ window.sipekaAPI = {
 
       if (laporan) {
         laporan.bukti = data.bukti || [];
+        laporan.riwayat = data.riwayat || [];
+        laporan.penanganan = data.penanganan || [];
       }
 
       return laporan;
@@ -306,13 +310,13 @@ window.sipekaAPI = {
     });
   },
 
-  resolveReport: async function (noTiket, tindakan) {
-    if (window.sipekaStore) {
-      window.sipekaStore.updateStatus(noTiket, "Selesai", tindakan, {
-        penanganan: { tindakan: tindakan, teknisi: "Petugas Unit" },
-      });
-      return { success: true };
-    }
-    return { success: false };
+  // Menyelesaikan laporan: simpan penanganan + bukti (opsional) dan ubah status jadi 'selesai' di database.
+  // Melempar Error (berisi pesan dari server) jika gagal.
+  resolveReport: async function (noTiket, tindakan, berkas = null) {
+    const fd = new FormData();
+    fd.append("tiket", noTiket);
+    fd.append("keterangan", tindakan);
+    if (berkas) fd.append("bukti", berkas);
+    return apiPostForm("unit/selesai.php", fd);
   },
 };
