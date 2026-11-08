@@ -69,8 +69,7 @@
 .avatar-large {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb, #1e40af);
+  border-radius: 50%; 
   color: #ffffff;
   font-size: 2rem;
   font-weight: 700;

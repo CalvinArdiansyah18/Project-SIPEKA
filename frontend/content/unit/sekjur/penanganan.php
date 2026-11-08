@@ -83,10 +83,10 @@
           <span class="breadcrumb-text">Portal Sekjur &rsaquo; <strong>Tindakan Penanganan Sarpras</strong></span>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
-          <div class="avatar avatar--unit">SJ</div>
+          <div class="avatar avatar--unit"> </div>
           <div class="user-info">
-            <div class="user-name">Staff Sekretariat Jurusan</div>
-            <div class="user-role">Unit Sarana &amp; Prasarana</div>
+            <div class="user-name"> </div>
+            <div class="user-role"> </div>
           </div>
         </div>
       </header>

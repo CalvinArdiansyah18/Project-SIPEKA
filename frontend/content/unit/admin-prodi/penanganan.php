@@ -84,10 +84,10 @@
               Akademik</strong></span>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
-          <div class="avatar">AP</div>
+          <div class="avatar avatar--unit"> </div>
           <div class="user-info">
-            <div class="user-name">Admin Program Studi</div>
-            <div class="user-role">Unit Pelayanan Akademik</div>
+            <div class="user-name"> </div>
+            <div class="user-role"> </div>
           </div>
         </div>
       </header>

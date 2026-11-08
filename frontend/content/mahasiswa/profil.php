@@ -106,7 +106,7 @@
           <span class="breadcrumb-text">Portal Mahasiswa JTI Polinema &rsaquo; <strong>Profil</strong></span>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
-          <div class="avatar" id="topbarAvatar"> </div>
+          <div class="avatar " id="topbarAvatar"> </div>
           <div class="user-info">
             <div class="user-name" id="topbarName"> </div>
             <div class="user-role" id="topbarRole"> </div>
@@ -123,7 +123,7 @@
         <div class="profile-grid">
           <!-- Left Column: Summary Profile Card -->
           <div class="profile-card">
-            <div class="avatar-large" id="profAvatar"> </div>
+            <div class="avatar-large avatar" id="profAvatar"> </div>
             <h3 id="profCardNama" class="profile-name"> </h3>
             <div class="profile-badge">
               ✓ Mahasiswa Aktif Polinema

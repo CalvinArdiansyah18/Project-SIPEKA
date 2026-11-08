@@ -84,7 +84,7 @@
               Jurusan</strong></span>
         </div>
         <div class="user-profile">
-          <div class="avatar"> </div>
+          <div class="avatar avatar--unit"> </div>
           <div class="user-info">
             <div class="user-name"> </div>
             <div class="user-role"> </div>
@@ -102,7 +102,7 @@
         <div class="profile-grid">
           <!-- Left: Identity Card -->
           <div class="profile-card">
-            <div class="avatar-large" id="profAvatar"> </div>
+            <div class="avatar-large avatar--unit" id="profAvatar"> </div>
             <h3 id="profCardNama" class="profile-name"> </h3>
             <span class="badge badge-soft">
               ⚖️ Pimpinan Jurusan &amp; Etika

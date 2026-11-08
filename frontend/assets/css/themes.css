@@ -29,9 +29,11 @@ body[data-unit="kps"] {
 }
 
 /* Terapkan warna brand pada komponen terkait */
-body[data-unit] .logo-badge,
-body[data-unit] .avatar {
+body[data-unit] .logo-badge {
   background-color: transparent;
+}
+body[data-unit] .avatar {
+  background-color: var(--unit-brand);
 }
 
 body[data-unit] .badge-soft {

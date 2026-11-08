@@ -83,10 +83,10 @@
           <span class="breadcrumb-text">Portal KPS &rsaquo; <strong>Verifikasi Laporan Tata Tertib</strong></span>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
-          <div class="avatar">KP</div>
+          <div class="avatar avatar--unit"> </div>
           <div class="user-info">
-            <div class="user-name">Ketua Program Studi</div>
-            <div class="user-role">Unit Pembinaan &amp; Tata Tertib Mahasiswa</div>
+            <div class="user-name"> </div>
+            <div class="user-role"> </div>
           </div>
         </div>
       </header>

@@ -83,10 +83,10 @@
           <span class="breadcrumb-text">Portal Kajur &rsaquo; <strong>Verifikasi Pengaduan Masuk</strong></span>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
-          <div class="avatar">KJ</div>
+          <div class="avatar avatar--unit"> </div>
           <div class="user-info">
-            <div class="user-name">Ketua Jurusan TI</div>
-            <div class="user-role">Pimpinan Jurusan &amp; Pengawasan Etika</div>
+            <div class="user-name"> </div>
+            <div class="user-role"> </div>
           </div>
         </div>
       </header>
