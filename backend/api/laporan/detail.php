@@ -1,11 +1,12 @@
 <?php
 // GET /backend/api/laporan/detail.php?tiket=SPK-2026-00012
 // Detail satu laporan milik mahasiswa yang sedang login: data laporan, linimasa status,
-// tanggapan/penanganan unit, dan daftar bukti.
+// tanggapan/penanganan unit, hasil penanganan (beserta bukti penanganan), dan daftar bukti.
 // Laporan milik mahasiswa lain dijawab 404 (keberadaannya tidak dibocorkan).
 //
 // Jawaban:
-// { "laporan": {...}, "riwayat": [...], "catatan_unit": [...], "bukti": [...] }
+// { "laporan": {...}, "riwayat": [...], "catatan_unit": [...], "bukti": [...],
+//   "penanganan": [ { id_penanganan, keterangan, tanggal, petugas, bukti: [...] } ] }
 
 require __DIR__ . '/../../config/bootstrap.php';
 require __DIR__ . '/../../config/laporan-helper.php';
@@ -92,9 +93,53 @@ $bukti = array_map(function ($r) {
     return $r;
 }, $st->fetchAll());
 
+// ---------- 5. hasil penanganan + bukti penanganan dari unit ----------
+// Berkas bukti dibuka lewat bukti.php?id=...&sumber=penanganan (pemilik laporan diizinkan).
+$st = $pdo->prepare(
+    'SELECT p.id_penanganan, p.keterangan_penanganan AS keterangan, p.tanggal_penanganan AS tanggal,
+            u.nama AS petugas
+    FROM penanganan p
+    JOIN users u ON u.id_user = p.id_user
+    WHERE p.id_laporan = :id
+    ORDER BY p.tanggal_penanganan, p.id_penanganan'
+);
+$st->execute([':id' => $id_laporan]);
+$penanganan = array_map(function ($r) {
+    $r['id_penanganan'] = (int)$r['id_penanganan'];
+    $r['tanggal'] = iso_waktu($r['tanggal']);
+    $r['bukti'] = [];
+    return $r;
+}, $st->fetchAll());
+
+if ($penanganan) {
+    $st = $pdo->prepare(
+        'SELECT b.id_bukti, b.id_penanganan, b.nama_file, b.jenis_file, b.uploaded_at
+        FROM bukti_penanganan b
+        JOIN penanganan p ON p.id_penanganan = b.id_penanganan
+        WHERE p.id_laporan = :id
+        ORDER BY b.id_bukti'
+    );
+    $st->execute([':id' => $id_laporan]);
+    $buktiPenanganan = $st->fetchAll();
+    foreach ($penanganan as &$p) {
+        foreach ($buktiPenanganan as $b) {
+            if ((int)$b['id_penanganan'] === $p['id_penanganan']) {
+                $p['bukti'][] = [
+                    'id_bukti' => (int)$b['id_bukti'],
+                    'nama_file' => $b['nama_file'],
+                    'jenis_file' => $b['jenis_file'],
+                    'uploaded_at' => iso_waktu($b['uploaded_at']),
+                ];
+            }
+        }
+    }
+    unset($p);
+}
+
 json_out([
     'laporan' => $laporan,
     'riwayat' => $riwayat,
     'catatan_unit' => $catatan_unit,
     'bukti' => $bukti,
+    'penanganan' => $penanganan,
 ]);

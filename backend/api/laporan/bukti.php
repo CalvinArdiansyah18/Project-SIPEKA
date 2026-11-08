@@ -1,11 +1,12 @@
 <?php
-// GET /backend/api/laporan/bukti.php?id=<id_bukti>
-// Menyajikan berkas bukti laporan. Folder backend/uploads tidak bisa dibuka langsung dari browser,
+// GET /backend/api/laporan/bukti.php?id=<id_bukti>[&sumber=penanganan]
+// Menyajikan berkas bukti laporan (default) atau bukti penanganan (sumber=penanganan). Folder backend/uploads tidak bisa dibuka langsung dari browser,
 // jadi SEMUA akses berkas harus lewat endpoint ini.
 //
 // Hak akses:
 //   - mahasiswa : hanya bukti dari laporan miliknya
 //   - unit      : hanya bukti dari laporan yang masuk ke unitnya
+// (aturan yang sama berlaku untuk bukti penanganan)
 // Selain itu dijawab 404 (keberadaan berkas tidak dibocorkan).
 
 require __DIR__ . '/../../config/bootstrap.php';
