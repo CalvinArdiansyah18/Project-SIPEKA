@@ -942,3 +942,50 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Tanggapan unit & hasil penanganan */
+.tanggapan-card {
+  margin-top: 1.5rem;
+}
+
+.tanggapan-bantuan {
+  margin: 0 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.tanggapan-daftar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.tanggapan-item,
+.hasil-item {
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.tanggapan-item p,
+.hasil-item p {
+  margin: 4px 0 6px;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.tanggapan-item small,
+.hasil-item small {
+  color: var(--text-muted);
+}
+
+.hasil-ringkasan {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
