@@ -55,6 +55,9 @@ async function initVerifikasiPage() {
     if (lokasiEl) lokasiEl.textContent = report.lokasi || "-";
     if (kronEl) kronEl.textContent = report.kronologi || "-";
 
+    // Kartu tanggapan untuk pelapor (disimpan lewat backend/api/unit/tanggapan.php)
+    initTanggapanUnit(report);
+
     // Menampilkan bukti yang diunggah mahasiswa
     const buktiContainer = document.getElementById("verifBukti");
 

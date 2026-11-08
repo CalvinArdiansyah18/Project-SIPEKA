@@ -57,6 +57,9 @@ async function initPenangananPage() {
         setText('penangJudul', report.judul_laporan);
         setText('penangLokasi', report.lokasi || '-');
         setText('penangKategori', report.nama_kategori || '-');
+        
+        // Kartu tanggapan untuk pelapor (disimpan lewat backend/api/unit/tanggapan.php)
+        initTanggapanUnit(report);
 
         const form = document.getElementById('pageResolutionForm');
         if (!form) return;
