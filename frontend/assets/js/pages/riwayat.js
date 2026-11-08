@@ -65,7 +65,7 @@ async function initRiwayatPage() {
                     <td>${formatDate(r.tanggal_kejadian)}</td>
                     <td>${getStatusBadge(r.status)}</td>
                     <td>
-                        <button type="button" class="btn-detail" data-tiket="${escapeHtml(r.no_tiket || '')}">Lacak Linimasa<button>
+                        <button type="button" class="btn-detail" data-tiket="${escapeHtml(r.no_tiket || '')}">Lacak Linimasa</button>
                     </td>
                 </tr>
             `).join('');
@@ -159,34 +159,40 @@ window.viewReportDetail = async function (noTiket) {
                         <div class="timeline-dot ${index < history.length - 1 ? 'done' : ''
                     }"></div>
                         <div class="timeline-content">
-                            <h5>${escapeHtml(item.status || '-')}</h5>
+                            <h5>${escapeHtml(getStatusLabel(item.status))}</h5>
                             <div class="time">
-                                ${formatDate(item.tanggal_perubahan)}
+                                ${escapeHtml(formatDateTime(item.tanggal_perubahan))}
                             </div>
-                            <p>${escapeHtml(item.keterangan || '-')}</p>
                         </div>
                     </div>
                 `).join('')
                 : '<p>Belum ada riwayat perubahan status.</p>';
         }
 
-        // Tanggapan dan penanganan unit
+        // Hasil penanganan: status akhir, catatan + bukti penanganan, atau alasan penolakan
+        renderHasilPenanganan(
+            document.getElementById('modalHasil'),
+            report,
+            history,
+            response.penanganan || []
+        );
+
+        // Tanggapan dari unit (penanganan sudah ditampilkan di blok "Hasil Penanganan")
         const notes = document.getElementById('modalCatatan');
-        const catatan = response.catatan_unit || [];
+        const tanggapan = (response.catatan_unit || []).filter(item => item.jenis === 'Tanggapan');
 
         if (notes) {
-            notes.innerHTML = catatan.length
-                ? catatan.map(item => `
-                    <div class="timeline-content" style="margin-bottom:12px">
-                        <strong>${escapeHtml(item.jenis || '-')}</strong>
+            notes.innerHTML = tanggapan.length
+                ? tanggapan.map(item => `
+                    <div class="tanggapan-item">
                         <p>${escapeHtml(item.isi || '-')}</p>
                         <small>
                             ${escapeHtml(item.petugas || '-')}
-                            · ${formatDate(item.waktu)}
+                            · ${escapeHtml(formatDateTime(item.waktu))}
                         </small>
                     </div>
                 `).join('')
-                : '<p>Belum ada tanggapan atau penanganan dari unit.</p>';
+                : '<p class="bukti-kosong">Belum ada tanggapan dari unit.</p>';
         }
 
         openModal('trackingModal');
@@ -203,3 +209,78 @@ window.viewReportDetail = async function (noTiket) {
         );
     }
 };
+
+// Mengisi blok "Hasil Penanganan" pada modal pelacakan.
+//   wadah      : elemen #modalHasil
+//   report     : data laporan (status terkini)
+//   riwayat    : linimasa status dari riwayat_status
+//   penanganan : catatan penanganan unit beserta bukti-nya
+function renderHasilPenanganan(wadah, report, riwayat, penanganan) {
+    if (!wadah) return;
+    wadah.innerHTML = '';
+
+    const status = report.status;
+    const riwayatAkhir = [...riwayat].reverse().find(r => r.status === status) || null;
+
+    // Ringkasan status
+    const ringkasan = document.createElement('div');
+    ringkasan.className = 'hasil-ringkasan';
+    const pesan = {
+        menunggu: 'Laporan Anda menunggu validasi dari unit penanggung jawab.',
+        diproses: 'Laporan sudah divalidasi dan masuk antrean penanganan.',
+        dalam_penanganan: 'Laporan sedang ditangani oleh unit penanggung jawab.',
+        selesai: 'Penanganan laporan Anda telah selesai.',
+        ditolak: 'Laporan Anda ditolak oleh unit penanggung jawab.'
+    }[status] || '';
+    ringkasan.innerHTML = `<span>${escapeHtml(pesan)}</span>`;
+    wadah.appendChild(ringkasan);
+
+    // Laporan ditolak: tampilkan alasan dari riwayat status
+    if (status === 'ditolak') {
+        const alasan = document.createElement('div');
+        alasan.className = 'hasil-item';
+        alasan.innerHTML = `
+            <strong>Alasan Penolakan</strong>
+            <p>${escapeHtml((riwayatAkhir && riwayatAkhir.keterangan) || '-')}</p>
+            <small>${escapeHtml((riwayatAkhir && riwayatAkhir.diubah_oleh) || '-')}
+                · ${escapeHtml(formatDateTime(riwayatAkhir && riwayatAkhir.tanggal_perubahan))}</small>
+        `;
+        wadah.appendChild(alasan);
+        return;
+    }
+
+    if (penanganan.length === 0) {
+        const kosong = document.createElement('p');
+        kosong.className = 'bukti-kosong';
+        kosong.textContent = status === 'selesai'
+            ? 'Unit tidak mencatat rincian penanganan.'
+            : 'Hasil penanganan akan tampil di sini setelah unit mencatatnya.';
+        wadah.appendChild(kosong);
+        return;
+    }
+
+    // Satu kartu per catatan penanganan: keterangan, petugas, waktu, dan bukti
+    penanganan.forEach((p) => {
+        const item = document.createElement('div');
+        item.className = 'hasil-item';
+
+        const judul = document.createElement('strong');
+        judul.textContent = status === 'selesai' ? 'Tindakan Penanganan' : 'Catatan Penanganan';
+        const isi = document.createElement('p');
+        isi.textContent = p.keterangan || '-';
+        const meta = document.createElement('small');
+        meta.textContent = `${p.petugas || '-'} · ${formatDateTime(p.tanggal)}`;
+        item.append(judul, isi, meta);
+
+        const bukti = document.createElement('div');
+        bukti.className = 'bukti-preview';
+        const labelBukti = document.createElement('strong');
+        labelBukti.textContent = 'Bukti Penanganan';
+        const daftarBukti = document.createElement('div');
+        bukti.append(labelBukti, daftarBukti);
+        item.appendChild(bukti);
+        renderDaftarBukti(daftarBukti, p.bukti, 'penanganan', 'Petugas tidak melampirkan bukti penanganan.');
+
+        wadah.appendChild(item);
+    });
+}
