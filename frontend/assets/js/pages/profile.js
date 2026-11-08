@@ -9,7 +9,14 @@
 // PROFILE PAGE CONTROLLER (MAHASISWA & UNIT)
 // ==========================================
 async function initProfilePage() {
-    const profile = await window.sipekaAPI.getProfile();
+    let profile;
+    try {
+        profile = await window.sipekaAPI.getProfile();   // data asli dari database
+    } catch (error) {
+        console.error('[SIPEKA] Gagal memuat profil:', error);
+        showToast(error.message || 'Gagal memuat data profil.', 'error');
+        return;
+    }
     if (!profile) return;
 
     const isUnit = (profile.role === 'unit');
@@ -63,12 +70,13 @@ async function initProfilePage() {
         if (unitEl) unitEl.textContent = profile.nama_unit || 'Sekretariat Jurusan (Sekjur)';
         if (kodeEl) kodeEl.textContent = profile.kode_unit || 'sekjur';
         if (wewenangEl && profile.deskripsi_unit) wewenangEl.textContent = profile.deskripsi_unit;
-        if (emailEl) emailEl.textContent = profile.email || 'unit@polinema.ac.id';
+        if (emailEl) emailEl.textContent = profile.email || '-';
 
+        // Akun unit tidak punya nomor telepon di database: hanya nama yang bisa diubah
         const editNama = document.getElementById('editNama');
-        const editTelp = document.getElementById('editTelepon');
         if (editNama) editNama.value = profile.nama || '';
-        if (editTelp) editTelp.value = profile.nomor_telepon || '';
+        // const editTelp = document.getElementById('editTelepon');
+        // if (editTelp) editTelp.value = profile.nomor_telepon || '';
 
         const stats = profile.stats || {};
         const sTotal = document.getElementById('statProfTotal');
@@ -87,21 +95,30 @@ async function initProfilePage() {
         editForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const nama = document.getElementById('editNama').value.trim();
-            const telp = document.getElementById('editTelepon').value.trim();
+            const telpEl = document.getElementById('editTelepon');
+            const telp = telpEl ? telpEl.value.trim() : null;
+            const tombol = editForm.querySelector('button[type="submit"]');
 
             if (!nama || nama.length < 3) {
                 showToast('Nama lengkap minimal 3 karakter.', 'error');
                 return;
             }
 
-            const res = await window.sipekaAPI.updateProfile({ nama: nama, nomor_telepon: telp });
-            if (res && res.success) {
+            const payload = { nama: nama };
+            if (telp !== null) payload.nomor_telepon = telp;
+
+            if (tombol) tombol.disabled = true;
+            try {
+                const res = await window.sipekaAPI.updateProfile(payload);
+                const baru = res.profil || { nama: nama };
                 showToast(res.message || 'Profil berhasil diperbarui!', 'success');
                 renderUserProfile();
-                if (cardNamaEl) cardNamaEl.textContent = nama;
-                if (avatarEl) avatarEl.textContent = nama.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-            } else {
-                showToast(res ? res.message : 'Gagal memperbarui profil.', 'error');
+                if (cardNamaEl) cardNamaEl.textContent = baru.nama;
+                if (avatarEl) avatarEl.textContent = baru.nama.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            } catch (error) {
+                showToast(error.message || 'Gagal memperbarui profil.', 'error');
+            } finally {
+                if (tombol) tombol.disabled = false;
             }
         });
     }
@@ -120,8 +137,8 @@ async function initProfilePage() {
                 return;
             }
 
-            if (newPass.length < 6) {
-                showToast('Kata sandi baru minimal 6 karakter.', 'error');
+            if (newPass.length < 8) {
+                showToast('Kata sandi baru minimal 8 karakter.', 'error');
                 return;
             }
 
@@ -130,12 +147,16 @@ async function initProfilePage() {
                 return;
             }
 
-            const res = await window.sipekaAPI.changePassword(oldPass, newPass, confirmPass);
-            if (res && res.success) {
-                showToast('Kata sandi berhasil diperbarui!', 'success');
+            const tombol = changePassForm.querySelector('button[type="submit"]');
+            if (tombol) tombol.disabled = true;
+            try {
+                const res = await window.sipekaAPI.changePassword(oldPass, newPass, confirmPass);
+                showToast(res.message || 'Kata sandi berhasil diperbarui!', 'success');
                 changePassForm.reset();
-            } else {
-                showToast(res ? res.message : 'Gagal memperbarui kata sandi. Periksa kata sandi lama Anda.', 'error');
+            } catch (error) {
+                showToast(error.message || 'Gagal memperbarui kata sandi.', 'error');
+            } finally {
+                if (tombol) tombol.disabled = false;
             }
         });
     }
