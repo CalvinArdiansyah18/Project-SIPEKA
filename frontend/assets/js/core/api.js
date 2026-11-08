@@ -227,19 +227,39 @@ window.sipekaAPI = {
 
   // --- STUB / LOCAL STORAGE HELPER UNTUK FITUR DASHBOARD & LAPORAN ---
   // (Bagian ini menggunakan store.js lokal agar halaman mahasiswa & unit tetap berjalan mulus)
+  // Profil akun yang sedang login, langsung dari database (nama, email, telepon, ringkasan laporan).
   getProfile: async function () {
-    return window.sipekaStore ? window.sipekaStore.getUser() : null;
+    const data = await apiGet("auth/profil.php");
+    if (window.sipekaStore) {
+      const lama = window.sipekaStore.getUser() || {};
+      window.sipekaStore.setUser({ ...lama, ...data });
+    }
+    return data;
   },
 
+  // data: { nama, nomor_telepon }. Melempar Error (pesan dari server) jika gagal.
   updateProfile: async function (data) {
-    const user = window.sipekaStore ? window.sipekaStore.getUser() : {};
-    const updated = { ...user, ...data };
-    if (window.sipekaStore) window.sipekaStore.setUser(updated);
-    return { success: true, message: "Profil berhasil diperbarui!" };
+    const res = await apiPostJson("auth/profil.php", data);
+    if (window.sipekaStore && res.profil) {
+      const lama = window.sipekaStore.getUser() || {};
+      window.sipekaStore.setUser({ ...lama, ...res.profil });
+    }
+    return { success: true, message: res.message, profil: res.profil };
   },
 
-  changePassword: async function () {
-    return { success: true, message: "Kata sandi berhasil diperbarui!" };
+  // Melempar Error (pesan dari server) jika sandi lama salah atau sandi baru tidak memenuhi aturan.
+  changePassword: async function (sandiLama, sandiBaru, konfirmasi) {
+    const res = await apiPostJson("auth/ganti-sandi.php", {
+      sandi_lama: sandiLama,
+      sandi_baru: sandiBaru,
+      konfirmasi: konfirmasi,
+    });
+    return { success: true, message: res.message };
+  },
+
+  // Petugas unit menulis tanggapan untuk pelapor. Mengembalikan { message, tanggapan }.
+  sendTanggapan: async function (noTiket, isi) {
+    return apiPostJson("unit/tanggapan.php", { tiket: noTiket, isi: isi });
   },
 
   getStats: async function (unitId) {
@@ -285,6 +305,7 @@ window.sipekaAPI = {
         laporan.bukti = data.bukti || [];
         laporan.riwayat = data.riwayat || [];
         laporan.penanganan = data.penanganan || [];
+        laporan.catatan_unit = data.catatan_unit || [];
       }
 
       return laporan;
