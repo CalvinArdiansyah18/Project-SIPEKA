@@ -84,10 +84,10 @@
               Jurusan</strong></span>
         </div>
         <div class="user-profile">
-          <div class="avatar avatar--unit">SJ</div>
+          <div class="avatar avatar--unit"> </div>
           <div class="user-info">
-            <div class="user-name">Staff Sekretariat Jurusan</div>
-            <div class="user-role">Unit Sarana &amp; Prasarana</div>
+            <div class="user-name"> </div>
+            <div class="user-role"> </div>
           </div>
         </div>
       </header>
@@ -101,8 +101,8 @@
         <div class="profile-grid">
           <!-- Left: Identity Card -->
           <div class="profile-card">
-            <div class="avatar-large" id="profAvatar">SJ</div>
-            <h3 id="profCardNama" class="profile-name">Staff Sekretariat Jurusan</h3>
+            <div class="avatar-large" id="profAvatar"> </div>
+            <h3 id="profCardNama" class="profile-name"> </h3>
             <span class="badge badge-soft">
               🏛️ Unit Sarana &amp; Prasarana
             </span>
@@ -110,11 +110,11 @@
             <div class="profile-detail-list">
               <div class="profile-detail-item">
                 <span class="label">Nama Unit Resmi</span>
-                <span class="value" id="profDetailUnit">Sekretariat Jurusan (Sekjur)</span>
+                <span class="value" id="profDetailUnit"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Kode Unit</span>
-                <span class="value" id="profDetailKode">sekjur</span>
+                <span class="value" id="profDetailKode"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Status Unit</span>
@@ -122,7 +122,7 @@
               </div>
               <div class="profile-detail-item">
                 <span class="label">Email Kedinasan</span>
-                <span class="value" id="profDetailEmail">sekjur@polinema.ac.id</span>
+                <span class="value" id="profDetailEmail"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Lokasi Kantor</span>
@@ -177,8 +177,8 @@
             </div>
 
             <!-- Edit Profile Form -->
-            <div class="data-card card-padded-lg">
-              <h4 class="card-subtitle card-subtitle--spaced">Perbarui Data Kontak Petugas</h4>
+            <!-- <div class="data-card card-padded-lg">
+              <h4 class="card-subtitle card-subtitle--spaced">Perbarui Data Sekjur</h4>
               <form id="editProfileForm">
                 <div class="form-grid">
                   <div class="form-group">
@@ -194,7 +194,7 @@
                   <button type="submit" class="btn-primary btn-inline">Simpan Perubahan</button>
                 </div>
               </form>
-            </div>
+            </div> -->
 
             <!-- Change Password Form -->
             <!-- <div class="data-card card-padded-lg">

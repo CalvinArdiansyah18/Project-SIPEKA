@@ -84,10 +84,10 @@
               Jurusan</strong></span>
         </div>
         <div class="user-profile">
-          <div class="avatar">KJ</div>
+          <div class="avatar"> </div>
           <div class="user-info">
-            <div class="user-name">Ketua Jurusan TI</div>
-            <div class="user-role">Pimpinan Jurusan &amp; Pengawasan Etika</div>
+            <div class="user-name"> </div>
+            <div class="user-role"> </div>
           </div>
         </div>
       </header>
@@ -102,8 +102,8 @@
         <div class="profile-grid">
           <!-- Left: Identity Card -->
           <div class="profile-card">
-            <div class="avatar-large" id="profAvatar">KJ</div>
-            <h3 id="profCardNama" class="profile-name">Ketua Jurusan TI Polinema</h3>
+            <div class="avatar-large" id="profAvatar"> </div>
+            <h3 id="profCardNama" class="profile-name"> </h3>
             <span class="badge badge-soft">
               ⚖️ Pimpinan Jurusan &amp; Etika
             </span>
@@ -111,11 +111,11 @@
             <div class="profile-detail-list">
               <div class="profile-detail-item">
                 <span class="label">Jabatan Kedinasan</span>
-                <span class="value" id="profDetailUnit">Ketua Jurusan (Kajur)</span>
+                <span class="value" id="profDetailUnit"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Kode Unit</span>
-                <span class="value" id="profDetailKode">kajur</span>
+                <span class="value" id="profDetailKode"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Status Jabatan</span>
@@ -123,7 +123,7 @@
               </div>
               <div class="profile-detail-item">
                 <span class="label">Email Kedinasan</span>
-                <span class="value" id="profDetailEmail">kajur@polinema.ac.id</span>
+                <span class="value" id="profDetailEmail"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Lokasi Kantor</span>
@@ -156,7 +156,7 @@
 
             <!-- Workload Stats -->
             <div class="data-card card-padded">
-              <h4 class="card-subtitle">Ringkasan Beban Pengawasan Kajur</h4>
+              <h4 class="card-subtitle">Ringkasan Hasil Kerja</h4>
               <div class="stat-badge-grid">
                 <div class="stat-badge-card">
                   <div class="num" id="statProfTotal">0</div>
@@ -178,8 +178,8 @@
             </div>
 
             <!-- Edit Profile Form -->
-            <div class="data-card card-padded-lg">
-              <h4 class="card-subtitle card-subtitle--spaced">Perbarui Data Kontak Pimpinan / Staf Ahli</h4>
+            <!-- <div class="data-card card-padded-lg">
+              <h4 class="card-subtitle card-subtitle--spaced">Perbarui Data Kajur</h4>
               <form id="editProfileForm">
                 <div class="form-grid">
                   <div class="form-group">
@@ -195,7 +195,7 @@
                   <button type="submit" class="btn-primary btn-inline">Simpan Perubahan</button>
                 </div>
               </form>
-            </div>
+            </div> -->
 
             <!-- Change Password Form -->
             <!-- <div class="data-card card-padded-lg">

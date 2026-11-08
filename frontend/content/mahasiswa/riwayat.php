@@ -211,6 +211,11 @@
         <!-- Diisi dari database oleh pages/riwayat.js -->
       </div>
 
+      <h4 class="modal-section-title modal-section-title--spaced">Hasil Penanganan</h4>
+      <div id="modalHasil">
+        <!-- Diisi dari database oleh pages/riwayat.js -->
+      </div>
+      
       <h4 class="modal-section-title modal-section-title--spaced">Tanggapan &amp; Penanganan Unit</h4>
       <div id="modalCatatan">
         <!-- Diisi dari database oleh pages/riwayat.js -->

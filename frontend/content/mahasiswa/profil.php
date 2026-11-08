@@ -106,10 +106,10 @@
           <span class="breadcrumb-text">Portal Mahasiswa JTI Polinema &rsaquo; <strong>Profil</strong></span>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
-          <div class="avatar" id="topbarAvatar">GM</div>
+          <div class="avatar" id="topbarAvatar"> </div>
           <div class="user-info">
-            <div class="user-name" id="topbarName">Galih Maula Mumtaza</div>
-            <div class="user-role" id="topbarRole">NIM: 254107020095 (TI-2F)</div>
+            <div class="user-name" id="topbarName"> </div>
+            <div class="user-role" id="topbarRole"> </div>
           </div>
         </div>
       </header>
@@ -123,8 +123,8 @@
         <div class="profile-grid">
           <!-- Left Column: Summary Profile Card -->
           <div class="profile-card">
-            <div class="avatar-large" id="profAvatar">GM</div>
-            <h3 id="profCardNama" class="profile-name">Galih Maula Mumtaza</h3>
+            <div class="avatar-large" id="profAvatar"> </div>
+            <h3 id="profCardNama" class="profile-name"> </h3>
             <div class="profile-badge">
               ✓ Mahasiswa Aktif Polinema
             </div>
@@ -151,19 +151,19 @@
             <div class="profile-detail-list">
               <div class="profile-detail-item">
                 <span class="label">Nomor Induk Mahasiswa (NIM)</span>
-                <span class="value" id="profDetailNim">254107020095</span>
+                <span class="value" id="profDetailNim"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Program Studi</span>
-                <span class="value" id="profDetailProdi">D4 Teknik Informatika (TI-2F)</span>
+                <span class="value" id="profDetailProdi"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Jurusan</span>
-                <span class="value" id="profDetailJurusan">Teknologi Informasi</span>
+                <span class="value" id="profDetailJurusan"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Email SSO Kampus</span>
-                <span class="value" id="profDetailEmail">254107020095@student.polinema.ac.id</span>
+                <span class="value" id="profDetailEmail"> </span>
               </div>
             </div>
           </div>
@@ -214,7 +214,7 @@
             <div class="form-card form-card--full">
               <h3 class="card-title">Ubah Kata Sandi Akun</h3>
               <p class="card-note card-note--tight">
-                Gunakan minimal 6 karakter kombinasi huruf dan angka untuk menjaga keamanan akun Anda.
+                Gunakan minimal 8 karakter kombinasi huruf dan angka untuk menjaga keamanan akun Anda.
               </p>
 
               <form id="changePasswordForm">
@@ -228,7 +228,7 @@
                   <div class="form-group">
                     <label for="passBaru">Kata Sandi Baru <span class="required-mark">*</span></label>
                     <input type="password" id="passBaru" name="new_password" class="form-input"
-                      placeholder="Minimal 6 karakter" required>
+                      placeholder="Minimal 8 karakter" required>
                   </div>
 
                   <div class="form-group">

@@ -107,10 +107,10 @@
           <span class="breadcrumb-text">Portal Mahasiswa JTI Polinema &rsaquo; <strong>Dashboard</strong></span>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
-          <div class="avatar">GM</div>
+          <div class="avatar"> </div>
           <div class="user-info">
-            <div class="user-name">Galih Maula Mumtaza</div>
-            <div class="user-role">NIM: 254107020095 (TI-2F)</div>
+            <div class="user-name"> </div>
+            <div class="user-role"> </div>
           </div>
         </div>
       </header>

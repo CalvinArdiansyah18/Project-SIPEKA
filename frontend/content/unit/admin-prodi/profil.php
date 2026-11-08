@@ -84,10 +84,10 @@
           <span class="breadcrumb-text">Portal Penanganan Unit Resmi &rsaquo; <strong>Profil Admin Prodi</strong></span>
         </div>
         <div class="user-profile">
-          <div class="avatar">AP</div>
+          <div class="avatar"> </div>
           <div class="user-info">
-            <div class="user-name">Admin Program Studi</div>
-            <div class="user-role">Unit Pelayanan Akademik</div>
+            <div class="user-name"> </div>
+            <div class="user-role"> </div>
           </div>
         </div>
       </header>
@@ -101,8 +101,8 @@
         <div class="profile-grid">
           <!-- Left: Identity Card -->
           <div class="profile-card">
-            <div class="avatar-large" id="profAvatar">AP</div>
-            <h3 id="profCardNama" class="profile-name">Admin Program Studi TI</h3>
+            <div class="avatar-large" id="profAvatar"> </div>
+            <h3 id="profCardNama" class="profile-name"> </h3>
             <span class="badge badge-soft">
               🎓 Unit Pelayanan Akademik
             </span>
@@ -110,11 +110,11 @@
             <div class="profile-detail-list">
               <div class="profile-detail-item">
                 <span class="label">Nama Unit Resmi</span>
-                <span class="value" id="profDetailUnit">Admin Program Studi (Admin Prodi)</span>
+                <span class="value" id="profDetailUnit"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Kode Unit</span>
-                <span class="value" id="profDetailKode">prodi</span>
+                <span class="value" id="profDetailKode"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Status Unit</span>
@@ -122,7 +122,7 @@
               </div>
               <div class="profile-detail-item">
                 <span class="label">Email Kedinasan</span>
-                <span class="value" id="profDetailEmail">prodi@polinema.ac.id</span>
+                <span class="value" id="profDetailEmail"> </span>
               </div>
               <div class="profile-detail-item">
                 <span class="label">Lokasi Kantor</span>
@@ -155,7 +155,7 @@
 
             <!-- Workload Stats -->
             <div class="data-card card-padded">
-              <h4 class="card-subtitle">Ringkasan Beban Kerja Akademik</h4>
+              <h4 class="card-subtitle">Ringkasan Hasil Kerja</h4>
               <div class="stat-badge-grid">
                 <div class="stat-badge-card">
                   <div class="num" id="statProfTotal">0</div>
@@ -177,8 +177,8 @@
             </div>
 
             <!-- Edit Profile Form -->
-            <div class="data-card card-padded-lg">
-              <h4 class="card-subtitle card-subtitle--spaced">Perbarui Data Kontak Petugas</h4>
+            <!-- <div class="data-card card-padded-lg">
+              <h4 class="card-subtitle card-subtitle--spaced">Perbarui Data Admin Prodi</h4>
               <form id="editProfileForm">
                 <div class="form-grid">
                   <div class="form-group">
@@ -194,7 +194,7 @@
                   <button type="submit" class="btn-primary btn-inline">Simpan Perubahan</button>
                 </div>
               </form>
-            </div>
+            </div> -->
 
             <!-- Change Password Form -->
             <!-- <div class="data-card card-padded-lg">
