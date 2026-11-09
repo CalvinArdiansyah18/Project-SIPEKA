@@ -136,15 +136,15 @@
               </div>
               <div class="stat-mini-item">
                 <div class="stat-mini-num text-orange" id="statProfProses">0</div>
-                <div class="stat-mini-label">Diproses</div>
+                <div class="stat-mini-label">Dalam Penanganan</div>
               </div>
               <div class="stat-mini-item">
                 <div class="stat-mini-num text-emerald" id="statProfSelesai">0</div>
-                <div class="stat-mini-label">Selesai</div>
+                <div class="stat-mini-label">Selesai Ditangani</div>
               </div>
               <div class="stat-mini-item">
                 <div class="stat-mini-num text-danger" id="statProfDitolak">0</div>
-                <div class="stat-mini-label">Tidak Valid</div>
+                <div class="stat-mini-label">Ditolak</div>
               </div>
             </div>
 
