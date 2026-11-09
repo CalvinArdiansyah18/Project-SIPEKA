@@ -29,9 +29,8 @@ async function initMahasiswaDashboard() {
   const stats = data.stats || {};
   const reports = data.laporan || [];
 
-  // Kartu ringkasan. "Sedang Diproses" = menunggu validasi + diproses + dalam penanganan
   if (totalEl) totalEl.textContent = stats.total ?? 0;
-  if (prosesEl) prosesEl.textContent = (stats.proses ?? 0) + (stats.menunggu ?? 0);
+  if (prosesEl) prosesEl.textContent = stats.dalam_penanganan ?? 0;
   if (selesaiEl) selesaiEl.textContent = stats.selesai ?? 0;
   if (ditolakEl) ditolakEl.textContent = stats.ditolak ?? 0;
 

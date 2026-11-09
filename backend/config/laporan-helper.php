@@ -20,7 +20,7 @@ function rapikan_stats(array $row): array
     return [
         'total' => (int)($row['total'] ?? 0),
         'menunggu' => (int)($row['menunggu'] ?? 0),
-        'proses' => (int)($row['proses'] ?? 0), // diproses + dalam_penanganan
+        'dalam_penanganan' => (int)($row['dalam_penanganan'] ?? 0),
         'selesai' => (int)($row['selesai'] ?? 0),
         'ditolak' => (int)($row['ditolak'] ?? 0),
     ];
@@ -55,8 +55,6 @@ function kondisi_status(string $kolom = 'status'): array
 {
     return [
         'menunggu' => "$kolom = 'menunggu'",
-        'proses' => "$kolom IN ('diproses','dalam_penanganan')", // gabungan untuk tampilan
-        'diproses' => "$kolom = 'diproses'",
         'dalam_penanganan' => "$kolom = 'dalam_penanganan'",
         'selesai' => "$kolom = 'selesai'",
         'ditolak' => "$kolom = 'ditolak'",

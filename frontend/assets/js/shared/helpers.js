@@ -73,7 +73,6 @@ function escapeHtml(teks) {
 function getStatusLabel(kode) {
     const label = {
         menunggu: 'Menunggu Validasi',
-        diproses: 'Diproses',
         dalam_penanganan: 'Dalam Penanganan',
         selesai: 'Selesai',
         ditolak: 'Ditolak'

@@ -3,7 +3,7 @@
 // Data dashboard mahasiswa yang sedang login: ringkasan jumlah + laporan terbaru.
 // Jawaban:
 // {
-//   "stats":   { "total", "menunggu", "proses", "selesai", "ditolak" },
+//   "stats":   { "total", "menunggu", "dalam_penanganan", "selesai", "ditolak" },
 //   "laporan": [ { "id_laporan", "no_tiket", "nama_kategori", "nama_unit", "judul_laporan",
 //                  "tanggal_kejadian", "tanggal_lapor", "status" }, ... ]
 // }
@@ -46,9 +46,9 @@ $st = $pdo->prepare(
             l.tanggal_kejadian,
             l.tanggal_lapor,
             l.status
-        FROM laporan  l
-        JOIN kategori k  ON k.id_kategori = l.id_kategori
-        JOIN unit     un ON un.id_unit    = k.id_unit
+        FROM laporan l
+        JOIN kategori k ON k.id_kategori = l.id_kategori
+        JOIN unit un ON un.id_unit = k.id_unit
     WHERE l.id_mahasiswa = :id
     ORDER BY l.tanggal_lapor DESC, l.id_laporan DESC
     LIMIT :lim'

@@ -137,7 +137,7 @@
             <div class="stat-indicator orange"></div>
             <div>
               <div class="stat-number" id="statProses"> </div>
-              <div class="stat-label">Sedang Diproses</div>
+              <div class="stat-label">Dalam Penanganan</div>
             </div>
           </div>
 
