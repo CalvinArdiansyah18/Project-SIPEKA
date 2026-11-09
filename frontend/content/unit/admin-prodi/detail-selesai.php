@@ -47,7 +47,7 @@
                     </li>
                 </ul>
             </div>
-            
+
             <div class="sidebar-footer">
                 <a href="../../auth/login.php" data-logout>
                     <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
@@ -62,6 +62,18 @@
         </aside>
 
         <main class="app-main">
+            <header class="app-header">
+                <div class="header-breadcrumb">
+                    <span class="breadcrumb-text">Portal Admin Prodi &rsaquo; <strong>Detail Laporan</strong></span>
+                </div>
+                <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
+                    <div class="avatar avatar--unit"> </div>
+                    <div class="user-info">
+                        <div class="user-name"> </div>
+                        <div class="user-role"> </div>
+                    </div>
+                </div>
+            </header>
             <div class="detail-selesai">
                 <div class="page-title">
                     <h2>Detail Laporan Selesai</h2>
