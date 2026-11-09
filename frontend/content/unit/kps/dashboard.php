@@ -126,7 +126,7 @@
             <div class="stat-indicator blue"></div>
             <div>
               <div class="stat-number" id="unitStatProses">0</div>
-              <div class="stat-label">Diproses</div>
+              <div class="stat-label">Dalam Penanganan</div>
             </div>
           </div>
 

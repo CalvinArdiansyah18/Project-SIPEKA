@@ -169,11 +169,11 @@
                 </div>
                 <div class="stat-badge-card">
                   <div class="num text-info" id="statProfProses">0</div>
-                  <div class="txt">Dalam Mediasi</div>
+                  <div class="txt">Dalam Penanganan</div>
                 </div>
                 <div class="stat-badge-card">
                   <div class="num text-success" id="statProfSelesai">0</div>
-                  <div class="txt">Terselesaikan</div>
+                  <div class="txt">Selesai</div>
                 </div>
               </div>
             </div>

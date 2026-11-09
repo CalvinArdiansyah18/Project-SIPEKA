@@ -38,7 +38,7 @@ function ambil_profil(PDO $pdo, array $user): array
         $st = $pdo->prepare(
             'SELECT COALESCE(SUM(total_laporan), 0) AS total,
                     COALESCE(SUM(menunggu), 0) AS menunggu,
-                    COALESCE(SUM(diproses), 0) + COALESCE(SUM(dalam_penanganan), 0) AS proses,
+                    COALESCE(SUM(dalam_penanganan), 0) AS dalam_penanganan,
                     COALESCE(SUM(selesai), 0) AS selesai,
                     COALESCE(SUM(ditolak), 0) AS ditolak
             FROM v_rekap_unit
@@ -49,7 +49,7 @@ function ambil_profil(PDO $pdo, array $user): array
         $st = $pdo->prepare(
             "SELECT COUNT(*) AS total,
                     COUNT(*) FILTER (WHERE status = 'menunggu') AS menunggu,
-                    COUNT(*) FILTER (WHERE status IN ('diproses','dalam_penanganan')) AS proses,
+                    COUNT(*) FILTER (WHERE status = 'dalam_penanganan') AS dalam_penanganan,
                     COUNT(*) FILTER (WHERE status = 'selesai') AS selesai,
                     COUNT(*) FILTER (WHERE status = 'ditolak') AS ditolak
             FROM laporan

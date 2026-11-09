@@ -1,7 +1,7 @@
 <?php
 $DB_HOST = 'localhost';
 $DB_PORT = '5432';
-$DB_NAME = 'db_sipeka';
+$DB_NAME = 'db_sipekabaru';
 $DB_USER = 'postgres';
 $DB_PASS = '3333';
 

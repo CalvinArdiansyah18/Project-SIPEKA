@@ -57,7 +57,7 @@ async function initProfilePage() {
         const sSelesai = document.getElementById('statProfSelesai');
         const sDitolak = document.getElementById('statProfDitolak');
         if (sTotal) sTotal.textContent = stats.total ?? 0;
-        if (sProses) sProses.textContent = (stats.proses ?? 0) + (stats.menunggu ?? 0);
+        if (sProses) sProses.textContent = stats.dalam_penanganan ?? 0;
         if (sSelesai) sSelesai.textContent = stats.selesai ?? 0;
         if (sDitolak) sDitolak.textContent = stats.ditolak ?? 0;
 
@@ -85,7 +85,7 @@ async function initProfilePage() {
         const sSelesai = document.getElementById('statProfSelesai');
         if (sTotal) sTotal.textContent = stats.total ?? 0;
         if (sMenunggu) sMenunggu.textContent = stats.menunggu ?? 0;
-        if (sProses) sProses.textContent = stats.proses ?? 0;
+        if (sProses) sProses.textContent = stats.dalam_penanganan ?? 0;
         if (sSelesai) sSelesai.textContent = stats.selesai ?? 0;
     }
 

@@ -27,7 +27,7 @@ async function initUnitDashboard() {
     const STATUS_PARAM = {
         'all': 'all',
         'Menunggu Validasi': 'menunggu',
-        'Dalam Penanganan': 'proses',// mencakup: diproses + dalam_penanganan
+        'Dalam Penanganan': 'dalam_penanganan', // mencakup: diproses + dalam_penanganan
         'Selesai': 'selesai',
         'Ditolak': 'ditolak'
     };
@@ -67,7 +67,7 @@ async function initUnitDashboard() {
         const reports = data.laporan || [];
 
         setText('unitStatValidasi', stats.menunggu);
-        setText('unitStatProses', stats.proses);
+        setText('unitStatProses', stats.dalam_penanganan);
         setText('unitStatSelesai', stats.selesai);
         setText('unitStatDitolak', stats.ditolak);
 
@@ -89,10 +89,7 @@ async function initUnitDashboard() {
 
             if (status === 'menunggu') {
                 aksi = `<a class="btn-action" href="verifikasi.php?tiket=${tiket}">Validasi</a>`;
-            } else if (
-                status === 'diproses' ||
-                status === 'dalam_penanganan'
-            ) {
+            } else if (status === 'dalam_penanganan') {
                 aksi = `<a class="btn-action" href="penanganan.php?tiket=${tiket}">Penanganan</a>`;
             } else {
                 aksi = `<a class="btn-action" href="detail-selesai.php?tiket=${tiket}">Lihat</a>`;
