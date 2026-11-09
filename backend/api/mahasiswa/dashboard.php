@@ -27,7 +27,7 @@ $limit = max(1, min(20, (int)($_GET['limit'] ?? 5)));
 $st = $pdo->prepare(
     "SELECT COUNT(*) AS total,
             COUNT(*) FILTER (WHERE status = 'menunggu') AS menunggu,
-            COUNT(*) FILTER (WHERE status IN ('diproses','dalam_penanganan')) AS proses,
+            COUNT(*) FILTER (WHERE status = 'dalam_penanganan') AS dalam_penanganan,
             COUNT(*) FILTER (WHERE status = 'selesai') AS selesai,
             COUNT(*) FILTER (WHERE status = 'ditolak') AS ditolak
     FROM laporan

@@ -4,8 +4,7 @@
 // Unit ditentukan dari SESSION (users.id_unit), bukan dari input frontend,
 // sehingga petugas tidak bisa melihat laporan unit lain.
 // Parameter (opsional):
-//   status : all | menunggu | proses (diproses + dalam_penanganan) | diproses |
-//            dalam_penanganan | selesai | ditolak
+//   status : all | menunggu | dalam_penanganan | selesai | ditolak
 //   q      : kata kunci (no. tiket, judul, nama pelapor, atau NIM)
 //   limit  : jumlah baris maksimal (default 100, maks 200)
 //
@@ -28,8 +27,8 @@ if ($id_unit === null) {
 //filter (daftar putih, bukan memasukkan input langsung ke SQL)
 $kondisiStatus = [
     'menunggu' => "status = 'menunggu'",
-    'proses' => "status IN ('diproses','dalam_penanganan')",
-    'diproses' => "status = 'diproses'",
+    // 'proses' => "status IN ('diproses','dalam_penanganan')",
+    // 'diproses' => "status = 'diproses'",
     'dalam_penanganan' => "status = 'dalam_penanganan'",
     'selesai' => "status = 'selesai'",
     'ditolak' => "status = 'ditolak'",
@@ -66,7 +65,7 @@ $unit = $st->fetch();
 //2. ringkasan, dari VIEW v_rekap_unit (tidak terpengaruh filter)
 $st = $pdo->prepare(
     'SELECT COALESCE(SUM(menunggu), 0) AS menunggu,
-            COALESCE(SUM(diproses), 0) + COALESCE(SUM(dalam_penanganan), 0) AS proses,
+            COALESCE(SUM(dalam_penanganan), 0) AS dalam_penanganan,
             COALESCE(SUM(selesai), 0) AS selesai,
             COALESCE(SUM(ditolak), 0) AS ditolak
     FROM v_rekap_unit

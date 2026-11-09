@@ -1,7 +1,7 @@
 <?php
 // POST /backend/api/unit/validasi.php
 // Body JSON : { "tiket": "SPK-2026-00012", "action": "approve|reject", "keterangan": "..." }
-// Approve   : menunggu -> diproses  (laporan valid, masuk antrean penanganan)
+// Approve   : menunggu -> dalam_penanganan  (laporan valid, masuk antrean penanganan)
 // Reject    : menunggu -> ditolak   (laporan tidak valid)
 //
 // Perubahan status dilakukan lewat stored procedure sp_ubah_status supaya alur status,
@@ -33,7 +33,7 @@ if ($id_laporan === null) {
 }
 
 $statusBaru = [
-    'approve' => 'diproses',
+    'approve' => 'dalam_penanganan',
     'reject' => 'ditolak',
 ][$action] ?? null;
 if ($statusBaru === null) {
@@ -41,7 +41,7 @@ if ($statusBaru === null) {
 }
 
 if ($keterangan === '') {
-    $keterangan = $statusBaru === 'diproses'
+    $keterangan = $statusBaru === 'dalam_penanganan'
         ? 'Laporan divalidasi oleh petugas unit dan diteruskan ke penanganan.'
         : 'Laporan ditolak oleh petugas unit karena tidak valid.';
 }
@@ -85,7 +85,7 @@ try {
 }
 
 json_out([
-    'message' => $statusBaru === 'diproses'
+    'message' => $statusBaru === 'dalam_penanganan'
         ? 'Laporan berhasil divalidasi dan diteruskan ke penanganan.'
         : 'Laporan berhasil ditolak.',
     'tiket' => $tiket,
