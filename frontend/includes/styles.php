@@ -20,6 +20,7 @@ $files = [
     'base.css',       // variabel, reset, body
     'layout.css',     // sidebar, header, konten, responsif
     'components.css', // form, tombol, kartu, tabel, badge
+    'landing.css',    // gaya khusus halaman landing
     'themes.css',     // warna brand per unit (body[data-unit])
     'modal.css',      // toast, modal, prompt
     'utilities.css',  // kelas bantu (warna teks, jarak)
