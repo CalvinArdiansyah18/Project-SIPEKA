@@ -20,7 +20,7 @@
             <a href="#unit">Unit Penanganan</a>
             <a href="#ulasan">Ulasan</a>
         </nav>
-        <a class="landing-btn landing-btn--small" href="content/auth/login.php" data-auth="login">Masuk</a>
+        <!-- <a class="landing-btn landing-btn--small" href="content/auth/login.php" data-auth="login">Masuk</a> -->
     </header>
 
     <main>
@@ -106,7 +106,7 @@
         <span>&copy; <?= date('Y') ?> SIPEKA - Sistem Pengaduan Mahasiswa JTI Polinema</span>
     </footer>
 
-    <div class="bubble-help">
+    <!-- <div class="bubble-help">
         <div class="help-panel" id="helpPanel" hidden role="dialog" aria-label="Bantuan singkat">
             <h3>Bantuan</h3>
             <p>Untuk membuat pengaduan, silakan masuk atau daftar akun terlebih dahulu.</p>
@@ -125,7 +125,7 @@
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
             </svg>
         </button>
-    </div>
+    </div> -->
 
     <?php include __DIR__ . '/includes/scripts.php'; ?>
 </body>
