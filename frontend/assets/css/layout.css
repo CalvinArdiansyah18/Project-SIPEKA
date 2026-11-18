@@ -347,3 +347,320 @@
     padding: 1.25rem 1rem;
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   Drag & drop kotak unggah (buat-laporan)
+   -------------------------------------------------------------------------- */
+.file-upload-box.is-dragover {
+  border-color: var(--accent-blue);
+  background-color: #eff6ff;
+}
+
+/* --------------------------------------------------------------------------
+   Notifikasi (bel di header desktop & topbar mobile)
+   -------------------------------------------------------------------------- */
+.header-actions,
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topbar-actions {
+  gap: 0.5rem;
+}
+
+.notif-wrap {
+  position: relative;
+}
+
+.notif-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.notif-btn:hover {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+}
+
+.mobile-topbar .notif-btn {
+  color: #ffffff;
+}
+
+.mobile-topbar .notif-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.notif-btn.is-ringing svg {
+  transform-origin: 50% 0;
+  animation: bell-ring 0.9s ease;
+}
+
+.notif-badge {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #ef4444;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid #ffffff;
+}
+
+.mobile-topbar .notif-badge {
+  border-color: var(--primary-navy);
+}
+
+.topbar--unit .notif-badge {
+  border-color: #1e293b;
+}
+
+.notif-badge[hidden],
+.notif-panel[hidden] {
+  display: none;
+}
+
+.notif-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 360px;
+  max-width: calc(100vw - 1.5rem);
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  color: var(--text-main);
+  z-index: 500;
+  overflow: hidden;
+  animation: fade-up 0.2s ease both;
+}
+
+.notif-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.notif-panel__head h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+}
+
+.notif-readall {
+  background: none;
+  border: none;
+  color: var(--accent-blue);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notif-readall:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.notif-readall:disabled {
+  color: var(--text-muted);
+  opacity: 0.6;
+  cursor: default;
+}
+
+.notif-list {
+  list-style: none;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.notif-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.notif-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-family: inherit;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.notif-list li:last-child .notif-item {
+  border-bottom: none;
+}
+
+.notif-item:hover {
+  background-color: #f8fafc;
+}
+
+.notif-item--unread {
+  background-color: #eff6ff;
+}
+
+.notif-dot {
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+.notif-item--unread .notif-dot {
+  background-color: var(--accent-blue);
+}
+
+.notif-item__title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.notif-item__text {
+  margin-top: 2px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+.notif-item__time {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+@media (max-width: 640px) {
+  .notif-panel {
+    position: fixed;
+    top: 56px;
+    right: 0.75rem;
+    left: 0.75rem;
+    width: auto;
+    max-width: none;
+  }
+}
+
+
+/* Tombol & ajakan di halaman depan */
+.review-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.review-more [hidden] {
+  display: none;
+}
+
+.landing-section--alt .landing-btn--ghost {
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+.landing-section--alt .landing-btn--ghost:hover {
+  background: #eff6ff;
+}
+
+.review-cta {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.review-cta a {
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Halaman Ulasan (includes/ulasan-content.php)
+   -------------------------------------------------------------------------- */
+.ulasan-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.ulasan-form {
+  position: sticky;
+  top: 1rem;
+}
+
+.ulasan-form .btn-primary {
+  margin-top: 0.25rem;
+}
+
+.ulasan-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.ulasan-head .card-title {
+  margin-bottom: 0.75rem;
+}
+
+.card-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.form-hint--kiri {
+  text-align: left;
+}
+
+.ulasan-form .form-hint {
+  text-align: right;
+}
+
+.ulasan-form .form-hint--kiri {
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .ulasan-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ulasan-form {
+    position: static;
+  }
+}

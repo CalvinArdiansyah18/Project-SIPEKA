@@ -208,3 +208,39 @@
   font-size: 0.8rem;
   color: #ef4444;
 }
+
+
+/* --------------------------------------------------------------------------
+   Animasi
+   -------------------------------------------------------------------------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-fade-up {
+  animation: fade-up 0.4s ease both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+@keyframes bell-ring {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(14deg); }
+  30% { transform: rotate(-12deg); }
+  45% { transform: rotate(8deg); }
+  60% { transform: rotate(-6deg); }
+  75% { transform: rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-up,
+  .notif-btn.is-ringing {
+    animation: none;
+  }
+}
