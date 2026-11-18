@@ -10,7 +10,7 @@
 
 <body data-page="index" class="landing">
     <header class="landing-nav">
-        <a class="landing-brand" href="index.php" aria-label="SIPEKA - beranda">
+        <a class="landing-brand" aria-label="SIPEKA - beranda">
             <span class="logo-badge logo-badge--sm"><img src="assets/images/logo/JTI.webp" alt="Logo SIPEKA"
                     class="logo-JTI"></span>
             <span>SIPEKA</span>
@@ -96,9 +96,15 @@
         <section class="landing-section landing-section--alt" id="ulasan">
             <h2>Ulasan</h2>
             <p class="landing-sub" id="reviewSummary"></p>
+            <div id="reviewFilter"></div>
             <div class="review-grid" id="reviewGrid">
                 <p class="review-empty">Memuat ulasan...</p>
             </div>
+            <div class="review-more">
+                <button type="button" class="landing-btn landing-btn--small landing-btn--ghost" id="reviewMore" hidden>Tampilkan lebih banyak</button>
+            </div>
+            <!-- Halaman depan hanya menampilkan ulasan mahasiswa + balasan unit. Menulis ulasan hanya oleh mahasiswa setelah masuk. -->
+            <p class="review-cta">Pernah mengadukan sesuatu lewat SIPEKA? <a href="content/auth/login.php" data-auth="login">Masuk sebagai mahasiswa</a> lalu buka menu <strong>Ulasan</strong> untuk menilai penanganannya.</p>
         </section>
     </main>
 
