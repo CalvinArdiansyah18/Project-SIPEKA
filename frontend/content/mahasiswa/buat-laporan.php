@@ -166,8 +166,8 @@
               <label for="kronologi">Kronologi / Deskripsi Masalah <span class="required-mark">*</span></label>
               <textarea id="kronologi" name="kronologi" class="form-input"
                 placeholder="Jelaskan detail permasalahan yang Anda alami atau temukan secara jelas..." rows="4"
-                minlength="30" required></textarea>
-              <small class="form-hint">Minimal 30 karakter agar dapat ditelaah oleh unit penanggung jawab.</small>
+                minlength="10" required></textarea>
+              <small class="form-hint">Minimal 10 karakter agar dapat ditelaah oleh unit penanggung jawab.</small>
             </div>
 
             <!-- Upload Area with Drag-and-Drop & Instant Thumbnail -->

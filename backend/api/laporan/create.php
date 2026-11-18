@@ -42,8 +42,8 @@ $kronologi = trim((string)($_POST['kronologi'] ?? ''));
 if ($id_kategori <= 0) {
     json_out(['message' => 'Kategori pengaduan wajib dipilih'], 400);
 }
-if (panjang_teks($judul) < 10 || panjang_teks($judul) > 150) {
-    json_out(['message' => 'Judul pengaduan harus 10-150 karakter'], 400);
+if (panjang_teks($judul) < 5 || panjang_teks($judul) > 150) {
+    json_out(['message' => 'Judul pengaduan harus 5-150 karakter'], 400);
 }
 if ($lokasi === '' || panjang_teks($lokasi) > 150) {
     json_out(['message' => 'Lokasi kejadian wajib diisi (maksimal 150 karakter)'], 400);
@@ -55,8 +55,8 @@ if (!$tgl || $tgl->format('Y-m-d') !== $tanggal) {
 if ($tgl > new DateTime('today')) {
     json_out(['message' => 'Tanggal kejadian tidak boleh lebih dari hari ini'], 400);
 }
-if (panjang_teks($kronologi) < 30) {
-    json_out(['message' => 'Kronologi terlalu singkat, minimal 30 karakter'], 400);
+if (panjang_teks($kronologi) < 10) {
+    json_out(['message' => 'Kronologi terlalu singkat, minimal 10 karakter'], 400);
 }
 
 $st = $pdo->prepare('SELECT 1 FROM kategori WHERE id_kategori = :id');
