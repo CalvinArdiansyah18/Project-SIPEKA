@@ -83,7 +83,8 @@ async function initBuatLaporanPage() {
             return;
         }
 
-        const today = new Date().toISOString().split('T')[0];
+        const d0 = new Date();
+        const today = `${d0.getFullYear()}-${String(d0.getMonth() + 1).padStart(2, '0')}-${String(d0.getDate()).padStart(2, '0')}`;
         if (tanggal > today) {
             showToast('Tanggal kejadian tidak boleh lebih dari hari ini.', 'error');
             return;
@@ -134,9 +135,9 @@ async function initBuatLaporanPage() {
     });
 }
 
-// Set max date to today so future dates cannot be picked
-const today = new Date().toISOString().split('T')[0];
-const tglInput = document.getElementById('tanggal');
+// Set max date to today (tanggal lokal) so future dates cannot be picked
+const _d = new Date();
+const today = `${_d.getFullYear()}-${String(_d.getMonth() + 1).padStart(2, '0')}-${String(_d.getDate()).padStart(2, '0')}`;
 if (tglInput) {
     tglInput.max = today;
     tglInput.value = today;
@@ -164,10 +165,10 @@ if (fileInput && previewContainer) {
                 <div class="upload-preview-card">
                   <img src="${e.target.result}" alt="Preview Bukti" class="upload-preview-thumb">
                   <div class="upload-preview-info">
-                    <h5>${file.name}</h5>
+                    <h5>${escapeHtml(file.name)}</h5>
                     <p>${(file.size / 1024 / 1024).toFixed(2)} MB • Berkas Gambar Siap Diunggah</p>
                   </div>
-                  <button type="button" class="btn-detail" onclick="clearUpload()" style="padding: 4px 8px; color: #ef4444; border-color: #fca5a5;">Hapus</button>
+                  <button type="button" class="btn-detail btn-remove" data-clear-upload>Hapus</button>
                 </div>
               `;
                 };
@@ -177,14 +178,41 @@ if (fileInput && previewContainer) {
               <div class="upload-preview-card">
                 <div style="font-size: 2rem;">📄</div>
                 <div class="upload-preview-info">
-                  <h5>${file.name}</h5>
+                  <h5>${escapeHtml(file.name)}</h5>
                   <p>${(file.size / 1024 / 1024).toFixed(2)} MB • Dokumen PDF Terlampir</p>
                 </div>
-                <button type="button" class="btn-detail" onclick="clearUpload()" style="padding: 4px 8px; color: #ef4444; border-color: #fca5a5;">Hapus</button>
+                <button type="button" class="btn-detail btn-remove" data-clear-upload>Hapus</button>
               </div>
             `;
             }
         }
+    });
+}
+
+// Tombol "Hapus" pada pratinjau (tanpa onclick inline)
+if (previewContainer) {
+    previewContainer.addEventListener('click', (e) => {
+        if (e.target.closest('[data-clear-upload]')) window.clearUpload();
+    });
+}
+
+// Drag-and-drop pada kotak unggah
+const uploadBox = document.getElementById('uploadBox');
+if (uploadBox && fileInput) {
+    ['dragenter', 'dragover'].forEach((ev) => uploadBox.addEventListener(ev, (e) => {
+        e.preventDefault();
+        uploadBox.classList.add('is-dragover');
+    }));
+    ['dragleave', 'drop'].forEach((ev) => uploadBox.addEventListener(ev, (e) => {
+        e.preventDefault();
+        uploadBox.classList.remove('is-dragover');
+    }));
+    uploadBox.addEventListener('drop', (e) => {
+        if (!e.dataTransfer || e.dataTransfer.files.length === 0) return;
+        const dt = new DataTransfer();
+        dt.items.add(e.dataTransfer.files[0]);   // backend hanya menerima satu berkas
+        fileInput.files = dt.files;
+        fileInput.dispatchEvent(new Event('change'));
     });
 }
 

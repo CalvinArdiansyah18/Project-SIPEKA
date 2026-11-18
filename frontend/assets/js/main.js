@@ -20,6 +20,8 @@ const ROUTES = [
     { nama: 'profil', cocok: (p) => p.includes('profil.php'), jalankan: () => initProfilePage() },
     { nama: 'verifikasi', cocok: (p) => p.includes('verifikasi.php'), jalankan: () => initVerifikasiPage() },
     { nama: 'penanganan', cocok: (p) => p.includes('penanganan.php'), jalankan: () => initPenangananPage() },
+    { nama: 'ulasan', cocok: (p) => p.includes('ulasan.php'), jalankan: () => initUlasanPage() },
+    { nama: 'landing', cocok: (p) => p.includes('landing-page.php'), jalankan: () => initLandingUlasan() },
     { nama: 'detail-selesai', cocok: (p) => p.includes('detail-selesai.php'), jalankan: () => initDetailSelesaiPage() },
 ];
 
@@ -118,6 +120,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cek = await periksaSesi();
     if (!cek.lanjut) return;
     renderUserProfile();
+    // Bel notifikasi hanya untuk halaman yang butuh login (bukan login/register/landing)
+    const pathSekarang = window.location.pathname;
+    if (cek.session && basePathContent(pathSekarang) !== null && !halamanPublik(pathSekarang) && typeof initNotifikasi === 'function') {
+        initNotifikasi();
+    }
 
     // 2. Jalankan init halaman yang cocok
     const path = window.location.pathname;

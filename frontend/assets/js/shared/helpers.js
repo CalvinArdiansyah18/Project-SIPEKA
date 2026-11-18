@@ -90,6 +90,23 @@ function formatDateTime(iso) {
     });
 }
 
+// Helper: waktu relatif, contoh "5 menit lalu" / "kemarin" (dipakai notifikasi & ulasan)
+function relativeTime(iso) {
+    if (!iso) return '-';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return String(iso);
+    const detik = Math.round((Date.now() - d.getTime()) / 1000);
+    if (detik < 45) return 'baru saja';
+    const menit = Math.round(detik / 60);
+    if (menit < 60) return `${menit} menit lalu`;
+    const jam = Math.round(menit / 60);
+    if (jam < 24) return `${jam} jam lalu`;
+    const hari = Math.round(jam / 24);
+    if (hari === 1) return 'kemarin';
+    if (hari < 7) return `${hari} hari lalu`;
+    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
 // Helper: SVG Empty State Generator
 function getEmptyStateHtml(title, description) {
     return `

@@ -27,6 +27,7 @@ $files = [
     'core/ui.js', // toast, modal, utilitas tampilan
     'core/api.js', // pemanggilan API backend (fetch)
     'shared/helpers.js', // fungsi bantu lintas halaman
+    'core/notifikasi.js', // bel notifikasi + API notifikasi/ulasan (butuh api.js)
     'pages/auth/login.js',
     'pages/auth/registrasi.js',
     'pages/mahasiswa/mahasiswa-dashboard.js',
@@ -38,6 +39,8 @@ $files = [
     'pages/unit/verifikasi.js',
     'pages/profile.js',
     'pages/riwayat.js',
+    'pages/landing-ulasan.js', // halaman depan + fungsi filter ulasan bersama
+    'pages/ulasan.js', // halaman Ulasan (mahasiswa & unit)
     'main.js',                  // router, HARUS terakhir
 ];
 ?>

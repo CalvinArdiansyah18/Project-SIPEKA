@@ -59,7 +59,7 @@ async function apiPostJson(path, payload = {}) {
 function statusKeParam(status) {
   const peta = {
     "Menunggu Validasi": "menunggu",
-    "Dalam Penanganan": "proses",
+    "Dalam Penanganan": "dalam_penanganan",
     Selesai: "selesai",
     "Tidak Valid": "ditolak",
     Ditolak: "ditolak",
