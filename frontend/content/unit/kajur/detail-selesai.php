@@ -8,7 +8,26 @@
     <?php include __DIR__ . '/../../../includes/styles.php'; ?>
 </head>
 
-<body data-unit="sekjur">
+<body data-unit="kajur">
+
+    <!-- Mobile Topbar -->
+    <div class="mobile-topbar topbar--unit">
+        <div class="topbar-brand">
+            <div class="logo-badge logo-badge--sm"><img src="../../../assets/images/logo/JTI.webp" alt="Logo SIPEKA"
+                    class="logo-JTI"></div>
+            <span class="topbar-title">SIPEKA Kajur</span>
+        </div>
+        <button class="hamburger-btn" aria-label="Buka Menu">
+            <svg class="icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" x2="20" y1="12" y2="12" />
+                <line x1="4" x2="20" y1="6" y2="6" />
+                <line x1="4" x2="20" y1="18" y2="18" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="sidebar-backdrop"></div>
 
     <div class="app-layout">
 
@@ -19,8 +38,8 @@
                             class="logo-JTI">
                     </div>
                     <div class="logo-text">
-                        <h1>SIPEKA Sekjur</h1>
-                        <p>Sekretariat Jurusan (Sarpras)</p>
+                        <h1>SIPEKA Kajur</h1>
+                        <p>Ketua Jurusan TI Polinema</p>
                     </div>
                 </div>
 
@@ -33,6 +52,16 @@
                                 <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
                             </svg>
                             <span>Daftar Laporan Masuk</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="ulasan.php">
+                            <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor"
+                                stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                            <span>Ulasan</span>
                         </a>
                     </li>
                     <li>

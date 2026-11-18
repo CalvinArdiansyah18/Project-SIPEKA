@@ -74,6 +74,16 @@
             </a>
           </li>
           <li>
+            <a href="ulasan.php">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              <span>Ulasan</span>
+            </a>
+          </li>
+          <li>
             <a href="profil.php">
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2"
                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -112,10 +122,10 @@
           </a>
         </div>
         <div class="user-profile user-profile--clickable" onclick="window.location.href='profil.php'">
-          <div class="avatar">GM</div>
+          <div class="avatar"></div>
           <div class="user-info">
-            <div class="user-name">Galih Maula Mumtaza</div>
-            <div class="user-role">NIM: 254107020095</div>
+            <div class="user-name"></div>
+            <div class="user-role"></div>
           </div>
         </div>
       </header>
@@ -162,7 +172,7 @@
 
             <!-- Upload Area with Drag-and-Drop & Instant Thumbnail -->
             <div class="form-group">
-              <label>Lampiran Bukti Pendukung (Foto / Dokumen PDF)</label>
+              <label>Lampiran Bukti Pendukung (Foto / Dokumen PDF,opsional)</label>
               <div class="file-upload-box" id="uploadBox" onclick="document.getElementById('fileUpload').click()">
                 <svg class="icon" viewBox="0 0 24 24" width="36" height="36" stroke="var(--accent-blue)"
                   stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -172,8 +182,7 @@
                 </svg>
                 <p class="upload-title">Klik untuk unggah foto atau seret berkas ke sini</p>
                 <p class="upload-subtitle">Format didukung: JPG, PNG, WEBP, PDF (Maks. 5 MB)</p>
-                <input type="file" id="fileUpload" class="file-input-hidden" accept="image/*,video/*,.pdf" multiple
-                  required>
+                <input type="file" id="fileUpload" class="file-input-hidden" accept="image/*,video/*,.pdf">
               </div>
 
               <!-- Container for Live Thumbnail Preview -->
