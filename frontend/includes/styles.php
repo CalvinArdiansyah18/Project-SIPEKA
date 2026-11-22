@@ -27,6 +27,7 @@ $files = [
     'auth.css',       // halaman login & registrasi
     'profile.css',    // halaman profil (mahasiswa & unit)
     'riwayat.css',    // halaman riwayat (linimasa)
+    'ulasan.css',     // halaman ulasan (filter, kartu, balasan)
 ];
 ?>
 <?php foreach ($files as $f):
