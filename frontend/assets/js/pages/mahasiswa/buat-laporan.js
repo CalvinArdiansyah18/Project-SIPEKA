@@ -25,6 +25,7 @@ async function initBuatLaporanPage() {
     ];
 
     const MAKS_BYTE = 5 * 1024 * 1024;
+    const MAKS_TOTAL_BYTE = 20 * 1024 * 1024;
 
     // Ambil elemen HTML
     const form = document.getElementById('reportForm');
@@ -66,8 +67,114 @@ async function initBuatLaporanPage() {
     // 2. PREVIEW DAN UPLOAD GAMBAR
     // ==========================================
 
+    let berkasTerpilih = [];
+    let objectUrls = [];
+
+    function lepasObjectUrls() {
+        objectUrls.forEach(url => URL.revokeObjectURL(url));
+        objectUrls = [];
+    }
+
+    function totalUkuran(list) {
+        return list.reduce((total, file) => total + file.size, 0);
+    }
+
+    function kunciBerkas(file) {
+        return `${file.name}::${file.size}::${file.lastModified}`;
+    }
+
+    function renderPreview() {
+        if (!previewContainer) return;
+
+        lepasObjectUrls();
+
+        previewContainer.innerHTML = berkasTerpilih.map((file, index) => {
+            const ukuran = (file.size / 1024 / 1024).toFixed(2);
+            const gambar = file.type.startsWith('image/');
+
+            let thumb;
+
+            if (gambar) {
+                const url = URL.createObjectURL(file);
+                objectUrls.push(url);
+
+                thumb = `
+                    <img
+                        src="${url}"
+                        alt="Preview Bukti"
+                        class="upload-preview-thumb"
+                    >
+                `;
+            } else {
+                thumb = '<div class="upload-preview-icon">📄</div>';
+            }
+
+            return `
+                <div class="upload-preview-card">
+                    ${thumb}
+
+                    <div class="upload-preview-info">
+                        <h5>${escapeHtml(file.name)}</h5>
+                        <p>${ukuran} MB • ${gambar
+                            ? 'Berkas Gambar Siap Diunggah'
+                            : 'Dokumen PDF Terlampir'}</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-detail btn-remove"
+                        data-clear-upload="${index}"
+                    >
+                        Hapus
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function tambahBerkas(daftar) {
+        const pesan = [];
+        let berubah = false;
+        let total = totalUkuran(berkasTerpilih);
+
+        Array.from(daftar).forEach(file => {
+            if (!TIPE_BERKAS.includes(file.type)) {
+                pesan.push(`${file.name}: jenis berkas tidak didukung.`);
+                return;
+            }
+
+            if (file.size > MAKS_BYTE) {
+                pesan.push(`${file.name}: ukuran melebihi 5 MB.`);
+                return;
+            }
+
+            if (berkasTerpilih.some(f => kunciBerkas(f) === kunciBerkas(file))) {
+                return;
+            }
+
+            if (total + file.size > MAKS_TOTAL_BYTE) {
+                pesan.push(`${file.name}: total ukuran semua berkas melebihi 20 MB.`);
+                return;
+            }
+
+            berkasTerpilih.push(file);
+            total += file.size;
+            berubah = true;
+        });
+
+        if (pesan.length > 0) {
+            showToast(pesan.join(' '), 'error');
+        }
+
+        if (berubah) {
+            renderPreview();
+        }
+    }
+
     function clearUpload() {
+        berkasTerpilih = [];
         if (fileInput) fileInput.value = '';
+        lepasObjectUrls();
         if (previewContainer) previewContainer.innerHTML = '';
     }
 
@@ -79,98 +186,31 @@ async function initBuatLaporanPage() {
         fileInput.dataset.initialized = 'true';
 
         fileInput.addEventListener('change', () => {
-            const file = fileInput.files[0];
+            if (!fileInput.files || fileInput.files.length === 0) return;
 
-            previewContainer.innerHTML = '';
+            tambahBerkas(fileInput.files);
 
-            if (!file) return;
-
-            // Validasi tipe file
-            if (!TIPE_BERKAS.includes(file.type)) {
-                showToast(
-                    'Jenis berkas tidak didukung. Gunakan JPG, PNG, WEBP, atau PDF.',
-                    'error'
-                );
-                clearUpload();
-                return;
-            }
-
-            // Validasi ukuran file
-            if (file.size > MAKS_BYTE) {
-                showToast(
-                    'Ukuran berkas melebihi 5 MB.',
-                    'error'
-                );
-                clearUpload();
-                return;
-            }
-
-            const ukuran = (file.size / 1024 / 1024).toFixed(2);
-
-            // Preview gambar
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    previewContainer.innerHTML = `
-                        <div class="upload-preview-card">
-                            <img
-                                src="${e.target.result}"
-                                alt="Preview Bukti"
-                                class="upload-preview-thumb"
-                            >
-
-                            <div class="upload-preview-info">
-                                <h5>${escapeHtml(file.name)}</h5>
-                                <p>${ukuran} MB • Berkas Gambar Siap Diunggah</p>
-                            </div>
-
-                            <button
-                                type="button"
-                                class="btn-detail btn-remove"
-                                data-clear-upload
-                            >
-                                Hapus
-                            </button>
-                        </div>
-                    `;
-                };
-
-                reader.onerror = () => {
-                    showToast('Gagal membaca gambar.', 'error');
-                    clearUpload();
-                };
-
-                reader.readAsDataURL(file);
-
-            } else {
-                // Preview PDF
-                previewContainer.innerHTML = `
-                    <div class="upload-preview-card">
-                        <div style="font-size: 2rem;">📄</div>
-
-                        <div class="upload-preview-info">
-                            <h5>${escapeHtml(file.name)}</h5>
-                            <p>${ukuran} MB • Dokumen PDF Terlampir</p>
-                        </div>
-
-                        <button
-                            type="button"
-                            class="btn-detail btn-remove"
-                            data-clear-upload
-                        >
-                            Hapus
-                        </button>
-                    </div>
-                `;
-            }
+            // Kosongkan input agar berkas yang sama bisa dipilih lagi
+            fileInput.value = '';
         });
 
         // Tombol hapus preview
         previewContainer.addEventListener('click', (e) => {
-            if (e.target.closest('[data-clear-upload]')) {
-                clearUpload();
-            }
+            // Cegah klik preview ikut membuka dialog pemilihan berkas
+            e.stopPropagation();
+
+            const tombol = e.target.closest('[data-clear-upload]');
+
+            if (!tombol) return;
+
+            e.preventDefault();
+
+            const index = Number(tombol.dataset.clearUpload);
+
+            if (!Number.isInteger(index) || !berkasTerpilih[index]) return;
+
+            berkasTerpilih.splice(index, 1);
+            renderPreview();
         });
 
         // Drag and drop
@@ -194,13 +234,7 @@ async function initBuatLaporanPage() {
 
                 if (!files || files.length === 0) return;
 
-                const dt = new DataTransfer();
-                dt.items.add(files[0]);
-
-                fileInput.files = dt.files;
-                fileInput.dispatchEvent(
-                    new Event('change', { bubbles: true })
-                );
+                tambahBerkas(files);
             });
         }
     }
@@ -306,18 +340,21 @@ async function initBuatLaporanPage() {
             return;
         }
 
-        const rawFile = fileInput?.files[0] || null;
+        const berkasTidakValid = berkasTerpilih.find(
+            file => !TIPE_BERKAS.includes(file.type) || file.size > MAKS_BYTE
+        );
 
-        if (rawFile) {
-            if (!TIPE_BERKAS.includes(rawFile.type)) {
-                showToast('Jenis berkas tidak didukung.', 'error');
-                return;
-            }
+        if (berkasTidakValid) {
+            showToast(
+                `${berkasTidakValid.name}: jenis berkas tidak didukung atau melebihi 5 MB.`,
+                'error'
+            );
+            return;
+        }
 
-            if (rawFile.size > MAKS_BYTE) {
-                showToast('Ukuran berkas maksimal 5 MB.', 'error');
-                return;
-            }
+        if (totalUkuran(berkasTerpilih) > MAKS_TOTAL_BYTE) {
+            showToast('Total ukuran semua berkas melebihi 20 MB.', 'error');
+            return;
         }
 
         if (submitBtn) {
@@ -333,9 +370,9 @@ async function initBuatLaporanPage() {
         fd.append('tanggal_kejadian', tanggal);
         fd.append('kronologi', kronologi);
 
-        if (rawFile) {
-            fd.append('bukti', rawFile);
-        }
+        berkasTerpilih.forEach(file => {
+            fd.append('bukti[]', file);
+        });
 
         try {
             const res = await window.sipekaAPI.createLaporan(fd);

@@ -172,7 +172,7 @@
 
             <!-- Upload Area with Drag-and-Drop & Instant Thumbnail -->
             <div class="form-group">
-              <label>Lampiran Bukti Pendukung (Foto / Dokumen PDF,opsional)</label>
+              <label>Lampiran Bukti Pendukung (Foto / Dokumen PDF, opsional)</label>
               <div class="file-upload-box" id="uploadBox" onclick="document.getElementById('fileUpload').click()">
                 <svg class="icon" viewBox="0 0 24 24" width="36" height="36" stroke="var(--accent-blue)"
                   stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -181,12 +181,13 @@
                   <path d="m16 16-4-4-4 4" />
                 </svg>
                 <p class="upload-title">Klik untuk unggah foto atau seret berkas ke sini</p>
-                <p class="upload-subtitle">Format didukung: JPG, PNG, WEBP, PDF (Maks. 5 MB)</p>
-                <input type="file" id="fileUpload" class="file-input-hidden" accept="image/*,video/*,.pdf">
-              </div>
+                <p class="upload-subtitle">Format didukung: JPG, PNG, WEBP, PDF (Maks. 5 MB per berkas, total 20 MB)</p>
+                <input type="file" id="fileUpload" class="file-input-hidden"
+                  accept="image/jpeg,image/png,image/webp,application/pdf" multiple>
 
-              <!-- Container for Live Thumbnail Preview -->
-              <div id="previewContainer"></div>
+                <!-- Container for Live Thumbnail Preview -->
+                <div id="previewContainer" class="upload-preview-list"></div>
+              </div>
             </div>
 
             <div class="info-box info-box--blue">

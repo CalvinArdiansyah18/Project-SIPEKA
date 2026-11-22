@@ -67,7 +67,8 @@ function kondisi_status(string $kolom = 'status'): array
 // dan hanya disajikan lewat api/laporan/bukti.php setelah pengecekan hak akses.
 // ---------------------------------------------------------------
 
-const UPLOAD_MAKS_BYTE = 5 * 1024 * 1024; // 5 MB
+const UPLOAD_MAKS_BYTE = 5 * 1024 * 1024; // 5 MB per berkas
+const UPLOAD_MAKS_TOTAL_BYTE = 20 * 1024 * 1024; // 20 MB total gabungan
 const UPLOAD_JENIS = [ // MIME yang diizinkan => ekstensi penyimpanan
     'image/jpeg' => 'jpg',
     'image/png' => 'png',
@@ -93,18 +94,13 @@ function deteksi_mime(string $path): ?string
     return null;
 }
 
-// Memvalidasi satu berkas dari $_FILES[$field]. Mengembalikan null jika tidak ada berkas,
-// atau array info berkas jika valid. Jika tidak valid, langsung menjawab error JSON.
-function periksa_berkas_upload(string $field): ?array
+// Memvalidasi satu entri berkas (bentuk tunggal dari $_FILES).
+// Mengembalikan array info berkas jika valid, atau langsung menjawab error JSON.
+function validasi_berkas(array $f): array
 {
-    if (!isset($_FILES[$field]) || $_FILES[$field]['error'] === UPLOAD_ERR_NO_FILE) {
-        return null;
-    }
-    $f = $_FILES[$field];
-
     if ($f['error'] === UPLOAD_ERR_INI_SIZE || $f['error'] === UPLOAD_ERR_FORM_SIZE) {
         json_out(['message' => 'Ukuran berkas melebihi batas server (upload_max_filesize = '
-            . ini_get('upload_max_filesize') . '). Maksimal yang diizinkan aplikasi: 5 MB.'], 413);
+            . ini_get('upload_max_filesize') . '). Maksimal yang diizinkan aplikasi: 5 MB per berkas.'], 413);
     }
     if ($f['error'] !== UPLOAD_ERR_OK) {
         json_out(['message' => 'Berkas gagal diunggah (kode ' . $f['error'] . '). Silakan coba lagi.'], 400);
@@ -138,6 +134,69 @@ function periksa_berkas_upload(string $field): ?array
         'ext' => UPLOAD_JENIS[$mime],
         'size' => (int)$f['size'],
     ];
+}
+
+// Memvalidasi satu berkas dari $_FILES[$field]. Mengembalikan null jika tidak ada berkas,
+// atau array info berkas jika valid. Jika tidak valid, langsung menjawab error JSON.
+function periksa_berkas_upload(string $field): ?array
+{
+    if (!isset($_FILES[$field])) {
+        return null;
+    }
+    if (is_array($_FILES[$field]['error'])) {
+        return null;
+    }
+    if ($_FILES[$field]['error'] === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    return validasi_berkas($_FILES[$field]);
+}
+
+// Memvalidasi banyak berkas dari $_FILES[$field] berbentuk array (input name="field[]").
+// Mengembalikan daftar info berkas valid (kosong jika tidak ada berkas).
+function periksa_berkas_upload_multi(string $field): array
+{
+    if (!isset($_FILES[$field])) {
+        return [];
+    }
+
+    $f = $_FILES[$field];
+
+    // Normalisasi: satu berkas berbentuk tunggal -> bentuk array
+    if (!is_array($f['name'])) {
+        $f = [
+            'name' => [$f['name']],
+            'type' => [$f['type']],
+            'tmp_name' => [$f['tmp_name']],
+            'error' => [$f['error']],
+            'size' => [$f['size']],
+        ];
+    }
+
+    $hasil = [];
+    $total = 0;
+    $jumlah = count($f['name']);
+
+    for ($i = 0; $i < $jumlah; $i++) {
+        if ($f['error'][$i] === UPLOAD_ERR_NO_FILE) {
+            continue;
+        }
+
+        $total += (int)$f['size'][$i];
+        if ($total > UPLOAD_MAKS_TOTAL_BYTE) {
+            json_out(['message' => 'Total ukuran semua berkas melebihi 20 MB.'], 413);
+        }
+
+        $hasil[] = validasi_berkas([
+            'name' => $f['name'][$i],
+            'type' => $f['type'][$i],
+            'tmp_name' => $f['tmp_name'][$i],
+            'error' => $f['error'][$i],
+            'size' => $f['size'][$i],
+        ]);
+    }
+
+    return $hasil;
 }
 
 // Memindahkan berkas ke backend/uploads/<subfolder>/<nama-acak>.<ext>

@@ -2,7 +2,8 @@
 // POST /backend/api/laporan/create.php   (multipart/form-data)
 //
 // Field teks : id_kategori, judul_laporan, lokasi, tanggal_kejadian (YYYY-MM-DD), kronologi
-// Field berkas (opsional): bukti  -> JPG / PNG / WEBP / PDF, maksimal 5 MB
+// Field berkas (opsional): bukti[] -> banyak berkas JPG / PNG / WEBP / PDF,
+//            maksimal 5 MB per berkas dan 20 MB total gabungan
 //
 // Yang dilakukan:
 //   1. validasi semua input di server (validasi di browser hanya kenyamanan, bisa dilewati)
@@ -66,10 +67,10 @@ if (!$st->fetchColumn()) {
 }
 
 // Validasi berkas SEBELUM menyentuh database
-$berkas = periksa_berkas_upload('bukti');
+$daftar_berkas = periksa_berkas_upload_multi('bukti');
 
 // ---------- 2 & 3. simpan dalam satu transaksi ----------
-$path_tersimpan = null;
+$path_tersimpan = [];
 try {
     $pdo->beginTransaction();
 
@@ -89,19 +90,23 @@ try {
     $baris = $st->fetch();
     $id_laporan = (int)$baris['id_laporan'];
 
-    if ($berkas !== null) {
-        $path_tersimpan = simpan_berkas_upload($berkas, 'laporan/' . $id_laporan);
-
+    if ($daftar_berkas !== []) {
         $st = $pdo->prepare(
             'INSERT INTO bukti_laporan (id_laporan, nama_file, path_file, jenis_file)
              VALUES (:laporan, :nama, :path, :jenis)'
         );
-        $st->execute([
-            ':laporan' => $id_laporan,
-            ':nama' => $berkas['nama'],
-            ':path' => $path_tersimpan,
-            ':jenis' => $berkas['mime'],
-        ]);
+
+        foreach ($daftar_berkas as $berkas) {
+            $path = simpan_berkas_upload($berkas, 'laporan/' . $id_laporan);
+            $path_tersimpan[] = $path;
+
+            $st->execute([
+                ':laporan' => $id_laporan,
+                ':nama' => $berkas['nama'],
+                ':path' => $path,
+                ':jenis' => $berkas['mime'],
+            ]);
+        }
     }
 
     $pdo->commit();
@@ -109,8 +114,8 @@ try {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    if ($path_tersimpan !== null) {
-        @unlink(folder_uploads() . '/' . $path_tersimpan);   // jangan tinggalkan berkas yatim
+    foreach ($path_tersimpan as $path) {
+        @unlink(folder_uploads() . '/' . $path);   // jangan tinggalkan berkas yatim
     }
     throw $e; // ditangani handler di bootstrap.php (jawaban JSON 500)
 }
