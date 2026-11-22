@@ -96,7 +96,7 @@
                 id="regEmail" 
                 name="email" 
                 class="form-input" 
-                placeholder="254100000000@student.polinema.ac.id" 
+                placeholder="25410....@student.polinema.ac.id" 
                 required
               >
               <div id="errEmail" class="error-msg">Format email tidak valid.</div>
