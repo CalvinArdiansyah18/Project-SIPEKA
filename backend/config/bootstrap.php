@@ -1,7 +1,9 @@
 <?php
 // File persiapan bersama. Di-require di baris pertama setiap endpoint API.
 
-const APP_DEBUG = true; // ubah ke false saat demo/produksi supaya pesan error internal tidak bocor
+// Debug dimatikan secara bawaan (aman untuk demo/produksi). Aktifkan lewat
+// environment variable: set SIPEKA_DEBUG=1 sebelum menjalankan PHP/web server.
+define('APP_DEBUG', getenv('SIPEKA_DEBUG') === '1');
 
 ini_set('display_errors', '0'); // jangan tampilkan error PHP sebagai HTML
 error_reporting(E_ALL);

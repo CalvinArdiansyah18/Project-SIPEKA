@@ -6,7 +6,9 @@
  *   <?php include __DIR__ . '/../../includes/scripts.php'; ?>        (content/auth, content/mahasiswa)
  *   <?php include __DIR__ . '/../../../includes/scripts.php'; ?>     (content/unit/{unit})
  *
- * Menambah/mengganti file JS cukup di sini. Urutan di bawah penting.
+ * Skrip inti dimuat di semua halaman; skrip halaman hanya dimuat pada halaman
+ * yang membutuhkannya (ditentukan dari nama berkas yang sedang dieksekusi).
+ * Urutan di bawah penting: skrip inti -> skrip halaman -> main.js (router).
  */
 
 // Ubah ke true untuk menampilkan log "[SIPEKA] ..." di Console saat debugging
@@ -21,28 +23,38 @@ $jsUrl   = substr($jsDir, strlen($docRoot));                 // contoh: /fronten
 $apiDir  = realpath(__DIR__ . '/../../backend/api/auth');
 $apiUrl  = $apiDir ? substr(str_replace('\\', '/', $apiDir), strlen($docRoot)) : '/backend/api/auth';
 
-// Urutan pemuatan
+// Skrip inti (selalu dimuat)
 $files = [
     'core/store.js', // data lokal (localStorage)
     'core/ui.js', // toast, modal, utilitas tampilan
     'core/api.js', // pemanggilan API backend (fetch)
     'shared/helpers.js', // fungsi bantu lintas halaman
     'core/notifikasi.js', // bel notifikasi + API notifikasi/ulasan (butuh api.js)
-    'pages/auth/login.js',
-    'pages/auth/registrasi.js',
-    'pages/mahasiswa/mahasiswa-dashboard.js',
-    'pages/mahasiswa/buat-laporan.js',
-    'pages/unit/unit-dashboard.js',
-    'pages/unit/detail-selesai.js',
-    'pages/unit/tanggapan.js',
-    'pages/unit/penanganan.js',
-    'pages/unit/verifikasi.js',
-    'pages/profile.js',
-    'pages/riwayat.js',
-    'pages/landing-ulasan.js', // halaman depan + fungsi filter ulasan bersama
-    'pages/ulasan.js', // halaman Ulasan (mahasiswa & unit)
-    'main.js',                  // router, HARUS terakhir
 ];
+
+// Skrip khusus halaman, dipilih dari nama berkas yang sedang dieksekusi
+$scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+$halaman    = basename($scriptName);
+$diMahasiswa = strpos($scriptName, '/mahasiswa/') !== false;
+
+$skripHalaman = match ($halaman) {
+    'landing-page.php'   => ['pages/landing-ulasan.js'],
+    'login.php'          => ['pages/auth/login.js'],
+    'register.php'       => ['pages/auth/registrasi.js'],
+    'dashboard.php'      => $diMahasiswa
+        ? ['pages/mahasiswa/mahasiswa-dashboard.js']
+        : ['pages/unit/unit-dashboard.js'],
+    'buat-laporan.php'   => ['pages/mahasiswa/buat-laporan.js'],
+    'riwayat.php'        => ['pages/riwayat.js'],
+    'profil.php'         => ['pages/profile.js'],
+    'verifikasi.php'     => ['pages/unit/tanggapan.js', 'pages/unit/verifikasi.js'],
+    'penanganan.php'     => ['pages/unit/tanggapan.js', 'pages/unit/penanganan.js'],
+    'detail-selesai.php' => ['pages/unit/detail-selesai.js'],
+    'ulasan.php'         => ['pages/landing-ulasan.js', 'pages/ulasan.js'],
+    default              => [],
+};
+
+$files = array_merge($files, $skripHalaman, ['main.js']); // router HARUS terakhir
 ?>
 <script>
   window.SIPEKA_CONFIG = <?= json_encode(['apiBase' => $apiUrl, 'debug' => $debug]) ?>;

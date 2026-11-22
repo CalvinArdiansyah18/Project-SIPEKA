@@ -112,10 +112,10 @@ window.sipekaAPI = {
     }
   },
 
-  // 2. REGISTER (Menuju regstrasi.php sesuai nama file aslimu)
+  // 2. REGISTER
   register: async function (payload) {
     try {
-      const response = await fetch(`${API_BASE_PATH}/regstrasi.php`, {
+      const response = await fetch(`${API_BASE_PATH}/registrasi.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
