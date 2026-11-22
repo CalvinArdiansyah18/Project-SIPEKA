@@ -21,6 +21,16 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 12px rgba(15, 39, 68, 0.08);
   --shadow-lg: 0 10px 25px rgba(15, 39, 68, 0.12);
+
+  /* Token warna dasar (dipakai lintas komponen) */
+  --white: #ffffff;
+  --surface-muted: #f8fafc;
+  --surface-subtle: #f1f5f9;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --success: #10b981;
+  --success-hover: #059669;
+  --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 * {
