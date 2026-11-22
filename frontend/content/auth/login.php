@@ -59,15 +59,17 @@
 
           <div class="form-group">
             <label for="password">Password</label>
-            <input 
-              type="password" 
-              id="password" 
-              name="password" 
-              class="form-input" 
-              value=""
-              placeholder="Masukkan password akun Anda" 
-              required
-            >
+            <div class="input-password">
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                class="form-input" 
+                value=""
+                placeholder="Masukkan password akun Anda" 
+                required
+              >
+            </div>
           </div>
 
           <button type="submit" class="btn-primary">LOGIN</button>

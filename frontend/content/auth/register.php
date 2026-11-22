@@ -118,27 +118,31 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label for="regPassword">Password <span style="color: #ef4444;">*</span></label>
-              <input 
-                type="password" 
-                id="regPassword" 
-                name="password" 
-                class="form-input" 
-                placeholder="Minimal 8 karakter" 
-                required
-              >
+              <div class="input-password">
+                <input 
+                  type="password" 
+                  id="regPassword" 
+                  name="password" 
+                  class="form-input" 
+                  placeholder="Minimal 8 karakter" 
+                  required
+                >
+              </div>
               <div id="errPassword" class="error-msg">Password minimal 8 karakter.</div>
             </div>
 
             <div class="form-group">
               <label for="regConfirmPassword">Ulangi Password <span style="color: #ef4444;">*</span></label>
-              <input 
-                type="password" 
-                id="regConfirmPassword" 
-                name="confirm_password" 
-                class="form-input" 
-                placeholder="Ketik ulang kata sandi" 
-                required
-              >
+              <div class="input-password">
+                <input 
+                  type="password" 
+                  id="regConfirmPassword" 
+                  name="confirm_password" 
+                  class="form-input" 
+                  placeholder="Ketik ulang kata sandi" 
+                  required
+                >
+              </div>
               <div id="errConfirm" class="error-msg">Konfirmasi kata sandi tidak cocok.</div>
             </div>
           </div>

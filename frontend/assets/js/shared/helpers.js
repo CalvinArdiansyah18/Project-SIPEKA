@@ -1,7 +1,7 @@
 /**
  * Fungsi bantu yang dipakai banyak halaman.
  * Fungsi  : getUnitFromPath(), getUnitDashboardPath(), renderUserProfile(), escapeHtml(), getEmptyStateHtml(),
- * renderDaftarBukti()
+ * renderDaftarBukti(), initPasswordToggle()
  */
 
 // Helper: Deteksi Unit dari URL path
@@ -185,4 +185,40 @@ function renderDaftarBukti(wadah, daftar, sumber, pesanKosong) {
 
         wadah.appendChild(item);
     });
+}
+
+// Helper: tombol mata untuk melihat / menyembunyikan kata sandi.
+// Cukup bungkus input dengan <div class="input-password">...</div>,
+// tombol dibuat otomatis di sini (berlaku juga untuk elemen yang ditambahkan dinamis).
+const IKON_MATA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>';
+const IKON_MATA_TUTUP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.3 20.3 0 0 1 5.06-5.94"/><path d="M9.9 4.24A10.94 10.94 0 0 1 12 5c7 0 11 7 11 7a20.3 20.3 0 0 1-3.22 4.31"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+
+function initPasswordToggle(root = document) {
+    root.querySelectorAll('.input-password').forEach((wadah) => {
+        const input = wadah.querySelector('input[type="password"]');
+        if (!input || wadah.querySelector('.input-password-toggle')) return;
+
+        const tombol = document.createElement('button');
+        tombol.type = 'button';
+        tombol.className = 'input-password-toggle';
+        tombol.setAttribute('aria-label', 'Tampilkan kata sandi');
+        tombol.setAttribute('aria-pressed', 'false');
+        tombol.innerHTML = IKON_MATA;
+
+        tombol.addEventListener('click', () => {
+            const tampil = input.type === 'password';
+            input.type = tampil ? 'text' : 'password';
+            tombol.innerHTML = tampil ? IKON_MATA_TUTUP : IKON_MATA;
+            tombol.setAttribute('aria-label', tampil ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+            tombol.setAttribute('aria-pressed', String(tampil));
+        });
+
+        wadah.appendChild(tombol);
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initPasswordToggle());
+} else {
+    initPasswordToggle();
 }

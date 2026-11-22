@@ -215,21 +215,27 @@ require __DIR__ . '/../../includes/auth-guard.php';
               <form id="changePasswordForm">
                 <div class="form-group">
                   <label for="passLama">Kata Sandi Saat Ini <span class="required-mark">*</span></label>
-                  <input type="password" id="passLama" name="old_password" class="form-input"
-                    placeholder="Masukkan kata sandi lama Anda" required>
+                  <div class="input-password">
+                    <input type="password" id="passLama" name="old_password" class="form-input"
+                      placeholder="Masukkan kata sandi lama Anda" required>
+                  </div>
                 </div>
 
                 <div class="form-grid">
                   <div class="form-group">
                     <label for="passBaru">Kata Sandi Baru <span class="required-mark">*</span></label>
-                    <input type="password" id="passBaru" name="new_password" class="form-input"
-                      placeholder="Minimal 8 karakter" required>
+                    <div class="input-password">
+                      <input type="password" id="passBaru" name="new_password" class="form-input"
+                        placeholder="Minimal 8 karakter" required>
+                    </div>
                   </div>
 
                   <div class="form-group">
                     <label for="passKonfirm">Ulangi Kata Sandi Baru <span class="required-mark">*</span></label>
-                    <input type="password" id="passKonfirm" name="confirm_password" class="form-input"
-                      placeholder="Ketik ulang kata sandi baru" required>
+                    <div class="input-password">
+                      <input type="password" id="passKonfirm" name="confirm_password" class="form-input"
+                        placeholder="Ketik ulang kata sandi baru" required>
+                    </div>
                   </div>
                 </div>
 
