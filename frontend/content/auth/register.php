@@ -103,7 +103,7 @@
             </div>
 
             <div class="form-group">
-              <label for="regTelepon">No. WhatsApp / HP</label>
+              <label for="regTelepon">No. WhatsApp</label>
               <input 
                 type="tel" 
                 id="regTelepon" 
@@ -117,7 +117,7 @@
           <!-- 5. PASSWORD & KONFIRMASI -->
           <div class="form-grid-2">
             <div class="form-group">
-              <label for="regPassword">Kata Sandi <span style="color: #ef4444;">*</span></label>
+              <label for="regPassword">Password <span style="color: #ef4444;">*</span></label>
               <input 
                 type="password" 
                 id="regPassword" 
@@ -130,7 +130,7 @@
             </div>
 
             <div class="form-group">
-              <label for="regConfirmPassword">Ulangi Kata Sandi <span style="color: #ef4444;">*</span></label>
+              <label for="regConfirmPassword">Ulangi Password <span style="color: #ef4444;">*</span></label>
               <input 
                 type="password" 
                 id="regConfirmPassword" 
