@@ -1,3 +1,7 @@
+<?php
+$authRole = 'mahasiswa';
+require __DIR__ . '/../../includes/auth-guard.php';
+?>
 <!DOCTYPE html>
 <html lang="id">
 
