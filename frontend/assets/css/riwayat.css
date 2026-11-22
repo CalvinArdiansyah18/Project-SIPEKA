@@ -27,7 +27,7 @@
   height: 16px;
   border-radius: 50%;
   background-color: var(--accent-blue);
-  border: 3px solid #ffffff;
+  border: 3px solid var(--white);
   box-shadow: 0 0 0 2px var(--accent-blue);
 }
 
@@ -52,8 +52,4 @@
 .timeline-content p {
   font-size: 0.85rem;
   color: var(--text-main);
-}
-
-.timeline-content--spaced {
-  margin-bottom: 12px;
 }

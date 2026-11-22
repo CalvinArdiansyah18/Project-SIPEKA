@@ -30,7 +30,7 @@
   font-weight: 700;
   letter-spacing: -0.5px;
   line-height: 1;
-  color: #ffffff;
+  color: var(--white);
 }
 
 .logo-text p {
@@ -49,7 +49,7 @@
 .app-sidebar {
   width: 250px;
   background-color: var(--primary-navy);
-  color: #ffffff;
+  color: var(--white);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -87,12 +87,12 @@
 
 .sidebar-menu a:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  color: var(--white);
 }
 
 .sidebar-menu li.active a {
   background-color: var(--accent-blue);
-  color: #ffffff;
+  color: var(--white);
   font-weight: 600;
 }
 
@@ -101,7 +101,7 @@
   align-items: center;
   gap: 10px;
   padding: 0.75rem 1rem;
-  color: #ef4444;
+  color: var(--danger);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 600;
@@ -129,7 +129,7 @@
 /* Header atas */
 .app-header {
   height: 64px;
-  background-color: #ffffff;
+  background-color: var(--white);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -175,7 +175,7 @@
   height: 36px;
   border-radius: 50%;
   background-color: var(--primary-blue);
-  color: #ffffff;
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -252,14 +252,14 @@
 
 .sidebar-menu a:hover .icon,
 .sidebar-menu li.active a .icon {
-  color: #ffffff;
+  color: var(--white);
 }
 
 /* Topbar mobile */
 .mobile-topbar {
   display: none;
   background-color: var(--primary-navy);
-  color: #ffffff;
+  color: var(--white);
   padding: 0.75rem 1.25rem;
   align-items: center;
   justify-content: space-between;
@@ -288,7 +288,7 @@
 .hamburger-btn {
   background: none;
   border: none;
-  color: #ffffff;
+  color: var(--white);
   cursor: pointer;
   padding: 4px;
   display: flex;
@@ -391,12 +391,12 @@
 }
 
 .notif-btn:hover {
-  background-color: #f1f5f9;
+  background-color: var(--surface-subtle);
   color: var(--text-main);
 }
 
 .mobile-topbar .notif-btn {
-  color: #ffffff;
+  color: var(--white);
 }
 
 .mobile-topbar .notif-btn:hover {
@@ -419,12 +419,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background-color: #ef4444;
-  color: #ffffff;
+  background-color: var(--danger);
+  color: var(--white);
   font-size: 0.65rem;
   font-weight: 700;
   line-height: 1;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--white);
 }
 
 .mobile-topbar .notif-badge {
@@ -446,7 +446,7 @@
   right: 0;
   width: 360px;
   max-width: calc(100vw - 1.5rem);
-  background: #ffffff;
+  background: var(--white);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
@@ -523,7 +523,7 @@
 }
 
 .notif-item:hover {
-  background-color: #f8fafc;
+  background-color: var(--surface-muted);
 }
 
 .notif-item--unread {

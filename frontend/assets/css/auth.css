@@ -30,7 +30,7 @@
 .logo-badge-1,
 .logo-badge-2 {
   background: var(--accent-orange);
-  color: #ffffff;
+  color: var(--white);
   width: 10px;
   height: 10px;
   border-radius: var(--radius-sm);
@@ -85,12 +85,6 @@
   gap: 30px;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.campus-logo {
-  height: 48px;
-  width: auto;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .campus-info h3 {
@@ -168,7 +162,7 @@
 }
 
 .input-error {
-  border-color: #ef4444 !important;
+  border-color: var(--danger) !important;
   background-color: #fef2f2 !important;
 }
 
@@ -176,7 +170,7 @@
   display: none;
   margin-top: 0.25rem;
   font-size: 0.75rem;
-  color: #ef4444;
+  color: var(--danger);
 }
 
 @media (max-width: 640px) {

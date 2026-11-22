@@ -7,7 +7,7 @@ html {
 }
 
 .landing {
-  background: #ffffff;
+  background: var(--white);
   color: var(--text-main);
 }
 
@@ -61,7 +61,7 @@ html {
   border-radius: 9999px;
   border: 2px solid var(--accent-blue);
   background: var(--accent-blue);
-  color: #ffffff;
+  color: var(--white);
   font-size: 0.95rem;
   font-weight: 700;
   text-decoration: none;
@@ -92,11 +92,6 @@ html {
   box-shadow: none;
 }
 
-.landing-btn--ghost-dark {
-  background: #ffffff;
-  color: var(--accent-blue);
-}
-
 .landing-btn[hidden] {
   display: none;
 }
@@ -110,7 +105,7 @@ html {
       transparent 45%
     ),
     linear-gradient(135deg, var(--primary-navy), #16407a);
-  color: #ffffff;
+  color: var(--white);
   padding: clamp(3.5rem, 10vw, 7rem) 0;
 }
 
@@ -193,7 +188,7 @@ html {
 .landing-steps li,
 .landing-card,
 .review-item {
-  background: #ffffff;
+  background: var(--white);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.4rem;
@@ -260,7 +255,7 @@ html {
   justify-content: center;
   border-radius: 50%;
   background: var(--primary-blue);
-  color: #ffffff;
+  color: var(--white);
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -320,7 +315,7 @@ html {
   border: none;
   border-radius: 50%;
   background: var(--accent-blue);
-  color: #ffffff;
+  color: var(--white);
   cursor: pointer;
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
   transition: transform 0.2s;
@@ -368,7 +363,7 @@ html {
   width: min(320px, calc(100vw - 2rem));
   padding: 1.1rem;
   border-radius: var(--radius-lg);
-  background: #ffffff;
+  background: var(--white);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-lg);
 }
