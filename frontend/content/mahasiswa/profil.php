@@ -143,25 +143,6 @@ require __DIR__ . '/../../includes/auth-guard.php';
               ✓ Mahasiswa Aktif Polinema
             </div>
 
-            <div class="stat-mini-grid">
-              <div class="stat-mini-item">
-                <div class="stat-mini-num" id="statProfTotal">0</div>
-                <div class="stat-mini-label">Total Laporan</div>
-              </div>
-              <div class="stat-mini-item">
-                <div class="stat-mini-num text-orange" id="statProfProses">0</div>
-                <div class="stat-mini-label">Dalam Penanganan</div>
-              </div>
-              <div class="stat-mini-item">
-                <div class="stat-mini-num text-emerald" id="statProfSelesai">0</div>
-                <div class="stat-mini-label">Selesai Ditangani</div>
-              </div>
-              <div class="stat-mini-item">
-                <div class="stat-mini-num text-danger" id="statProfDitolak">0</div>
-                <div class="stat-mini-label">Ditolak</div>
-              </div>
-            </div>
-
             <div class="profile-detail-list">
               <div class="profile-detail-item">
                 <span class="label">Nomor Induk Mahasiswa (NIM)</span>
