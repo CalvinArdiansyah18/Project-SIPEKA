@@ -63,9 +63,11 @@ Project-SIPEKA/
 │       ├── laporan/
 │       └── penanganan/
 │
-├── DB/                               # Skema & dump database
-│   ├── sipeka_postgresql.sql         # Skema lengkap
-│   ├── migrasi_001_izinkan_webp.sql  # Migrasi bertahap
+├── DB/                               # Skema & dump database (jalankan berurutan)
+│   ├── 01_skema_gabungan.sql         # Skema + semua migrasi
+│   ├── 02_migrasi_webp.sql           # Izinkan berkas WEBP
+│   ├── 03_seed_uji_sla.sql           # Data uji fitur SLA (opsional)
+│   ├── 90_supabase_all_in_one.sql    # Alternatif khusus Supabase
 │   └── sipeka_kamus_data.md          # Kamus data
 │
 ├── frontend/                         # Bagian frontend (tampilan aplikasi)
@@ -250,11 +252,19 @@ Identitas tiap unit (label sidebar, topbar, breadcrumb portal) ada di
 
 ## Database
 
-Skema database dan migrasi tersimpan di folder `DB/`:
+Skema database dan migrasi tersimpan di folder `DB/`. Jalankan **berurutan**
+pada database kosong (contoh nama: `db_sipeka`):
 
-- `DB/sipeka_postgresql.sql` — skema lengkap.
-- `DB/migrasi_001_izinkan_webp.sql` — migrasi bertahap (dijalankan berurutan).
-- `DB/sipeka_kamus_data.md` — kamus data.
+1. `DB/01_skema_gabungan.sql` — skema lengkap + seluruh migrasi notifikasi/ulasan.
+2. `DB/02_migrasi_webp.sql` — mengizinkan berkas WEBP pada bukti.
+3. `DB/03_seed_uji_sla.sql` — **opsional**, data uji fitur peringatan SLA.
 
-Rencana ke depan: database dipindahkan ke **Supabase** (PostgreSQL terkelola),
-sehingga koneksi disesuaikan pada `backend/config/koneksi.php`.
+```bash
+psql -U postgres -h localhost -d db_sipeka -f DB/01_skema_gabungan.sql
+psql -U postgres -h localhost -d db_sipeka -f DB/02_migrasi_webp.sql
+psql -U postgres -h localhost -d db_sipeka -f DB/03_seed_uji_sla.sql   # opsional
+```
+
+`DB/90_supabase_all_in_one.sql` adalah versi **alternatif all-in-one** untuk
+**Supabase** (PostgreSQL terkelola); gunakan salah satu — file itu saja, atau
+01 + 02 untuk PostgreSQL lokal. `DB/sipeka_kamus_data.md` berisi kamus data.
