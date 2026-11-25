@@ -48,6 +48,7 @@ if ($q !== '') {
 
 $limit = max(1, min(200, (int)($_GET['limit'] ?? 100)));
 
+$acuanSla = sql_acuan_sla('l.tanggal_lapor', 'l.id_laporan');
 $sql = 'SELECT l.id_laporan,
             ' . sql_no_tiket('l.') . ' AS no_tiket,
             k.nama_kategori,
@@ -56,7 +57,9 @@ $sql = 'SELECT l.id_laporan,
             l.lokasi,
             l.tanggal_kejadian,
             l.tanggal_lapor,
-            l.status
+            l.status,
+            (SELECT COUNT(*) FROM tanggapan t WHERE t.id_laporan = l.id_laporan) AS jumlah_tanggapan,
+            ' . $acuanSla . ' AS sla_acuan
         FROM laporan  l
         JOIN kategori k  ON k.id_kategori = l.id_kategori
         JOIN unit     un ON un.id_unit    = k.id_unit
@@ -72,9 +75,14 @@ $st->bindValue(':lim', $limit, PDO::PARAM_INT);
 $st->execute();
 
 $laporan = array_map(function ($r) {
+    $jumlahTanggapan = (int)$r['jumlah_tanggapan'];
+    $sla = sla_meta((string)$r['status'], $r['sla_acuan'], $jumlahTanggapan);
+
     $r['id_laporan'] = (int)$r['id_laporan'];
+    $r['jumlah_tanggapan'] = $jumlahTanggapan;
     $r['tanggal_lapor'] = iso_waktu($r['tanggal_lapor']);
-    return $r;
+    unset($r['sla_acuan']);
+    return array_merge($r, $sla);
 }, $st->fetchAll());
 
 json_out(['laporan' => $laporan]);

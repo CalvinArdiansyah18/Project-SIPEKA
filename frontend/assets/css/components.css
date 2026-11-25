@@ -242,6 +242,11 @@
   margin-bottom: 2rem;
 }
 
+/* Dashboard unit: 5 kartu (termasuk "Perlu Perhatian"), menyesuaikan lebar layar */
+.stats-grid--unit {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
 .stat-card {
   background-color: var(--white);
   border: 1px solid var(--border-color);
@@ -513,6 +518,38 @@
 .badge-danger {
   background-color: #fee2e2;
   color: #dc2626;
+}
+
+/* Peringatan SLA: laporan mendekati / melewati batas 3x24 jam */
+.badge-sla {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+  white-space: nowrap;
+}
+
+.badge-sla--warn {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.badge-sla--late {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Sorot baris laporan yang perlu perhatian (melewati SLA) */
+.custom-table tr.row-perlu-perhatian {
+  background-color: #fff5f5;
+}
+
+.custom-table tr.row-perlu-perhatian:hover {
+  background-color: #ffecec;
+}
+
+.custom-table tr.row-perlu-perhatian>td:first-child {
+  box-shadow: inset 3px 0 0 var(--danger);
 }
 
 /* --------------------------------------------------------------------------

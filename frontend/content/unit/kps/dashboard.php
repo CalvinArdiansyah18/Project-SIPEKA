@@ -23,12 +23,13 @@ include __DIR__ . '/../../../includes/unit/layout-start.php';
               <option value="Dalam Penanganan">Dalam Penanganan</option>
               <option value="Selesai">Selesai</option>
               <option value="Ditolak">Ditolak</option>
+              <option value="Perlu Perhatian">Perlu Perhatian</option>
             </select>
           </div>
         </div>
 
         <!-- Metric Cards -->
-        <div class="stats-grid">
+        <div class="stats-grid stats-grid--unit">
           <div class="stat-card">
             <div class="stat-indicator orange"></div>
             <div>
@@ -60,6 +61,14 @@ include __DIR__ . '/../../../includes/unit/layout-start.php';
               <div class="stat-label">Ditolak</div>
             </div>
           </div>
+
+          <div class="stat-card">
+            <div class="stat-indicator orange"></div>
+            <div>
+              <div class="stat-number" id="unitStatPerhatian">0</div>
+              <div class="stat-label">Perlu Perhatian</div>
+            </div>
+          </div>
         </div>
 
         <!-- Search Toolbar -->
@@ -85,6 +94,7 @@ include __DIR__ . '/../../../includes/unit/layout-start.php';
                   <th>Data Pelapor</th>
                   <th>Pengaduan Tata Tertib</th>
                   <th>Tanggal</th>
+                  <th>Umur</th>
                   <th>Status</th>
                   <th>Aksi Tindakan</th>
                 </tr>

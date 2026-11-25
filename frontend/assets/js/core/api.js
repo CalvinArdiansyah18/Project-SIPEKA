@@ -196,7 +196,7 @@ window.sipekaAPI = {
 
   // filter: { status: 'all|menunggu|proses|selesai|ditolak', q: 'kata kunci' }
   getDashboardUnit: async function (filter = {}) {
-    return apiGet("unit/dashboard.php", { status: filter.status, q: filter.q });
+    return apiGet("unit/dashboard.php", { status: filter.status, q: filter.q, perhatian: filter.perhatian });
   },
 
   // 6. LAPORAN (data asli dari database)

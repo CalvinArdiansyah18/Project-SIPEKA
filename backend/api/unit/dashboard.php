@@ -26,16 +26,19 @@ if ($id_unit === null) {
 
 //filter (daftar putih, bukan memasukkan input langsung ke SQL)
 $kondisiStatus = [
-    'menunggu' => "status = 'menunggu'",
+    'menunggu' => "v.status = 'menunggu'",
     // 'proses' => "status IN ('diproses','dalam_penanganan')",
     // 'diproses' => "status = 'diproses'",
-    'dalam_penanganan' => "status = 'dalam_penanganan'",
-    'selesai' => "status = 'selesai'",
-    'ditolak' => "status = 'ditolak'",
+    'dalam_penanganan' => "v.status = 'dalam_penanganan'",
+    'selesai' => "v.status = 'selesai'",
+    'ditolak' => "v.status = 'ditolak'",
 ];
 
-$where = ['id_unit = :unit'];
+$where = ['v.id_unit = :unit'];
 $params = [':unit' => $id_unit];
+
+// Waktu acuan SLA per laporan (lihat laporan-helper.php).
+$acuanSla = sql_acuan_sla('v.tanggal_lapor', 'v.id_laporan');
 
 $status = trim($_GET['status'] ?? 'all');
 if ($status !== '' && $status !== 'all') {
@@ -43,6 +46,15 @@ if ($status !== '' && $status !== 'all') {
         json_out(['message' => 'Filter status tidak dikenal'], 400);
     }
     $where[] = $kondisiStatus[$status];
+}
+
+// Filter "perlu perhatian": laporan yang melewati SLA.
+//   - menunggu          : lewat SLA dan belum ada tanggapan
+//   - dalam_penanganan  : tidak ada aktivitas baru melewati SLA
+if (($_GET['perhatian'] ?? '') === '1') {
+    $terlambat = sql_sla_terlambat($acuanSla);
+    $where[] = "((v.status = 'menunggu' AND v.jumlah_tanggapan = 0 AND {$terlambat})
+                OR (v.status = 'dalam_penanganan' AND {$terlambat}))";
 }
 
 $q = trim($_GET['q'] ?? '');
@@ -74,16 +86,31 @@ $st = $pdo->prepare(
 $st->execute([':u' => $id_unit]);
 $stats = rapikan_stats($st->fetch());
 
+// 2b. jumlah laporan yang melewati SLA (tidak terpengaruh filter)
+$terlambatCount = sql_sla_terlambat($acuanSla);
+$st = $pdo->prepare(
+    "SELECT COUNT(*)
+       FROM v_laporan_unit v
+      WHERE v.id_unit = :u
+        AND ((v.status = 'menunggu' AND v.jumlah_tanggapan = 0 AND {$terlambatCount})
+             OR (v.status = 'dalam_penanganan' AND {$terlambatCount}))"
+);
+$st->execute([':u' => $id_unit]);
+$stats['perlu_perhatian'] = (int)$st->fetchColumn();
+
 // 3. daftar laporan, dari VIEW v_laporan_unit
 // Urutan: laporan yang masih aktif lebih dulu (yang paling lama menunggu di atas),
 // lalu laporan selesai/ditolak (terbaru di atas).
-$sql = "SELECT id_laporan, " 
-            . sql_no_tiket() . " AS no_tiket,
-            nama_kategori, judul_laporan, lokasi, tanggal_kejadian, tanggal_lapor, status, nama_pelapor, nim, program_studi, jumlah_bukti, jumlah_tanggapan,
-            EXTRACT(DAY FROM now() - tanggal_lapor)::int AS hari_sejak_lapor, (status = 'menunggu' AND jumlah_tanggapan = 0 AND tanggal_lapor < now() - INTERVAL '3 days') AS perlu_perhatian
-        FROM v_laporan_unit
+$sql = "SELECT v.id_laporan, "
+            . sql_no_tiket('v.') . " AS no_tiket,
+            v.nama_kategori, v.judul_laporan, v.lokasi, v.tanggal_kejadian, v.tanggal_lapor,
+            v.status, v.nama_pelapor, v.nim, v.program_studi, v.jumlah_bukti, v.jumlah_tanggapan,
+            {$acuanSla} AS sla_acuan
+        FROM v_laporan_unit v
         WHERE " . implode(' AND ', $where) . "
-        ORDER BY (status IN ('selesai','ditolak')) ASC, CASE WHEN status IN ('selesai','ditolak') THEN NULL ELSE tanggal_lapor END ASC, tanggal_lapor DESC
+        ORDER BY (v.status IN ('selesai','ditolak')) ASC,
+                 CASE WHEN v.status IN ('selesai','ditolak') THEN NULL ELSE v.tanggal_lapor END ASC,
+                 v.tanggal_lapor DESC
         LIMIT :lim";
 
 $st = $pdo->prepare($sql);
@@ -94,12 +121,14 @@ $st->bindValue(':lim', $limit, PDO::PARAM_INT);
 $st->execute();
 
 $laporan = array_map(function ($r) {
+    $jumlahTanggapan = (int)$r['jumlah_tanggapan'];
+    $sla = sla_meta((string)$r['status'], $r['sla_acuan'], $jumlahTanggapan);
+
     $r['id_laporan'] = (int)$r['id_laporan'];
     $r['jumlah_bukti'] = (int)$r['jumlah_bukti'];
-    $r['jumlah_tanggapan'] = (int)$r['jumlah_tanggapan'];
-    $r['hari_sejak_lapor'] = (int)$r['hari_sejak_lapor'];
-    $r['perlu_perhatian'] = ke_bool($r['perlu_perhatian']);
-    return $r;
+    $r['jumlah_tanggapan'] = $jumlahTanggapan;
+    unset($r['sla_acuan']);
+    return array_merge($r, $sla);
 }, $st->fetchAll());
 
 json_out(['unit' => $unit, 'stats' => $stats, 'laporan' => $laporan]);

@@ -80,6 +80,39 @@ function getStatusLabel(kode) {
     return label[kode] || kode || '-';
 }
 
+// Helper: umur laporan dari jumlah jam (dari backend) -> "2 hari 3 jam" / "5 jam"
+function formatUmur(jam) {
+    if (jam === null || jam === undefined || jam === '') return '-';
+    const j = Number(jam);
+    if (!isFinite(j)) return '-';
+    if (j < 1) return '< 1 jam';
+    if (j < 24) return `${Math.floor(j)} jam`;
+    const hari = Math.floor(j / 24);
+    const sisa = Math.floor(j % 24);
+    return sisa > 0 ? `${hari} hari ${sisa} jam` : `${hari} hari`;
+}
+
+const IKON_SLA_PERINGATAN = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+const IKON_SLA_WAKTU = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>';
+
+// Helper: badge peringatan SLA berdasarkan sla_status dari backend.
+//   'terlambat' -> merah, 'mendekati' -> kuning, selain itu tidak tampil.
+function getSlaBadge(slaStatus, terlambatJam) {
+    if (slaStatus === 'terlambat') {
+        const teks = terlambatJam ? `Terlambat ${formatUmur(terlambatJam)}` : 'Terlambat';
+        return `<span class="badge badge-sla badge-sla--late">${IKON_SLA_PERINGATAN} ${teks}</span>`;
+    }
+    if (slaStatus === 'mendekati') {
+        return `<span class="badge badge-sla badge-sla--warn">${IKON_SLA_WAKTU} Mendekati batas</span>`;
+    }
+    return '';
+}
+
+// Helper: kelas baris tabel untuk menyorot laporan yang perlu perhatian.
+function getSlaRowClass(perluPerhatian) {
+    return perluPerhatian ? 'row-perlu-perhatian' : '';
+}
+
 // Helper: tanggal + jam, contoh "5 Oktober 2026 09.30" (menerima format ISO 8601 dari backend)
 function formatDateTime(iso) {
     if (!iso) return '-';

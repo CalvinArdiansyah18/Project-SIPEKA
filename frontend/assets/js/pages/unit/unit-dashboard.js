@@ -43,12 +43,16 @@ async function initUnitDashboard() {
         const idPermintaan = ++permintaanTerakhir;
         const statusDipilih = statusFilter ? statusFilter.value : 'all';
 
+        const params = { q: searchInput ? searchInput.value.trim() : '' };
+        if (statusDipilih === 'Perlu Perhatian') {
+            params.perhatian = 1;
+        } else {
+            params.status = STATUS_PARAM[statusDipilih] ?? statusDipilih;
+        }
+
         let data;
         try {
-            data = await window.sipekaAPI.getDashboardUnit({
-                status: STATUS_PARAM[statusDipilih] ?? statusDipilih,
-                q: searchInput ? searchInput.value.trim() : ''
-            });
+            data = await window.sipekaAPI.getDashboardUnit(params);
         } catch (error) {
             if (idPermintaan !== permintaanTerakhir) return;
             console.error('[SIPEKA] Gagal memuat dashboard unit:', error);
@@ -70,6 +74,7 @@ async function initUnitDashboard() {
         setText('unitStatProses', stats.dalam_penanganan);
         setText('unitStatSelesai', stats.selesai);
         setText('unitStatDitolak', stats.ditolak);
+        setText('unitStatPerhatian', stats.perlu_perhatian);
 
         if (reports.length === 0) {
             tbody.innerHTML = getEmptyStateHtml(
@@ -94,8 +99,9 @@ async function initUnitDashboard() {
             } else {
                 aksi = `<a class="btn-action" href="detail-selesai.php?tiket=${tiket}">Lihat</a>`;
             }
+            const slaBadge = getSlaBadge(r.sla_status, r.terlambat_jam);
             return `
-        <tr>
+        <tr class="${getSlaRowClass(r.perlu_perhatian)}">
             <td><strong>${escapeHtml(r.no_tiket)}</strong></td>
             <td>
                 <div style="font-weight:600;">${pelaporNama}</div>
@@ -105,6 +111,10 @@ async function initUnitDashboard() {
             </td>
             <td>${escapeHtml(r.judul_laporan)}</td>
             <td>${escapeHtml(formatDate(r.tanggal_kejadian))}</td>
+            <td>
+                <div>${formatUmur(r.umur_jam)}</div>
+                ${slaBadge}
+            </td>
             <td>${getStatusBadge(r.status)}</td>
             <td>${aksi}</td>
         </tr>

@@ -43,6 +43,78 @@ function iso_waktu($v): ?string
     }
 }
 
+// ---------------------------------------------------------------
+// SLA (Service Level Agreement) & peringatan laporan "tenggelam"
+// Batas penanganan = 72 jam (3x24 jam) kalender sejak laporan masuk.
+// Laporan 'selesai'/'ditolak' tidak dihitung (sudah final).
+// ---------------------------------------------------------------
+const SLA_JAM = 72;
+
+// Waktu acuan SLA (potongan SQL):
+//   - 'menunggu'          -> tanggal_lapor
+//   - 'dalam_penanganan'  -> aktivitas terakhir unit (tanggapan/penanganan), fallback tanggal_lapor
+// GREATEST dipakai agar laporan yang baru diubah status tidak langsung dianggap terlambat.
+function sql_acuan_sla(string $tanggalLapor, string $idLaporan): string
+{
+    return "(GREATEST(
+        {$tanggalLapor},
+        COALESCE((SELECT MAX(t.tanggal_tanggapan) FROM tanggapan t WHERE t.id_laporan = {$idLaporan}), {$tanggalLapor}),
+        COALESCE((SELECT MAX(p.tanggal_penanganan) FROM penanganan p WHERE p.id_laporan = {$idLaporan}), {$tanggalLapor})
+    ))";
+}
+
+// Apakah acuan SLA sudah melewati batas (boolean SQL). Dipakai untuk COUNT/filter.
+function sql_sla_terlambat(string $acuanExpr): string
+{
+    return "{$acuanExpr} < now() - INTERVAL '" . SLA_JAM . " hours'";
+}
+
+// Hitung status SLA dari satu baris laporan.
+// $acuan            : timestamp acuan (hasil sql_acuan_sla)
+// $jumlahTanggapan  : bila diisi, laporan 'menunggu' hanya dianggap perlu perhatian
+//                     jika BELUM ada tanggapan (menghindari peringatan palsu).
+function sla_meta(string $status, $acuan, ?int $jumlahTanggapan = null): array
+{
+    $final = in_array($status, ['selesai', 'ditolak'], true);
+
+    $acuanTs = null;
+    if ($acuan !== null && $acuan !== '') {
+        try {
+            $acuanTs = (new DateTime((string)$acuan))->getTimestamp();
+        } catch (Exception $e) {
+            $acuanTs = null;
+        }
+    }
+
+    $umurJam = ($final || $acuanTs === null) ? null : max(0, (time() - $acuanTs) / 3600);
+
+    if ($final) {
+        $sla = 'selesai';
+    } elseif ($umurJam === null) {
+        $sla = 'aman';
+    } elseif ($umurJam > SLA_JAM) {
+        $sla = 'terlambat';
+    } elseif ($umurJam > SLA_JAM * 0.75) {
+        $sla = 'mendekati';
+    } else {
+        $sla = 'aman';
+    }
+
+    $perlu = ($sla === 'terlambat');
+    if ($perlu && $status === 'menunggu' && $jumlahTanggapan !== null) {
+        $perlu = $jumlahTanggapan === 0;
+    }
+
+    return [
+        'sla_status' => $sla,
+        'sla_jam' => SLA_JAM,
+        'umur_jam' => $umurJam === null ? null : round($umurJam, 1),
+        'sisa_jam' => $umurJam === null ? null : round(max(0, SLA_JAM - $umurJam), 1),
+        'terlambat_jam' => $umurJam === null ? 0 : round(max(0, $umurJam - SLA_JAM), 1),
+        'perlu_perhatian' => $perlu,
+    ];
+}
+
 // Panjang teks (mendukung huruf non-ASCII bila mbstring aktif)
 function panjang_teks(string $s): int
 {

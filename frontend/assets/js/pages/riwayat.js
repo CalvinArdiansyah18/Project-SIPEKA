@@ -63,7 +63,10 @@ async function initRiwayatPage() {
                     </td>
                     <td>${escapeHtml(r.judul_laporan || '-')}</td>
                     <td>${formatDate(r.tanggal_kejadian)}</td>
-                    <td>${getStatusBadge(r.status)}</td>
+                    <td>
+                        ${getStatusBadge(r.status)}
+                        ${getSlaBadge(r.sla_status, r.terlambat_jam)}
+                    </td>
                     <td>
                         <button type="button" class="btn-detail" data-tiket="${escapeHtml(r.no_tiket || '')}">Lacak Linimasa</button>
                     </td>
