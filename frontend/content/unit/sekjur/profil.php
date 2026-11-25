@@ -58,7 +58,7 @@ include __DIR__ . '/../../../includes/unit/layout-start.php';
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           </svg>
-          Wewenang Penanganan Unit (Sesuai Proposal PBL)
+          Wewenang Penanganan Unit
         </h4>
         <p id="profDetailWewenang">
           Menangani perbaikan, perawatan, dan pengadaan sarana kelas, lab komputer, proyektor, AC, stop kontak,
