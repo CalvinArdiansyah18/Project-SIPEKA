@@ -1,0 +1,13 @@
+# Berkas bukti TIDAK boleh dibuka langsung dari browser.
+# Semua akses wajib lewat backend/api/laporan/bukti.php (ada pengecekan hak akses).
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
+# Jangan pernah mengeksekusi PHP di folder ini
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
