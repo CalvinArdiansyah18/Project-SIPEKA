@@ -1,0 +1,11 @@
+# Konfigurasi rahasia (kredensial database) - JANGAN di-commit
+.env
+.env.*
+!.env.example
+
+# Dependensi Composer (dibuat ulang via composer install)
+/vendor/
+
+# Berkas unggahan pengguna (jangan di-commit)
+backend/uploads/**
+!backend/uploads/.htaccess
