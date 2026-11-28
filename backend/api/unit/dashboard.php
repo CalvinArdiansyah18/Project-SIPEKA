@@ -4,12 +4,15 @@
 // Unit ditentukan dari SESSION (users.id_unit), bukan dari input frontend,
 // sehingga petugas tidak bisa melihat laporan unit lain.
 // Parameter (opsional):
-//   status : all | menunggu | dalam_penanganan | selesai | ditolak
-//   q      : kata kunci (no. tiket, judul, nama pelapor, atau NIM)
-//   limit  : jumlah baris maksimal (default 100, maks 200)
+//   status   : all | menunggu | dalam_penanganan | selesai | ditolak
+//   q        : kata kunci (no. tiket, judul, nama pelapor, atau NIM)
+//   page     : halaman daftar laporan (default 1)
+//   per_page : jumlah baris per halaman (default 5, maks 100)
+//   limit    : (lama) jumlah baris maksimal; diabaikan bila per_page diisi
 //
 // Jawaban:
-// { "unit": {"id_unit","nama_unit"}, "stats": {...}, "laporan": [ {...} ] }
+// { "unit": {"id_unit","nama_unit"}, "stats": {...}, "laporan": [ {...} ],
+//   "pagination": {"page","per_page","total","total_pages"} }
 
 require __DIR__ . '/../../config/bootstrap.php';
 require __DIR__ . '/../../config/laporan-helper.php';
@@ -67,7 +70,11 @@ if ($q !== '') {
     }
 }
 
-$limit = max(1, min(200, (int)($_GET['limit'] ?? 100)));
+// Paginasi: page & per_page (default 5 baris per halaman).
+$perPage = isset($_GET['per_page'])
+    ? max(1, min(100, (int)$_GET['per_page']))
+    : (isset($_GET['limit']) ? max(1, min(100, (int)$_GET['limit'])) : 5);
+$page = max(1, (int)($_GET['page'] ?? 1));
 
 //1. nama unit
 $st = $pdo->prepare('SELECT id_unit, nama_unit FROM unit WHERE id_unit = :u');
@@ -98,9 +105,21 @@ $st = $pdo->prepare(
 $st->execute([':u' => $id_unit]);
 $stats['perlu_perhatian'] = (int)$st->fetchColumn();
 
-// 3. daftar laporan, dari VIEW v_laporan_unit
-// Urutan: laporan yang masih aktif lebih dulu (yang paling lama menunggu di atas),
-// lalu laporan selesai/ditolak (terbaru di atas).
+// 3. total baris (untuk paginasi), memakai filter yang sama dengan daftar
+$st = $pdo->prepare('SELECT COUNT(*) FROM v_laporan_unit v WHERE ' . implode(' AND ', $where));
+$st->execute($params);
+$total = (int)$st->fetchColumn();
+
+$totalPages = max(1, (int)ceil($total / $perPage));
+if ($page > $totalPages) {
+    $page = $totalPages;
+}
+$offset = ($page - 1) * $perPage;
+
+// 4. daftar laporan, dari VIEW v_laporan_unit
+// Urutan kronologis: terbaru di halaman 1, lalu makin lama pada halaman berikutnya.
+// Dengan begitu tombol "sebelumnya" menuju laporan lama dan "berikutnya" menuju
+// laporan terbaru (kembali ke halaman 1).
 $sql = "SELECT v.id_laporan, "
             . sql_no_tiket('v.') . " AS no_tiket,
             v.nama_kategori, v.judul_laporan, v.lokasi, v.tanggal_kejadian, v.tanggal_lapor,
@@ -108,16 +127,15 @@ $sql = "SELECT v.id_laporan, "
             {$acuanSla} AS sla_acuan
         FROM v_laporan_unit v
         WHERE " . implode(' AND ', $where) . "
-        ORDER BY (v.status IN ('selesai','ditolak')) ASC,
-                 CASE WHEN v.status IN ('selesai','ditolak') THEN NULL ELSE v.tanggal_lapor END ASC,
-                 v.tanggal_lapor DESC
-        LIMIT :lim";
+        ORDER BY v.tanggal_lapor DESC, v.id_laporan DESC
+        LIMIT :lim OFFSET :off";
 
 $st = $pdo->prepare($sql);
 foreach ($params as $k => $v) {
     $st->bindValue($k, $v, is_int($v) ? PDO::PARAM_INT : PDO::PARAM_STR);
 }
-$st->bindValue(':lim', $limit, PDO::PARAM_INT);
+$st->bindValue(':lim', $perPage, PDO::PARAM_INT);
+$st->bindValue(':off', $offset, PDO::PARAM_INT);
 $st->execute();
 
 $laporan = array_map(function ($r) {
@@ -131,4 +149,14 @@ $laporan = array_map(function ($r) {
     return array_merge($r, $sla);
 }, $st->fetchAll());
 
-json_out(['unit' => $unit, 'stats' => $stats, 'laporan' => $laporan]);
+json_out([
+    'unit' => $unit,
+    'stats' => $stats,
+    'laporan' => $laporan,
+    'pagination' => [
+        'page' => $page,
+        'per_page' => $perPage,
+        'total' => $total,
+        'total_pages' => $totalPages,
+    ],
+]);
