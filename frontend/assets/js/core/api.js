@@ -194,9 +194,21 @@ window.sipekaAPI = {
     return apiGet("mahasiswa/dashboard.php", { limit });
   },
 
-  // filter: { status: 'all|menunggu|proses|selesai|ditolak', q: 'kata kunci' }
+  // filter: { status: 'all|menunggu|proses|selesai|ditolak', q: 'kata kunci', page: 1, per_page: 5 }
   getDashboardUnit: async function (filter = {}) {
-    return apiGet("unit/dashboard.php", { status: filter.status, q: filter.q, perhatian: filter.perhatian });
+    return apiGet("unit/dashboard.php", {
+      status: filter.status,
+      q: filter.q,
+      perhatian: filter.perhatian,
+      page: filter.page,
+      per_page: filter.per_page,
+    });
+  },
+
+  // Alamat unduhan CSV rekap laporan unit 30 hari terakhir.
+  // Dibuka lewat window.location agar browser mengunduh berkas.
+  getRekapUnitCsvUrl: function () {
+    return `${API_ROOT_PATH}/unit/rekap.php?format=csv`;
   },
 
   // 6. LAPORAN (data asli dari database)

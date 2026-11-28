@@ -23,6 +23,12 @@ async function initUnitDashboard() {
     const tbody = document.getElementById('unitReportsBody');
     if (!tbody) return;
 
+    // Tombol unduh rekap CSV (laporan unit 30 hari terakhir), di samping kotak pencarian.
+    const btnUnduhRekap = document.getElementById('btnUnduhRekap');
+    if (btnUnduhRekap && window.sipekaAPI) {
+        btnUnduhRekap.href = window.sipekaAPI.getRekapUnitCsvUrl();
+    }
+
     // Nilai dropdown di HTML -> parameter filter di backend
     const STATUS_PARAM = {
         'all': 'all',
@@ -37,13 +43,49 @@ async function initUnitDashboard() {
         if (el) el.textContent = nilai ?? 0;
     }
 
+    // Paginasi kronologis: halaman 1 = laporan terbaru.
+    // Tombol "‹" (sebelumnya) -> laporan lebih lama (halaman + 1).
+    // Tombol "›" (berikutnya) -> laporan lebih baru (halaman - 1).
+    const PER_PAGE = 5;
+    let halamanSekarang = 1;
+    let totalHalaman = 1;
+    const btnPrev = document.getElementById('unitPrevPage');
+    const btnNext = document.getElementById('unitNextPage');
+    const infoPaginasi = document.getElementById('unitPaginationInfo');
+
+    function renderPaginasi(pagination) {
+        totalHalaman = Math.max(1, Number(pagination && pagination.total_pages) || 1);
+        halamanSekarang = Math.max(1, Math.min(totalHalaman, Number(pagination && pagination.page) || 1));
+        const total = Number(pagination && pagination.total) || 0;
+
+        if (infoPaginasi) {
+            if (total === 0) {
+                infoPaginasi.textContent = 'Tidak ada data';
+            } else {
+                const dari = (halamanSekarang - 1) * PER_PAGE + 1;
+                const sampai = Math.min(total, halamanSekarang * PER_PAGE);
+                infoPaginasi.textContent = `Menampilkan ${dari}–${sampai} dari ${total} laporan`;
+            }
+        }
+        // "sebelumnya" aktif bila masih ada laporan yang lebih lama.
+        if (btnPrev) btnPrev.disabled = halamanSekarang >= totalHalaman;
+        // "berikutnya" aktif bila sedang tidak di halaman terbaru.
+        if (btnNext) btnNext.disabled = halamanSekarang <= 1;
+    }
+
     let permintaanTerakhir = 0; // mencegah respons lama menimpa respons yang lebih baru
 
-    async function loadUnitReports() {
+    async function loadUnitReports(halamanBaru = null) {
         const idPermintaan = ++permintaanTerakhir;
         const statusDipilih = statusFilter ? statusFilter.value : 'all';
 
-        const params = { q: searchInput ? searchInput.value.trim() : '' };
+        if (halamanBaru !== null) halamanSekarang = Math.max(1, Number(halamanBaru) || 1);
+
+        const params = {
+            q: searchInput ? searchInput.value.trim() : '',
+            page: halamanSekarang,
+            per_page: PER_PAGE,
+        };
         if (statusDipilih === 'Perlu Perhatian') {
             params.perhatian = 1;
         } else {
@@ -75,6 +117,8 @@ async function initUnitDashboard() {
         setText('unitStatSelesai', stats.selesai);
         setText('unitStatDitolak', stats.ditolak);
         setText('unitStatPerhatian', stats.perlu_perhatian);
+
+        renderPaginasi(data.pagination);
 
         if (reports.length === 0) {
             tbody.innerHTML = getEmptyStateHtml(
@@ -126,11 +170,19 @@ async function initUnitDashboard() {
     if (searchInput) {
         searchInput.addEventListener('input', () => {
             clearTimeout(timerCari);
-            timerCari = setTimeout(loadUnitReports, 350);
+            timerCari = setTimeout(() => loadUnitReports(1), 350); // pencarian baru -> halaman 1
         });
     }
-    if (statusFilter) statusFilter.addEventListener('change', () => loadUnitReports());
-    muatUlangDashboardUnit = loadUnitReports;
+    if (statusFilter) statusFilter.addEventListener('change', () => loadUnitReports(1)); // filter baru -> halaman 1
+    if (btnPrev) btnPrev.addEventListener('click', () => {
+        // laporan sebelumnya = lebih lama -> halaman berikutnya
+        if (halamanSekarang < totalHalaman) loadUnitReports(halamanSekarang + 1);
+    });
+    if (btnNext) btnNext.addEventListener('click', () => {
+        // laporan terbaru = lebih baru -> halaman sebelumnya (menuju halaman 1)
+        if (halamanSekarang > 1) loadUnitReports(halamanSekarang - 1);
+    });
+    muatUlangDashboardUnit = () => loadUnitReports(halamanSekarang);
     await loadUnitReports();
 }
 

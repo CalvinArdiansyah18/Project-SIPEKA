@@ -82,6 +82,17 @@ include __DIR__ . '/../../../includes/unit/layout-start.php';
             <input type="text" id="searchUnitReports" class="search-input"
               placeholder="Cari keluhan akademik berdasarkan nomor tiket, judul, atau nama mahasiswa...">
           </div>
+
+          <a href="#" id="btnUnduhRekap" class="btn-primary btn-inline"
+            style="display:inline-flex; align-items:center; gap:0.4rem; text-decoration:none; white-space:nowrap;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Unduh Rekap (30 Hari)
+          </a>
         </div>
 
         <!-- Reports Table -->
@@ -103,6 +114,15 @@ include __DIR__ . '/../../../includes/unit/layout-start.php';
                 <!-- Dynamically populated by app.js for unit: prodi -->
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-row" id="unitPagination">
+          <span class="pagination-info" id="unitPaginationInfo"></span>
+          <div class="pagination-actions">
+            <button type="button" class="btn-detail btn-pagination" id="unitPrevPage" aria-label="Laporan sebelumnya" title="Laporan sebelumnya" disabled>&lsaquo;</button>
+            <button type="button" class="btn-detail btn-pagination" id="unitNextPage" aria-label="Laporan berikutnya" title="Laporan berikutnya" disabled>&rsaquo;</button>
           </div>
         </div>
 
